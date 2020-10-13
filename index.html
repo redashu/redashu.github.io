@@ -1,75 +1,11 @@
-<html>
-<p>
-Playbook Syntax Variations
-In the last part of this chapter, we'll look at some variations of YAML or Ansible Playbook syntax that you might encounter.
+# Docker Assignment 
 
-YAML Comments
-Comments can also be used to aid readability. In YAML, everything to the right of the number or hash symbol (#) is a comment. If there is content to the left of the comment, precede the number symbol with a space.
+## Create a docker image using dockerfie with following feaftures
 
-# This is a YAML comment
-some data # This is also a YAML comment
-YAML Strings
-Strings in YAML do not normally need to be put in quotation marks even if there are spaces contained in the string. If desired, strings can be enclosed in either double-quotes or single-quotes.
-
-this is a string
-'this is another string'
-"this is yet another a string"
-There are two ways to write multi-line strings. One way uses the vertical bar (|) character to denote that newline characters within the string are to be preserved.
-
-include_newlines: |
-          Example Company
-          123 Main Street
-          Atlanta, GA 30303
-The other way to write multi-line strings uses the greater-than (>) character to indicate that newline characters are to be converted to spaces and that leading white spaces in the lines are to be removed. This method is often used to break long strings at space characters so that they can span multiple lines for better readability.
-
-fold_newlines: >
-          This is
-          a very long,
-          long, long, long
-          sentence.
-YAML Dictionaries
-You've seen collections of key-value pairs written as an indented block, as follows:
-
-  name: svcrole
-  svcservice: httpd
-  svcport: 80
-Dictionaries can also be written in an inline block format enclosed in curly braces, as follows:
-
-  {name: svcrole, svcservice: httpd, svcport: 80}
-  
-In most cases the inline block format should be avoided because it is harder to read. However, there is at least one situation in which it is more commonly used. Later in the course, we will discuss roles. When a playbook is including a list of roles, it is more common to use this syntax in order to make it easier to distinguish roles being included in a play from the variables being passed to a role.
-
-YAML Lists
-You've also seen lists written with the normal single dash syntax:
-
-  hosts:
-    - servera
-    - serverb
-    - serverc
-Lists also have an inline format enclosed in square braces that looks like this:
-
-hosts: [servera, serverb, serverc]
-  
-This should almost always be avoided because it's usually harder to read.
-
-Obsolete key=value Playbook Shorthand
-Some playbooks might use an older shorthand method to define tasks by putting the key-value pairs for the module on the same line as the module name. For example, you might see this syntax:
-
-  tasks:
-    - name: shorthand form
-      service: name=httpd enabled=true state=started
-Normally you'd write the same task like this:
-
-  tasks:
-    - name: normal form
-      service:
-        name: httpd
-        enabled: true
-        state: started
-You should generally avoid the shorthand form and use the normal form.
-
-The normal form has more lines, but it's easier to work with. The task's parameters are stacked vertically and easier to tell apart. Your eyes can run straight down the play with less left-to-right motion. Also, the normal syntax is native YAML, while the shorthand is not. Syntax highlighting tools in modern text editors can help you more effectively if you use the normal format than if you use the shorthand format.
-
-However, you might run across this syntax in documentation and older playbooks from other people, and the syntax does still function.
-</p>
- </html>
+<ol>
+          <li> FROM statement image name you can choose according to your own preference </li>
+          <li> during image build give a tag  ciscoexam1:<yourname> </li>
+           <li> create two page in current working directory abc.html and xyz.html </li>
+          <li> you have to create two containers from your image first one host abc.html and second xyz.html </li>
+          
+</ol>

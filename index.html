@@ -525,13 +525,13 @@
         <h2>Let's Work Together</h2>
         <p class="section-intro">Open to consulting engagements, corporate training, and advisory roles in DevOps, Cloud, Databricks, and GenAI.</p>
         <div class="contact-links">
-          <a href="/cdn-cgi/l/email-protection#214d4440534f5544424943584c4461464c40484d0f424e4c" class="contact-link">
+          <a id="email1-link" class="contact-link">
             <div class="contact-link-ico">📧</div>
-            <div><div class="cl-label">Primary Email</div><div class="cl-value"><span class="__cf_email__" data-cfemail="38545d594a564c5d5b505a41555d785f55595154165b5755">[email&#160;protected]</span></div></div>
+            <div><div class="cl-label">Primary Email</div><div class="cl-value" id="email1-val"></div></div>
           </a>
-          <a href="/cdn-cgi/l/email-protection#1b7a68736e6f746873735b7772756e6335787476" class="contact-link">
+          <a id="email2-link" class="contact-link">
             <div class="contact-link-ico">🐧</div>
-            <div><div class="cl-label">Linux Email</div><div class="cl-value"><span class="__cf_email__" data-cfemail="9bfae8f3eeeff4e8f3f3dbf7f2f5eee3b5f8f4f6">[email&#160;protected]</span></div></div>
+            <div><div class="cl-label">Linux Email</div><div class="cl-value" id="email2-val"></div></div>
           </a>
           <a href="https://www.linkedin.com/in/ashutoshh" target="_blank" class="contact-link">
             <div class="contact-link-ico">💼</div>
@@ -546,4 +546,25 @@
       <div class="contact-cta">
         <h3>Available for Consulting &amp; Training</h3>
         <p>Whether you need enterprise DevOps consulting, Databricks data platform implementation, Kubernetes security hardening, or hands-on GenAI training for your engineering team — I would be glad to help.</p>
-        <a h
+        <a href="mailto:learntechbyme@gmail.com" class="btn-primary">Send a Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Ashutoshh Singh &nbsp;·&nbsp; Red Hat Certified Architect &nbsp;·&nbsp; Databricks Certified Data Engineer &nbsp;·&nbsp; RHCA #120-053-087 &nbsp;·&nbsp; © 2025
+</footer>
+
+<script>
+  (function(){
+    var e1 = 'learntechbyme' + '@' + 'gmail.com';
+    var e2 = 'ashutoshh' + '@' + 'linux.com';
+    document.getElementById('email1-val').textContent = e1;
+    document.getElementById('email2-val').textContent = e2;
+    document.getElementById('email1-link').href = 'mailto:' + e1;
+    document.getElementById('email2-link').href = 'mailto:' + e2;
+  })();
+</script>
+</body>
+</html>

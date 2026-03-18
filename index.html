@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ashutoshh Singh — Senior DevOps & Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --c1:#FF4D6D;--c2:#F77F00;--c3:#4CC9F0;--c4:#7B2FBE;--c5:#06D6A0;
+    --bg:#09090B;--bg2:#111114;--bg3:#18181C;--bg4:#202026;
+    --txt:#F8F8FF;--txt2:#A0A0B0;--txt3:#6A6A80;
+    --border:rgba(255,255,255,0.07);
+    --grad:linear-gradient(135deg,#FF4D6D,#F77F00,#4CC9F0,#7B2FBE);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5;}
+
+  /* ── NAV ── */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(9,9,11,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--txt2);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.04em;transition:color .2s;}
+  .nav-links a:hover{color:var(--txt);}
+
+  /* ── SECTIONS ── */
+  section{position:relative;z-index:1;}
+  .container{max-width:1100px;margin:0 auto;padding:0 2rem;}
+
+  /* ── HERO ── */
+  #hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2rem 4rem;overflow:hidden;}
+  .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:center;}
+  .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,77,109,.1);border:1px solid rgba(255,77,109,.25);border-radius:999px;padding:.3rem 1rem;font-size:.78rem;color:var(--c1);font-weight:500;letter-spacing:.06em;margin-bottom:1.5rem;}
+  .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--c1);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6vw,4.5rem);font-weight:800;line-height:1.05;margin-bottom:1.2rem;}
+  .gradient-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-desc{color:var(--txt2);font-size:1.05rem;font-weight:300;max-width:520px;margin-bottom:2rem;line-height:1.8;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:999px;font-size:.9rem;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer;border:none;}
+  .btn-primary{background:var(--grad);color:#fff;}
+  .btn-primary:hover{opacity:.85;transform:translateY(-1px);}
+  .btn-outline{background:transparent;border:1px solid var(--border);color:var(--txt2);}
+  .btn-outline:hover{border-color:rgba(255,255,255,.25);color:var(--txt);transform:translateY(-1px);}
+  .hero-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;}
+  .hero-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(123,47,190,.3),transparent 70%);pointer-events:none;}
+  .avatar{width:80px;height:80px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:1.2rem;}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.5rem;}
+  .stat-item{background:var(--bg4);border-radius:12px;padding:.85rem 1rem;}
+  .stat-num{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .stat-label{font-size:.75rem;color:var(--txt3);margin-top:.15rem;}
+
+  /* ── SECTION HEADERS ── */
+  .section-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:500;letter-spacing:.1em;color:var(--txt3);text-transform:uppercase;margin-bottom:.75rem;}
+  .section-label::before{content:'';display:block;width:20px;height:1px;background:var(--grad);}
+  h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:.5rem;}
+
+  /* ── ABOUT ── */
+  #about{padding:6rem 0;}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
+  .about-text p{color:var(--txt2);font-weight:300;line-height:1.85;margin-bottom:1rem;}
+  .certs-list{display:flex;flex-direction:column;gap:.6rem;}
+  .cert-item{display:flex;align-items:flex-start;gap:.75rem;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;font-size:.85rem;color:var(--txt2);}
+  .cert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.3rem;}
+
+  /* ── SKILLS ── */
+  #skills{padding:6rem 0;background:var(--bg2);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem;}
+  .skill-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .2s,transform .2s;}
+  .skill-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);}
+  .skill-card-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+  .skill-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+  .skill-card h3{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;}
+  .tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .tag{background:var(--bg4);border:1px solid var(--border);border-radius:999px;padding:.25rem .75rem;font-size:.75rem;color:var(--txt2);}
+
+  /* ── EXPERIENCE ── */
+  #experience{padding:6rem 0;}
+  .timeline{margin-top:3rem;display:flex;flex-direction:column;gap:0;}
+  .timeline-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;position:relative;padding-bottom:3rem;}
+  .timeline-item::before{content:'';position:absolute;left:159px;top:8px;bottom:0;width:1px;background:var(--border);}
+  .timeline-item:last-child::before{display:none;}
+  .timeline-date{text-align:right;padding-top:.1rem;}
+  .timeline-date span{font-size:.78rem;color:var(--txt3);font-weight:500;letter-spacing:.04em;}
+  .timeline-dot{position:absolute;left:152px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--grad);z-index:1;}
+  .timeline-body{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.75rem;margin-left:1rem;}
+  .timeline-role{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.25rem;}
+  .timeline-company{font-size:.85rem;color:var(--c3);font-weight:500;margin-bottom:.75rem;}
+  .timeline-desc{font-size:.88rem;color:var(--txt2);font-weight:300;line-height:1.75;}
+
+  /* ── PROJECTS ── */
+  #projects{padding:6rem 0;background:var(--bg2);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;}
+  .project-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:border-color .2s,transform .2s;position:relative;overflow:hidden;}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);}
+  .project-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);}
+  .project-num{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;color:var(--txt3);letter-spacing:.1em;margin-bottom:.75rem;}
+  .project-card h3{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.6rem;}
+  .project-card p{font-size:.88rem;color:var(--txt2);font-weight:300;line-height:1.75;}
+  .project-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+
+  /* ── CLIENTS ── */
+  #clients{padding:5rem 0;}
+  .clients-label{text-align:center;font-size:.78rem;font-weight:500;letter-spacing:.1em;color:var(--txt3);text-transform:uppercase;margin-bottom:2rem;}
+  .marquee-wrap{overflow:hidden;mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent);}
+  .marquee{display:flex;gap:2rem;animation:scroll 25s linear infinite;width:max-content;}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .client-pill{background:var(--bg3);border:1px solid var(--border);border-radius:999px;padding:.4rem 1.1rem;font-size:.82rem;color:var(--txt2);white-space:nowrap;}
+
+  /* ── EDUCATION ── */
+  #education{padding:6rem 0;background:var(--bg2);}
+  .edu-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:600px;}
+
+  /* ── CONTACT ── */
+  #contact{padding:6rem 0;}
+  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;}
+  .contact-link{display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--txt);background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.4rem;transition:all .2s;}
+  .contact-link:hover{border-color:rgba(255,255,255,.2);transform:translateX(4px);}
+  .contact-link-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  .contact-link-label{font-size:.78rem;color:var(--txt3);margin-bottom:.15rem;}
+  .contact-link-value{font-size:.9rem;font-weight:500;}
+  .contact-cta{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+  .contact-cta::before{content:'';position:absolute;top:-80px;right:-80px;width:250px;height:250px;background:radial-gradient(circle,rgba(76,201,240,.15),transparent 70%);}
+  .contact-cta h3{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.75rem;}
+  .contact-cta p{font-size:.9rem;color:var(--txt2);margin-bottom:1.5rem;font-weight:300;}
+
+  /* ── FOOTER ── */
+  footer{padding:2rem;text-align:center;border-top:1px solid var(--border);font-size:.82rem;color:var(--txt3);}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:768px){
+    .hero-inner,.about-grid,.contact-inner{grid-template-columns:1fr;}
+    .hero-card{display:none;}
+    .timeline-item{grid-template-columns:1fr;}
+    .timeline-item::before,.timeline-dot,.timeline-date{display:none;}
+    .timeline-body{margin-left:0;}
+    nav .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AS</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:learntechbyme@gmail.com" class="btn btn-primary" style="padding:.55rem 1.2rem;font-size:.82rem;">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Available for Consulting &amp; Training</div>
+      <h1>Ashutoshh<br/><span class="gradient-text">Singh</span></h1>
+      <p class="hero-desc">Senior DevOps &amp; Data Engineer · GenAI Specialist · Databricks Certified · 13+ years empowering Fortune 500 teams across cloud, containers, and data at scale.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Work</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="avatar">AS</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.25rem;">Ashutoshh Singh</div>
+      <div style="font-size:.82rem;color:var(--txt3);margin-bottom:.25rem;">Jaipur, India</div>
+      <div style="font-size:.82rem;color:var(--c3);">RHCA · CKA · CKS · CKAD · Databricks</div>
+      <div class="stat-grid">
+        <div class="stat-item"><div class="stat-num">13+</div><div class="stat-label">Years Training</div></div>
+        <div class="stat-item"><div class="stat-num">60+</div><div class="stat-label">Corp Clients</div></div>
+        <div class="stat-item"><div class="stat-num">18+</div><div class="stat-label">Certifications</div></div>
+        <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Tech Domains</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About Me</div>
+    <h2>Engineer. Trainer. <span class="gradient-text">Builder.</span></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Senior DevOps &amp; Data Engineer with 13+ years of industry experience, passionate about transforming complex technologies into scalable, production-grade systems — and then teaching others to do the same.</p>
+        <p>My expertise spans the full cloud-native stack: from Kubernetes security and microservices architecture to Databricks Lakehouse pipelines, GenAI fine-tuning, and real-time observability with Datadog, Splunk, and ELK.</p>
+        <p>As Founder of <strong>Adhoc Networks Infotech</strong> and the <strong>Delvex Community</strong>, I've built certification prep platforms and consulted for clients across Cisco, Oracle, E&amp;Y, JPMC, Walmart, and 50+ more global enterprises.</p>
+      </div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;">Key Certifications</div>
+        <div class="certs-list">
+          <div class="cert-item"><div class="cert-dot" style="background:var(--c1);"></div>Red Hat Certified Architect in Infrastructure (RHCA)</div>
+          <div class="cert-item"><div class="cert-dot" style="background:var(--c3);"></div>Linux Foundation: CKA, CKAD, CKS, LFCS, LFCE</div>
+          <div class="cert-item"><div class="cert-dot" style="background:var(--c2);"></div>Databricks Certified Data Engineer Associate</div>
+          <div class="cert-item"><div class="cert-dot" style="background:var(--c4);"></div>RHCE, RHCSA (RHEL 6, 7 &amp; 8) · OpenShift Admin</div>
+          <div class="cert-item"><div class="cert-dot" style="background:var(--c5);"></div>Ansible Automation · OpenStack · Gluster Storage</div>
+          <div class="cert-item"><div class="cert-dot" style="background:var(--c1);"></div>Kubernetes Security Specialist (CKS) · WHM Admin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Expertise</div>
+    <h2>Technical <span class="gradient-text">Domains</span></h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(255,77,109,.15);">🐳</div>
+          <h3>DevOps &amp; Containers</h3>
+        </div>
+        <div class="tags">
+          <span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Ansible</span>
+          <span class="tag">Terraform</span><span class="tag">Puppet</span><span class="tag">Chef</span>
+          <span class="tag">Jenkins</span><span class="tag">GitOps</span><span class="tag">Istio</span>
+          <span class="tag">Helm</span><span class="tag">ArgoCD</span><span class="tag">DevSecOps</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(76,201,240,.15);">☁️</div>
+          <h3>Cloud Platforms</h3>
+        </div>
+        <div class="tags">
+          <span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">OpenStack</span>
+          <span class="tag">AKS</span><span class="tag">EKS</span><span class="tag">EC2 / VPC</span>
+          <span class="tag">Azure DevOps</span><span class="tag">Cloud Foundry</span><span class="tag">IAC</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(247,127,0,.15);">🔥</div>
+          <h3>Data &amp; Databricks</h3>
+        </div>
+        <div class="tags">
+          <span class="tag">Databricks</span><span class="tag">Apache Spark</span><span class="tag">Delta Lake</span>
+          <span class="tag">Delta Live Tables</span><span class="tag">Apache Kafka</span><span class="tag">Hadoop</span>
+          <span class="tag">Hive</span><span class="tag">HBase</span><span class="tag">Power BI</span>
+          <span class="tag">ETL Pipelines</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(123,47,190,.15);">🤖</div>
+          <h3>AI / ML &amp; GenAI</h3>
+        </div>
+        <div class="tags">
+          <span class="tag">GenAI</span><span class="tag">LLM Fine-tuning</span><span class="tag">Prompt Engineering</span>
+          <span class="tag">MLflow</span><span class="tag">TensorFlow</span><span class="tag">Scikit-learn</span>
+          <span class="tag">NLP</span><span class="tag">Computer Vision</span><span class="tag">Databricks AutoML</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(6,214,160,.15);">📡</div>
+          <h3>Observability</h3>
+        </div>
+        <div class="tags">
+          <span class="tag">Datadog</span><span class="tag">Splunk</span><span class="tag">Prometheus</span>
+          <span class="tag">Grafana</span><span class="tag">ELK Stack</span><span class="tag">Nagios</span>
+          <span class="tag">AIOps</span><span class="tag">Splunk MLTK</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(255,77,109,.15);">🌐</div>
+          <h3>Networking &amp; Security</h3>
+        </div>
+        <div class="tags">
+          <span class="tag">Cisco R&amp;S</span><span class="tag">Cisco SDN</span><span class="tag">Cisco Firewalls</span>
+          <span class="tag">Keycloak</span><span class="tag">SELinux</span><span class="tag">Zero Trust</span>
+          <span class="tag">IAM</span><span class="tag">RBAC</span><span class="tag">GDPR / HIPAA</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience</div>
+    <h2>Career <span class="gradient-text">Journey</span></h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date"><span>Current</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-body">
+          <div class="timeline-role">DevOps &amp; Data Engineer</div>
+          <div class="timeline-company">Upflairs Pvt Ltd</div>
+          <div class="timeline-desc">Leading application microservices conversion, Azure Cloud migration, and system design optimization for performance improvement. Architecting scalable cloud-native solutions and implementing CI/CD pipelines for enterprise clients.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date"><span>Founder</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-body">
+          <div class="timeline-role">Founder &amp; CTO</div>
+          <div class="timeline-company">Adhoc Networks Infotech Private Limited</div>
+          <div class="timeline-desc">Led as Sr. Technical Consultant, Hadoop Analyst, DevOps Engineer, and AWS/Azure Expert. Implemented Deep Learning &amp; Machine Learning in Automation with Ansible, Kubernetes app hosting, Cloud Foundry, and Jenkins-based DevOps pipelines.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date"><span>Previous</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-body">
+          <div class="timeline-role">DevOps Engineer, R&amp;D &amp; Sr. Trainer</div>
+          <div class="timeline-company">Confidential Enterprise</div>
+          <div class="timeline-desc">Served as OpenStack Cloud Administrator and Linux Operations Engineer. Delivered enterprise training on oVirt, OpenStack, AWS, Azure, Apache Hadoop, GlusterFS, and Cisco networking infrastructure.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date"><span>Earlier</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-body">
+          <div class="timeline-role">Linux System Administrator &amp; AWS Cloud Engineer</div>
+          <div class="timeline-company">WIPL</div>
+          <div class="timeline-desc">Managed web hosting infrastructure using WHM and cPanel. Maintained enterprise-grade mail servers with Sendmail, Postfix, and Exim. Structured multi-tier AWS cloud infrastructure using Terraform.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date"><span>Community</span></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-body">
+          <div class="timeline-role">Founder &amp; Maintainer</div>
+          <div class="timeline-company">Delvex Community</div>
+          <div class="timeline-desc">Built an open tech community for POCs and real-world use cases across diverse environments. Established a skill-testing platform and certification exam portal for learners preparing for CKA, RHCA, and Databricks exams.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Projects</div>
+    <h2>Key <span class="gradient-text">Work</span></h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01 — Databricks</div>
+        <h3>Azure Databricks Lakehouse Platform</h3>
+        <p>Designed and implemented a full Lakehouse architecture with Delta Live Tables, Auto Loader, and Structured Streaming. Built medallion (Bronze/Silver/Gold) ETL pipelines, integrated Unity Catalog for data governance, and optimized with Photon engine.</p>
+        <div class="project-tags">
+          <span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">Apache Spark</span><span class="tag">Azure</span><span class="tag">ETL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02 — Kubernetes</div>
+        <h3>CRD &amp; Operators in Kubernetes / OpenShift</h3>
+        <p>Created Custom Resource Definitions and Operators in Kubernetes. Implemented Istio service mesh CRDs, monitored and deployed microservices with Istio, and managed Kubernetes security hardening across production clusters.</p>
+        <div class="project-tags">
+          <span class="tag">Kubernetes</span><span class="tag">OpenShift</span><span class="tag">Istio</span><span class="tag">CRD</span><span class="tag">Operators</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03 — Observability</div>
+        <h3>APM Tool Management with Datadog</h3>
+        <p>End-to-end APM implementation including proactive monitoring, health checks of microservices logs, integration of Datadog with enterprise stacks, and AI-driven anomaly detection for distributed systems.</p>
+        <div class="project-tags">
+          <span class="tag">Datadog</span><span class="tag">AIOps</span><span class="tag">Microservices</span><span class="tag">Observability</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04 — Cloud</div>
+        <h3>Data Leakage Prevention via Cloud</h3>
+        <p>Built a one-click data loss prevention and backup mechanism using RAID, Python, and RHEL 6. Consumers protected from power outages and hardware failures through automated cloud replication and backup pipelines.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">RHEL</span><span class="tag">RAID</span><span class="tag">Cloud Backup</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">05 — GenAI</div>
+        <h3>LLM Fine-tuning &amp; GenAI Pipelines</h3>
+        <p>Delivered foundation model fine-tuning workshops for Walmart India &amp; USA, including GPT and LLaMA 3. Implemented prompt engineering strategies, RAG pipelines, and Databricks MLflow-based model deployment workflows.</p>
+        <div class="project-tags">
+          <span class="tag">LLM</span><span class="tag">LLaMA 3</span><span class="tag">MLflow</span><span class="tag">Prompt Engineering</span><span class="tag">RAG</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">06 — DevSecOps</div>
+        <h3>Secure CI/CD &amp; DevSecOps Pipeline</h3>
+        <p>Designed DevSecOps pipelines integrating security scanning, RBAC, WASM container security, and IAM (Keycloak, PingID, ForgeRock). Implemented Kubernetes security policies and network segmentation for enterprise clients.</p>
+        <div class="project-tags">
+          <span class="tag">DevSecOps</span><span class="tag">Keycloak</span><span class="tag">CI/CD</span><span class="tag">WASM</span><span class="tag">RBAC</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS MARQUEE -->
+<section id="clients" style="padding:5rem 0;background:var(--bg);">
+  <div class="container">
+    <div class="clients-label">Trusted by 60+ Global Enterprises</div>
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <span class="client-pill">Cisco Systems</span>
+        <span class="client-pill">Oracle India</span>
+        <span class="client-pill">E&amp;Y India</span>
+        <span class="client-pill">JPMC</span>
+        <span class="client-pill">Walmart</span>
+        <span class="client-pill">BMO</span>
+        <span class="client-pill">Mobileum</span>
+        <span class="client-pill">TCS</span>
+        <span class="client-pill">Wipro</span>
+        <span class="client-pill">Infosys</span>
+        <span class="client-pill">Microsoft</span>
+        <span class="client-pill">Redhat</span>
+        <span class="client-pill">Accenture</span>
+        <span class="client-pill">Deloitte</span>
+        <span class="client-pill">Capgemini</span>
+        <span class="client-pill">Adobe</span>
+        <span class="client-pill">Salesforce</span>
+        <span class="client-pill">Vodafone</span>
+        <span class="client-pill">Ericsson</span>
+        <span class="client-pill">Fidelity</span>
+        <span class="client-pill">Honeywell</span>
+        <span class="client-pill">Roche</span>
+        <!-- duplicate for seamless loop -->
+        <span class="client-pill">Cisco Systems</span>
+        <span class="client-pill">Oracle India</span>
+        <span class="client-pill">E&amp;Y India</span>
+        <span class="client-pill">JPMC</span>
+        <span class="client-pill">Walmart</span>
+        <span class="client-pill">BMO</span>
+        <span class="client-pill">Mobileum</span>
+        <span class="client-pill">TCS</span>
+        <span class="client-pill">Wipro</span>
+        <span class="client-pill">Infosys</span>
+        <span class="client-pill">Microsoft</span>
+        <span class="client-pill">Redhat</span>
+        <span class="client-pill">Accenture</span>
+        <span class="client-pill">Deloitte</span>
+        <span class="client-pill">Capgemini</span>
+        <span class="client-pill">Adobe</span>
+        <span class="client-pill">Salesforce</span>
+        <span class="client-pill">Vodafone</span>
+        <span class="client-pill">Ericsson</span>
+        <span class="client-pill">Fidelity</span>
+        <span class="client-pill">Honeywell</span>
+        <span class="client-pill">Roche</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Education &amp; Community</div>
+    <h2>Learning &amp; <span class="gradient-text">Giving Back</span></h2>
+    <div style="margin-top:3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+      <div class="edu-card">
+        <div style="font-size:1.5rem;margin-bottom:.75rem;">🎓</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.35rem;">Engineering Graduate</div>
+        <div style="font-size:.85rem;color:var(--c3);margin-bottom:.5rem;">Computer Science / IT</div>
+        <div style="font-size:.85rem;color:var(--txt2);">Strong fundamentals in systems, networking, and software engineering — foundation for 13+ years of deep technical work.</div>
+      </div>
+      <div class="edu-card">
+        <div style="font-size:1.5rem;margin-bottom:.75rem;">🌐</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.35rem;">Founder — Delvex Community</div>
+        <div style="font-size:.85rem;color:var(--c3);margin-bottom:.5rem;">Open Tech Community · Jaipur &amp; Remote</div>
+        <div style="font-size:.85rem;color:var(--txt2);">POC testing, skill assessment platform, and certification preparation portal for CKA, RHCA, Databricks, and more.</div>
+      </div>
+      <div class="edu-card">
+        <div style="font-size:1.5rem;margin-bottom:.75rem;">📚</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.35rem;">Corporate Trainer · 13+ Years</div>
+        <div style="font-size:.85rem;color:var(--c3);margin-bottom:.5rem;">CXOs · Managers · IT Pros · Engineers</div>
+        <div style="font-size:.85rem;color:var(--txt2);">Delivered 100s of technical training sessions across DevOps, Cloud, Data Science, Kubernetes, and AI for top global enterprises.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2>Let's <span class="gradient-text">Connect</span></h2>
+    <div class="contact-inner">
+      <div class="contact-links">
+        <a href="mailto:learntechbyme@gmail.com" class="contact-link">
+          <div class="contact-link-icon" style="background:rgba(255,77,109,.15);">📧</div>
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">learntechbyme@gmail.com</div>
+          </div>
+        </a>
+        <a href="mailto:ashutoshh@linux.com" class="contact-link">
+          <div class="contact-link-icon" style="background:rgba(6,214,160,.15);">🐧</div>
+          <div>
+            <div class="contact-link-label">Linux.com Email</div>
+            <div class="contact-link-value">ashutoshh@linux.com</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/ashutoshh" target="_blank" class="contact-link">
+          <div class="contact-link-icon" style="background:rgba(76,201,240,.15);">💼</div>
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value">linkedin.com/in/ashutoshh</div>
+          </div>
+        </a>
+        <a href="tel:+919509957594" class="contact-link">
+          <div class="contact-link-icon" style="background:rgba(247,127,0,.15);">📱</div>
+          <div>
+            <div class="contact-link-label">Phone</div>
+            <div class="contact-link-value">+91-9509957594</div>
+          </div>
+        </a>
+      </div>
+      <div class="contact-cta">
+        <h3>Open for Consulting &amp; Training</h3>
+        <p>Whether you need enterprise-level DevOps consulting, Databricks/GenAI implementation, or hands-on technical training for your team — I'd love to help.</p>
+        <a href="mailto:learntechbyme@gmail.com" class="btn btn-primary">Send a Message →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>Built by Ashutoshh Singh · Red Hat Certified Architect · Databricks Certified · RHCA #120-053-087</div>
+  <div style="margin-top:.4rem;color:var(--txt3);font-size:.75rem;">Hosted on GitHub Pages · © 2025</div>
+</footer>
+
+</body>
+</html>

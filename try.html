@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashutoshh Singh - Data Scientist | DevOps Expert | AI Trainer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } },
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .progress { background: linear-gradient(to right, #3b82f6, #8b5cf6); }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-all duration-300">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#home" class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">AS</a>
+                <ul class="hidden md:flex space-x-6">
+                    <li><a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a></li>
+                    <li><a href="#about" class="hover:text-blue-600 dark:hover:text-blue-400">About</a></li>
+                    <li><a href="#skills" class="hover:text-blue-600 dark:hover:text-blue-400">Skills</a></li>
+                    <li><a href="#experience" class="hover:text-blue-600 dark:hover:text-blue-400">Experience</a></li>
+                    <li><a href="#projects" class="hover:text-blue-600 dark:hover:text-blue-400">Projects</a></li>
+                    <li><a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" class="md:hidden p-2">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
+                <button class="md:hidden p-2" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 pt-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <img src="https://via.placeholder.com/150x150?text=AS" alt="Ashutoshh Singh" class="w-40 h-40 rounded-full mx-auto mb-8 shadow-2xl border-4 border-white dark:border-gray-700">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Ashutoshh Singh</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto opacity-90">Data Scientist | Data Engineer | DevOps Expert | Corporate Trainer (14+ Years). Specializing in Generative AI, Cloud, Big Data & Automation.[file:1]</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projects" class="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition">View Projects</a>
+                <a href="#contact" class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-24 bg-white dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">About Me[file:1]</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-lg mb-6 leading-relaxed">Passionate about leveraging cutting-edge technologies to drive digital transformation. Specializing in Data Science and DevOps, I provide expert consultation, training, and support for corporate clients, CXOs, IT pros, and students. Empowering teams with practical AI/ML, Cloud, and automation insights.[file:1]</p>
+                    <p class="text-lg leading-relaxed">Founder/CTO at Adhoc Networks Infotech. RHCA-certified with expertise in AWS, Azure, GCP, Kubernetes, Generative AI (LLaMA, Gemini, Copilot).[file:1]</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-6 bg-blue-50 dark:bg-gray-800 rounded-xl">
+                        <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">14+</div>
+                        <div class="text-sm opacity-75">Years Experience[file:1]</div>
+                    </div>
+                    <div class="text-center p-6 bg-purple-50 dark:bg-gray-800 rounded-xl">
+                        <div class="text-3xl font-bold text-purple-600 dark:text-purple-400">20+</div>
+                        <div class="text-sm opacity-75">Certifications[file:1]</div>
+                    </div>
+                    <div class="text-center p-6 bg-green-50 dark:bg-gray-800 rounded-xl">
+                        <div class="text-3xl font-bold text-green-600 dark:text-green-400">50+</div>
+                        <div class="text-sm opacity-75">Clients Trained[file:1]</div>
+                    </div>
+                    <div class="text-center p-6 bg-orange-50 dark:bg-gray-800 rounded-xl">
+                        <div class="text-3xl font-bold text-orange-600 dark:text-orange-400">AI/ML</div>
+                        <div class="text-sm opacity-75">Projects[file:1]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-24 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">Skills & Expertise[file:1]</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">DevOps & Cloud</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center"><span>Docker/Kubernetes</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[95%] h-2 rounded-full"></div></div></div>
+                        <div class="flex justify-between items-center"><span>AWS/Azure/GCP</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[90%] h-2 rounded-full"></div></div></div>
+                        <div class="flex justify-between items-center"><span>CI/CD (Jenkins/GitHub Actions)</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[92%] h-2 rounded-full"></div></div></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">AI/ML & Big Data</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center"><span>Generative AI (LLaMA/Gemini)</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[88%] h-2 rounded-full"></div></div></div>
+                        <div class="flex justify-between items-center"><span>PyTorch/TensorFlow/Hadoop</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[85%] h-2 rounded-full"></div></div></div>
+                        <div class="flex justify-between items-center"><span>Spark/Databricks</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[87%] h-2 rounded-full"></div></div></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Programming & Tools</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center"><span>Python/Golang/Bash</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[93%] h-2 rounded-full"></div></div></div>
+                        <div class="flex justify-between items-center"><span>Terraform/Ansible/Prometheus</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[89%] h-2 rounded-full"></div></div></div>
+                        <div class="flex justify-between items-center"><span>Linux/RHCA/CKA</span><div class="w-24 bg-gray-200 rounded-full h-2"><div class="progress w-[95%] h-2 rounded-full"></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="py-24 bg-white dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">Experience & Certifications[file:1]</h2>
+            <div class="space-y-8 max-w-4xl mx-auto">
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-2">Data Scientist/Data Engineer, Delvex Innovations Pvt Ltd[file:1]</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Current</p>
+                    <ul class="space-y-2 text-lg">
+                        <li>• Generative AI projects with Vertex AI, LLaMA, Gemini; neural networks for chatbots/image processing.[file:1]</li>
+                        <li>• Course development, trainer engagement, GitHub collaboration.[file:1]</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-2">Founder/CTO, Adhoc Networks Infotech Private Limited[file:1]</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Ongoing</p>
+                    <ul class="space-y-2 text-lg">
+                        <li>• Cloud/DevOps leadership: AWS, Azure, GCP; Kubernetes, Ansible, Terraform.[file:1]</li>
+                        <li>• CI/CD, monitoring (Prometheus, ELK, Datadog).[file:1]</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-semibold mb-4">Key Certifications[file:1]</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-lg">
+                        <div>• RHCA (Red Hat Certified Architect)</div>
+                        <div>• CKA/CKAD/CKS (Kubernetes)</div>
+                        <div>• RHCE/RHCSA (Multiple RHEL versions)</div>
+                        <div>• LFCS/LFCE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-24 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">Featured Projects[file:1]</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition">
+                    <h3 class="text-2xl font-semibold mb-4">Data Leakage Prevention using Cloud[file:1]</h3>
+                    <p class="mb-4">One-click DLP & auto-backup with RAID/Python on RHEL; protects against outages.[file:1]</p>
+                    <div class="flex gap-2 text-sm mb-6 opacity-75">Tech: Python, RHEL, Cloud</div>
+                    <div class="flex gap-4">
+                        <a href="#" class="flex-1 text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Live Demo</a>
+                        <a href="#" class="flex-1 text-center border border-gray-300 dark:border-gray-600 py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">GitHub</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition">
+                    <h3 class="text-2xl font-semibold mb-4">Automated Bug Fixing & Kernel Mgmt[file:1]</h3>
+                    <p class="mb-4">Auto-patches vulnerabilities, kdump analysis, IT alerts for security/stability.[file:1]</p>
+                    <div class="flex gap-2 text-sm mb-6 opacity-75">Tech: Linux, Python, kdump</div>
+                    <div class="flex gap-4">
+                        <a href="#" class="flex-1 text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Live Demo</a>
+                        <a href="#" class="flex-1 text-center border border-gray-300 dark:border-gray-600 py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">GitHub</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition">
+                    <h3 class="text-2xl font-semibold mb-4">CRD Operators in Kubernetes/OpenShift[file:1]</h3>
+                    <p class="mb-4">Custom resource definitions, Istio services, microservices monitoring.[file:1]</p>
+                    <div class="flex gap-2 text-sm mb-6 opacity-75">Tech: K8s, Istio, OpenShift</div>
+                    <div class="flex gap-4">
+                        <a href="#" class="flex-1 text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Live Demo</a>
+                        <a href="#" class="flex-1 text-center border border-gray-300 dark:border-gray-600 py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">GitHub</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition lg:col-span-3">
+                    <h3 class="text-2xl font-semibold mb-4">Generative AI: GitHub Copilot & Codespaces[file:1]</h3>
+                    <p class="mb-4">ChatGPT-4 integration, OpenAI/DALL-E in Codespaces; LLM fine-tuning (DeepSeek, LLaMA).[file:1]</p>
+                    <div class="flex gap-2 text-sm mb-6 opacity-75">Tech: GenAI, GitHub, LLMs</div>
+                    <div class="flex gap-4">
+                        <a href="#" class="flex-1 text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Live Demo</a>
+                        <a href="#" class="flex-1 text-center border border-gray-300 dark:border-gray-600 py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 bg-white dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-8">Let's Connect[file:1]</h2>
+            <p class="text-xl mb-12 opacity-90">Open to consultations, training, or collaborations in AI/DevOps/Data.[file:1]</p>
+            <div class="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-12">
+                <div class="p-6">
+                    <i class="fas fa-envelope text-3xl text-blue-600 mb-4"></i>
+                    <div>learntechbymegmail.com</div>
+                    <div>ashutoshhlinux.com[file:1]</div>
+                </div>
+                <div class="p-6">
+                    <i class="fab fa-linkedin text-3xl text-blue-600 mb-4"></i>
+                    <a href="https://www.linkedin.com/in/ashutoshh" class="hover:underline">linkedin.com/in/ashutoshh[file:1]</a>
+                </div>
+                <div class="p-6">
+                    <i class="fab fa-github text-3xl text-blue-600 mb-4"></i>
+                    <div>GitHub (via profile)</div>
+                </div>
+            </div>
+            <form class="max-w-md mx-auto space-y-4 opacity-75" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="email" name="email" placeholder="Your Email" class="w-full p-4 border rounded-lg dark:bg-gray-800" required>
+                <textarea name="message" placeholder="Your Message" rows="4" class="w-full p-4 border rounded-lg dark:bg-gray-800" required></textarea>
+                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">Send Message</button>
+            </form>
+            <p class="mt-8 text-sm opacity-50">© 2026 Ashutoshh Singh. Built with Tailwind.[file:1]</p>
+        </div>
+    </section>
+
+    <script>
+        // Theme toggle
+        const toggle = document.getElementById('theme-toggle');
+        toggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            toggle.querySelector('i').classList.toggle('fa-moon');
+            toggle.querySelector('i').classList.toggle('fa-sun');
+        });
+
+        // Mobile menu (placeholder)
+        function toggleMenu() { /* Add mobile menu logic if needed */ }
+
+        // Formspree: Replace YOUR_FORM_ID with free account ID from formspree.io
+    </script>
+</body>
+</html>

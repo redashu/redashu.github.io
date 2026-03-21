@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-  :root {
+  /* :root {
     --navy:   #0B1F3A;
     --navy2:  #112540;
     --accent: #2563EB;
@@ -21,7 +21,25 @@
     --white:  #FFFFFF;
     --tag-bg: #EFF6FF;
     --tag-txt:#1E40AF;
-  }
+  } */
+
+  :root {
+  --navy: #5D4037;
+  --navy2:#6D4C41;
+  --accent:  #D7CCC8;   /* light sand */
+  --accent2: #BCAAA4;
+
+  --txt:     #1F2937;
+  --txt2:    #4B5563;
+  --txt3:    #9CA3AF;
+
+  --line:    #E5E7EB;
+  --bg:      #FDF8F6;
+  --white:   #FFFFFF;
+
+  --tag-bg:  #EFEBE9;
+  --tag-txt: #4E342E;
+}
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   body {
@@ -45,16 +63,25 @@
   }
   .nav-logo {
     font-family: 'Fraunces', serif;
+    letter-spacing: -.01em;
     font-size: 1.1rem; font-weight: 700;
-    color: var(--navy); letter-spacing: -.01em;
+    a{
+      text-decoration: none;
+      color: var(--navy);
+    }
   }
   .nav-links { display:flex; gap:2.5rem; list-style:none; }
   .nav-links a { color:var(--txt2); text-decoration:none; font-size:.85rem; font-weight:400; transition:color .15s; }
   .nav-links a:hover { color:var(--accent); }
   .nav-cta {
-    background:var(--accent); color:#fff; text-decoration:none;
-    font-size:.83rem; font-weight:500;
-    padding:.5rem 1.2rem; border-radius:6px; transition:background .15s;
+    display: flex;
+    gap: 30px;
+    a{
+      padding:.5rem 1.2rem;
+      background:var(--accent); color:#fff; text-decoration:none;
+      font-size:.83rem; font-weight:500;
+      border-radius:6px; transition:background .15s;
+    }
   }
   .nav-cta:hover { background:var(--accent2); }
 
@@ -93,22 +120,28 @@
 
   /* Hero card */
   .hero-card {
-    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
-    border-radius:12px; padding:2rem;
+    /* background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; */
+    background: transparent;
+    display: flex;  flex-direction: column;  align-items: center;
   }
   .avatar {
-    width:68px; height:68px; border-radius:50%; background:var(--accent);
-    display:flex; align-items:center; justify-content:center;
+    width:350px; height:350px; border-radius:50%; background:var(--accent);
+    display:flex; align-items:center; justify-content:center; overflow: hidden;
     font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; color:#fff;
     margin-bottom:1rem;
+    img {
+      max-width: 100%;
+    }
+    /* background-image: url("https://avatars.githubusercontent.com/u/8552914?v=4"); */
   }
-  .hero-name { font-family:'Fraunces',serif; font-size:1rem; font-weight:600; color:#fff; margin-bottom:.2rem; }
+  .hero-name { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; color:#fff; margin-bottom:.2rem; }
   .hero-title-sm { font-size:.8rem; color:#64748B; margin-bottom:1.4rem; }
   .divider { height:1px; background:rgba(255,255,255,.08); margin:1.25rem 0; }
-  .stat-row { display:grid; grid-template-columns:1fr 1fr; gap:.65rem; }
-  .stat-box { background:rgba(255,255,255,.04); border-radius:8px; padding:.8rem 1rem; }
-  .stat-num { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; color:#fff; line-height:1; }
-  .stat-label { font-size:.71rem; color:#64748B; margin-top:.2rem; }
+  .stat-row {  display: grid;  grid-template-columns: repeat(4, 1fr);  gap: .5rem;  margin-top: -2rem;}
+  .stat-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;  display: flex;  flex-direction: column;  align-items: center; justify-content: center; height: 75px; /* equal height */  text-align: center; transition: all 0.25s ease;}
+  .stat-box:hover {  transform: translateY(-4px);  background: rgba(255,255,255,0.1);}
+  .stat-num {  font-family:'Fraunces',serif;  font-size: 1rem;  font-weight: 700;  color: #fff;}
+  .stat-label { font-size: 0.72rem;  color: #94A3B8;  margin-top: 3px;}
 
   /* SECTION */
   .section-wrap { padding:5.5rem 0; }
@@ -152,7 +185,7 @@
   .tl-line { position:absolute; left:159px; top:12px; bottom:0; width:1px; background:var(--line); }
   .tl-item:last-child .tl-line { display:none; }
   .tl-dot { position:absolute; left:153px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--white); border:2px solid var(--accent); z-index:1; }
-  .tl-date { text-align:right; padding-top:.15rem; font-size:.76rem; font-weight:500; color:var(--txt3); letter-spacing:.02em; }
+  .tl-date { text-align:right; padding-top:.15rem; margin-right: 8.5px; font-size:.76rem; font-weight:500; color:var(--txt3); letter-spacing:.02em; }
   .tl-body { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.35rem 1.5rem; margin-left:.5rem; }
   .tl-role { font-size:.92rem; font-weight:600; color:var(--navy); margin-bottom:.2rem; }
   .tl-company { font-size:.8rem; font-weight:500; color:var(--accent); margin-bottom:.75rem; }
@@ -174,11 +207,11 @@
   #clients { padding:3.5rem 0; background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .clients-eyebrow { text-align:center; font-size:.71rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--txt3); margin-bottom:1.5rem; }
   .marquee-wrap { overflow:hidden; mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent); }
-  .marquee { display:flex; gap:1.25rem; animation:scroll 30s linear infinite; width:max-content; }
+  .marquee { display:flex; gap:1.5rem; animation:scroll 30s linear infinite; width:max-content; }
   @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
   .client-pill {
-    background:var(--bg); border:1px solid var(--line); border-radius:5px;
-    padding:.35rem 1rem; font-size:.78rem; color:var(--txt2); font-weight:500; white-space:nowrap;
+    background:var(--bg); border:1px solid gray; border-radius:5px;
+    padding:.45rem 1.35rem; font-size:.9rem; color:var(--txt2); font-weight:500; white-space:nowrap;
   }
 
   /* CERTIFICATIONS */
@@ -248,7 +281,10 @@
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="/cdn-cgi/l/email-protection#83efe6e2f1edf7e6e0ebe1faeee6c3e4eee2eaefade0ecee" class="nav-cta">Get in Touch</a>
+  <div class="nav-cta">
+    <a href="portfolio.pdf" download>Download CV</a>
+    <a href="#contact">Get in Touch</a>
+  </div>
 </nav>
 
 <section id="hero">
@@ -263,8 +299,12 @@
       </div>
     </div>
     <div class="hero-card">
-      <div class="avatar">AS</div>
-      <div class="hero-name">Ashutoshh Singh</div>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="avatar">
+          <img src="https://avatars.githubusercontent.com/u/8552914?v=4" alt="Profile Pic">
+        </div>
+      </div>
+      <!-- <div class="hero-name">Ashutoshh Singh</div> -->
       <div class="hero-title-sm">Jaipur, India &nbsp;·&nbsp; RHCA #120-053-087</div>
       <div class="divider"></div>
       <div class="stat-row">
@@ -525,13 +565,13 @@
         <h2>Let's Work Together</h2>
         <p class="section-intro">Open to consulting engagements, corporate training, and advisory roles in DevOps, Cloud, Databricks, and GenAI.</p>
         <div class="contact-links">
-          <a id="email1-link" class="contact-link">
-            <div class="contact-link-ico">📧</div>
-            <div><div class="cl-label">Primary Email</div><div class="cl-value" id="email1-val"></div></div>
-          </a>
           <a id="email2-link" class="contact-link">
             <div class="contact-link-ico">🐧</div>
             <div><div class="cl-label">Linux Email</div><div class="cl-value" id="email2-val"></div></div>
+          </a>
+          <a id="email1-link" class="contact-link">
+            <div class="contact-link-ico">📧</div>
+            <div><div class="cl-label">Primary Email</div><div class="cl-value" id="email1-val"></div></div>
           </a>
           <a href="https://www.linkedin.com/in/ashutoshh" target="_blank" class="contact-link">
             <div class="contact-link-ico">💼</div>

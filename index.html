@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-  /* :root {
+  :root {
     --navy:   #0B1F3A;
     --navy2:  #112540;
     --accent: #2563EB;
@@ -21,25 +21,7 @@
     --white:  #FFFFFF;
     --tag-bg: #EFF6FF;
     --tag-txt:#1E40AF;
-  } */
-
-  :root {
-  --navy: #5D4037;
-  --navy2:#6D4C41;
-  --accent:  #D7CCC8;   /* light sand */
-  --accent2: #BCAAA4;
-
-  --txt:     #1F2937;
-  --txt2:    #4B5563;
-  --txt3:    #9CA3AF;
-
-  --line:    #E5E7EB;
-  --bg:      #FDF8F6;
-  --white:   #FFFFFF;
-
-  --tag-bg:  #EFEBE9;
-  --tag-txt: #4E342E;
-}
+  }
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   body {
@@ -65,23 +47,23 @@
     font-family: 'Fraunces', serif;
     letter-spacing: -.01em;
     font-size: 1.1rem; font-weight: 700;
-    a{
-      text-decoration: none;
-      color: var(--navy);
-    }
+  }
+  .nav-logo a {
+    text-decoration: none;
+    color: var(--navy);
   }
   .nav-links { display:flex; gap:2.5rem; list-style:none; }
   .nav-links a { color:var(--txt2); text-decoration:none; font-size:.85rem; font-weight:400; transition:color .15s; }
-  .nav-links a:hover { color:var(--accent); }
+  .nav-links a:hover { color:#2563EB; }
   .nav-cta {
     display: flex;
-    gap: 30px;
-    a{
-      padding:.5rem 1.2rem;
-      background:var(--accent2); color:#fff; text-decoration:none;
-      font-size:.83rem; font-weight:500;
-      border-radius:6px; transition:background .15s;
-    }
+    gap: 12px;
+  }
+  .nav-cta a {
+    padding:.5rem 1.2rem;
+    background:var(--accent2); color:#fff; text-decoration:none;
+    font-size:.83rem; font-weight:500;
+    border-radius:6px; transition:background .15s;
   }
   .nav-cta a:hover { background:var(--accent); }
 
@@ -89,7 +71,7 @@
   .container { max-width:1080px; margin:0 auto; padding:0 2.5rem; }
 
   /* HERO */
-  #hero { background:var(--navy); padding:8.5rem 2.5rem 6.5rem; color:#fff; }
+  #hero { background:var(--navy); padding:5.5rem 2.5rem 5rem; color:#fff; }
   .hero-inner {
     max-width:1080px; margin:0 auto;
     display:grid; grid-template-columns:1fr 320px; gap:5rem; align-items:center;
@@ -101,16 +83,16 @@
   }
   .hero-eyebrow span { display:inline-block; width:20px; height:1px; background:#93C5FD; }
   h1 {
-    font-family:'Fraunces',serif; font-size:clamp(2.4rem,5vw,3.6rem);
-    font-weight:700; line-height:1.1; color:#fff; letter-spacing:-.02em; margin-bottom:1.2rem;
+    font-family:'Fraunces',serif; font-size:clamp(2rem,3.5vw,2.75rem);
+    font-weight:700; line-height:1.15; color:#fff; letter-spacing:-.02em; margin-bottom:.5rem;
   }
   .hero-sub { font-size:.975rem; color:#94A3B8; font-weight:300; line-height:1.85; max-width:500px; margin-bottom:2.25rem; }
   .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
   .btn-primary {
-    background:var(--accent); color:#fff; text-decoration:none;
+    background:#2563EB; color:#fff; text-decoration:none;
     font-size:.875rem; font-weight:500; padding:.7rem 1.5rem; border-radius:6px; transition:background .15s;
   }
-  .btn-primary:hover { background:var(--accent2); }
+  .btn-primary:hover { background:#1D4ED8; }
   .btn-ghost {
     background:transparent; color:#CBD5E1; text-decoration:none;
     font-size:.875rem; font-weight:400; padding:.7rem 1.5rem; border-radius:6px;
@@ -129,10 +111,11 @@
     display:flex; align-items:center; justify-content:center; overflow: hidden;
     font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; color:#fff;
     margin-bottom:1rem;
-    img {
-      max-width: 100%;
-    }
-    /* background-image: url("https://avatars.githubusercontent.com/u/8552914?v=4"); */
+  }
+  .avatar img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .hero-name { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; color:#fff; margin-bottom:.2rem; }
   .hero-title-sm { font-size:.8rem; color:#64748B; margin-bottom:1.4rem; }
@@ -146,7 +129,7 @@
   /* SECTION */
   .section-wrap { padding:5.5rem 0; }
   .section-wrap.alt { background:var(--white); }
-  .eyebrow { font-size:.73rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:.55rem; }
+  .eyebrow { font-size:.73rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#2563EB; margin-bottom:.55rem; }
   h2 {
     font-family:'Fraunces',serif; font-size:clamp(1.7rem,3.5vw,2.25rem);
     font-weight:700; color:var(--navy); letter-spacing:-.02em; line-height:1.2; margin-bottom:.55rem;
@@ -163,7 +146,7 @@
     padding:.7rem 1rem; background:var(--bg); border:1px solid var(--line); border-radius:8px;
     font-size:.83rem; color:var(--txt2); line-height:1.5;
   }
-  .cert-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.45rem; }
+  .cert-dot { width:5px; height:5px; border-radius:50%; background:#2563EB; flex-shrink:0; margin-top:.45rem; }
 
   /* SKILLS */
   .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; }
@@ -184,11 +167,11 @@
   .tl-item:last-child { padding-bottom:0; }
   .tl-line { position:absolute; left:159px; top:12px; bottom:0; width:1px; background:var(--line); }
   .tl-item:last-child .tl-line { display:none; }
-  .tl-dot { position:absolute; left:153px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--white); border:2px solid var(--accent); z-index:1; }
+  .tl-dot { position:absolute; left:153px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--white); border:2px solid #2563EB; z-index:1; }
   .tl-date { text-align:right; padding-top:.15rem; margin-right: 8.5px; font-size:.76rem; font-weight:500; color:var(--txt3); letter-spacing:.02em; }
   .tl-body { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.35rem 1.5rem; margin-left:.5rem; }
   .tl-role { font-size:.92rem; font-weight:600; color:var(--navy); margin-bottom:.2rem; }
-  .tl-company { font-size:.8rem; font-weight:500; color:var(--accent); margin-bottom:.75rem; }
+  .tl-company { font-size:.8rem; font-weight:500; color:#2563EB; margin-bottom:.75rem; }
   .tl-desc { font-size:.85rem; color:var(--txt2); font-weight:300; line-height:1.8; }
 
   /* PROJECTS */
@@ -196,9 +179,9 @@
   .proj-card {
     background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.5rem;
     display:flex; flex-direction:column; transition:box-shadow .2s, border-color .2s;
-    border-top:3px solid var(--accent);
+    border-top:3px solid #2563EB;
   }
-  .proj-card:hover { border-color:var(--accent); box-shadow:0 4px 18px rgba(37,99,235,.07); }
+  .proj-card:hover { border-color:#2563EB; box-shadow:0 4px 18px rgba(37,99,235,.07); }
   .proj-num { font-size:.71rem; font-weight:600; letter-spacing:.08em; color:var(--txt3); text-transform:uppercase; margin-bottom:.65rem; }
   .proj-card h3 { font-family:'Fraunces',serif; font-size:.97rem; font-weight:600; color:var(--navy); margin-bottom:.55rem; line-height:1.3; }
   .proj-card p { font-size:.83rem; color:var(--txt2); font-weight:300; line-height:1.8; flex:1; margin-bottom:.9rem; }
@@ -221,14 +204,14 @@
     padding:.8rem 1rem; font-size:.8rem; color:var(--txt2); font-weight:400;
     display:flex; align-items:flex-start; gap:.6rem; line-height:1.45;
   }
-  .cert-full-item::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.42rem; }
+  .cert-full-item::before { content:''; width:5px; height:5px; border-radius:50%; background:#2563EB; flex-shrink:0; margin-top:.42rem; }
 
   /* EDUCATION */
   .edu-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:2rem; }
   .edu-card { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.5rem; }
   .edu-icon { width:38px; height:38px; background:var(--tag-bg); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.95rem; margin-bottom:.9rem; }
   .edu-card h3 { font-size:.88rem; font-weight:600; color:var(--navy); margin-bottom:.25rem; }
-  .edu-sub { font-size:.78rem; color:var(--accent); font-weight:500; margin-bottom:.55rem; }
+  .edu-sub { font-size:.78rem; color:#2563EB; font-weight:500; margin-bottom:.55rem; }
   .edu-card p { font-size:.82rem; color:var(--txt2); font-weight:300; line-height:1.7; }
 
   /* CONTACT */
@@ -272,7 +255,13 @@
 <body>
 
 <nav>
-  <div class="nav-logo"><a href="#">Ashutoshh Singh</a></div>
+  <div class="nav-logo">
+    <a href="https://github.com/redashu" target="_blank" aria-label="GitHub Profile" style="display:flex;align-items:center;color:var(--navy);text-decoration:none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+      </svg>
+    </a>
+  </div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -291,8 +280,9 @@
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow"><span></span>Available for Consulting &amp; Training</div>
-      <h1>Lead Cloud | Data Platform Architect  &amp;<br/>Corporate Trainer</h1>
-    <p class="hero-sub">15+ years building and teaching cloud-native infrastructure, Kubernetes platforms, Databricks data pipelines, and GenAI solutions for Fortune 500 enterprises worldwide.</p>
+      <h1>Ashutoshh Singh</h1>
+      <p style="font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;color:#C4A882;margin-bottom:1rem;letter-spacing:-.01em;">Lead Cloud &amp; Data Platform Architect &nbsp;·&nbsp; Corporate Trainer</p>
+      <p class="hero-sub">15+ years building and teaching cloud-native infrastructure, Kubernetes platforms, Databricks data pipelines, and GenAI solutions for Fortune 500 enterprises worldwide.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn-primary">View My Work</a>
         <a href="#contact" class="btn-ghost">Contact Me</a>
@@ -586,7 +576,7 @@
       <div class="contact-cta">
         <h3>Available for Consulting &amp; Training</h3>
         <p>Whether you need enterprise DevOps consulting, Databricks data platform implementation, Kubernetes security hardening, or hands-on GenAI training for your engineering team — I would be glad to help.</p>
-        <a href="mailto:learntechbyme@gmail.com?subject=Consulting Inquiry&body=Hello, I want to discuss a project with you." class="btn-primary">Send a Message</a>
+        <a href="/cdn-cgi/l/email-protection#74181115061a0011171c160d1911341319151d185a171b194b0701161e11170049371b1a070118001d1a13543d1a05011d060d52161b100d493c1118181b58543d5403151a0054001b54101d071701070754155404061b1e11170054031d001c540d1b015a" class="btn-primary">Send a Message</a>
       </div>
     </div>
   </div>

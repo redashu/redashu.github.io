@@ -3,261 +3,33 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Ashutoshh Singh - Lead Cloud and Data Platform Architect, DevOps consultant, and corporate trainer with 15+ years of experience."/>
 <title>Ashutoshh Singh — Lead Devops & Data Platform Architect | Corporate Trainer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:wght@400;600;700&display=swap" rel="stylesheet"/>
 <script type="text/javascript" src="https://js-cdn.dynatrace.com/jstag/1547c029d8c/bf96698ipk/3ed8f9ea52c4d3cd_complete.js" crossorigin="anonymous"></script>
-<style>
-  :root {
-    --navy:   #0B1F3A;
-    --navy2:  #112540;
-    --accent: #2563EB;
-    --accent2:#1D4ED8;
-    --txt:    #1E293B;
-    --txt2:   #475569;
-    --txt3:   #94A3B8;
-    --line:   #E2E8F0;
-    --bg:     #F8FAFC;
-    --white:  #FFFFFF;
-    --tag-bg: #EFF6FF;
-    --tag-txt:#1E40AF;
-  }
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body {
-    background: var(--bg);
-    color: var(--txt);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top:0; left:0; right:0; z-index:100;
-    background: rgba(255,255,255,0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
-    padding: 0 2.5rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
-  }
-  .nav-logo {
-    font-family: 'Fraunces', serif;
-    letter-spacing: -.01em;
-    font-size: 1.1rem; font-weight: 700;
-  }
-  .nav-logo a {
-    text-decoration: none;
-    color: var(--navy);
-  }
-  .nav-links { display:flex; gap:2.5rem; list-style:none; }
-  .nav-links a { color:var(--txt2); text-decoration:none; font-size:.85rem; font-weight:400; transition:color .15s; }
-  .nav-links a:hover { color:#2563EB; }
-  .nav-cta {
-    display: flex;
-    gap: 12px;
-  }
-  .nav-cta a {
-    padding:.5rem 1.2rem;
-    background:var(--accent2); color:#fff; text-decoration:none;
-    font-size:.83rem; font-weight:500;
-    border-radius:6px; transition:background .15s;
-  }
-  .nav-cta a:hover { background:var(--accent); }
-
-  /* LAYOUT */
-  .container { max-width:1080px; margin:0 auto; padding:0 2.5rem; }
-
-  /* HERO */
-  #hero { background:var(--navy); padding:5.5rem 2.5rem 5rem; color:#fff; }
-  .hero-inner {
-    max-width:1080px; margin:0 auto;
-    display:grid; grid-template-columns:1fr 320px; gap:5rem; align-items:center;
-  }
-  .hero-eyebrow {
-    display:inline-flex; align-items:center; gap:.6rem;
-    font-size:.75rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
-    color:#93C5FD; margin-bottom:1.25rem;
-  }
-  .hero-eyebrow span { display:inline-block; width:20px; height:1px; background:#93C5FD; }
-  h1 {
-    font-family:'Fraunces',serif; font-size:clamp(2rem,3.5vw,2.75rem);
-    font-weight:700; line-height:1.15; color:#fff; letter-spacing:-.02em; margin-bottom:.5rem;
-  }
-  .hero-sub { font-size:.975rem; color:#94A3B8; font-weight:300; line-height:1.85; max-width:500px; margin-bottom:2.25rem; }
-  .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
-  .btn-primary {
-    background:#2563EB; color:#fff; text-decoration:none;
-    font-size:.875rem; font-weight:500; padding:.7rem 1.5rem; border-radius:6px; transition:background .15s;
-  }
-  .btn-primary:hover { background:#1D4ED8; }
-  .btn-ghost {
-    background:transparent; color:#CBD5E1; text-decoration:none;
-    font-size:.875rem; font-weight:400; padding:.7rem 1.5rem; border-radius:6px;
-    border:1px solid rgba(255,255,255,.15); transition:all .15s;
-  }
-  .btn-ghost:hover { border-color:rgba(255,255,255,.3); color:#fff; }
-
-  /* Hero card */
-  .hero-card {
-    /* background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; */
-    background: transparent;
-    display: flex;  flex-direction: column;  align-items: center;
-  }
-  .avatar {
-    width:350px; height:350px; border-radius:50%; background:var(--accent);
-    display:flex; align-items:center; justify-content:center; overflow: hidden;
-    font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; color:#fff;
-    margin-bottom:1rem;
-  }
-  .avatar img {
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .hero-name { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; color:#fff; margin-bottom:.2rem; }
-  .hero-title-sm { font-size:.8rem; color:#64748B; margin-bottom:1.4rem; }
-  .divider { height:1px; background:rgba(255,255,255,.08); margin:1.25rem 0; }
-  .stat-row {  display: grid;  grid-template-columns: repeat(4, 1fr);  gap: .5rem;  margin-top: -2rem;}
-  .stat-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;  display: flex;  flex-direction: column;  align-items: center; justify-content: center; height: 75px; /* equal height */  text-align: center; transition: all 0.25s ease;}
-  .stat-box:hover {  transform: translateY(-4px);  background: rgba(255,255,255,0.1);}
-  .stat-num {  font-family:'Fraunces',serif;  font-size: 1rem;  font-weight: 700;  color: #fff;}
-  .stat-label { font-size: 0.72rem;  color: #94A3B8;  margin-top: 3px;}
-
-  /* SECTION */
-  .section-wrap { padding:5.5rem 0; }
-  .section-wrap.alt { background:var(--white); }
-  .eyebrow { font-size:.73rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#2563EB; margin-bottom:.55rem; }
-  h2 {
-    font-family:'Fraunces',serif; font-size:clamp(1.7rem,3.5vw,2.25rem);
-    font-weight:700; color:var(--navy); letter-spacing:-.02em; line-height:1.2; margin-bottom:.55rem;
-  }
-  .section-intro { font-size:.92rem; color:var(--txt2); max-width:540px; font-weight:300; margin-bottom:2.75rem; line-height:1.8; }
-
-  /* ABOUT */
-  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
-  .about-text p { color:var(--txt2); font-size:.92rem; font-weight:300; line-height:1.9; margin-bottom:.9rem; }
-  .cert-group-label { font-size:.71rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--txt3); margin-bottom:.85rem; }
-  .cert-list { display:flex; flex-direction:column; gap:.45rem; }
-  .cert-item {
-    display:flex; align-items:flex-start; gap:.7rem;
-    padding:.7rem 1rem; background:var(--bg); border:1px solid var(--line); border-radius:8px;
-    font-size:.83rem; color:var(--txt2); line-height:1.5;
-  }
-  .cert-dot { width:5px; height:5px; border-radius:50%; background:#2563EB; flex-shrink:0; margin-top:.45rem; }
-
-  /* SKILLS */
-  .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; }
-  .skill-card {
-    background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.4rem;
-    transition:box-shadow .2s, border-color .2s;
-  }
-  .skill-card:hover { border-color:#BFDBFE; box-shadow:0 4px 18px rgba(37,99,235,.07); }
-  .skill-card-top { display:flex; align-items:center; gap:.7rem; margin-bottom:1rem; padding-bottom:.95rem; border-bottom:1px solid var(--line); }
-  .skill-icon-box { width:32px; height:32px; border-radius:7px; background:var(--tag-bg); display:flex; align-items:center; justify-content:center; font-size:.9rem; flex-shrink:0; }
-  .skill-card h3 { font-size:.85rem; font-weight:600; color:var(--navy); }
-  .tags { display:flex; flex-wrap:wrap; gap:.35rem; }
-  .tag { background:var(--tag-bg); color:var(--tag-txt); border-radius:4px; padding:.18rem .6rem; font-size:.73rem; font-weight:500; }
-
-  /* EXPERIENCE */
-  .timeline { display:flex; flex-direction:column; }
-  .tl-item { display:grid; grid-template-columns:160px 1fr; gap:2rem; position:relative; padding-bottom:2.25rem; }
-  .tl-item:last-child { padding-bottom:0; }
-  .tl-line { position:absolute; left:159px; top:12px; bottom:0; width:1px; background:var(--line); }
-  .tl-item:last-child .tl-line { display:none; }
-  .tl-dot { position:absolute; left:153px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--white); border:2px solid #2563EB; z-index:1; }
-  .tl-date { text-align:right; padding-top:.15rem; margin-right: 8.5px; font-size:.76rem; font-weight:500; color:var(--txt3); letter-spacing:.02em; }
-  .tl-body { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.35rem 1.5rem; margin-left:.5rem; }
-  .tl-role { font-size:.92rem; font-weight:600; color:var(--navy); margin-bottom:.2rem; }
-  .tl-company { font-size:.8rem; font-weight:500; color:#2563EB; margin-bottom:.75rem; }
-  .tl-desc { font-size:.85rem; color:var(--txt2); font-weight:300; line-height:1.8; }
-
-  /* PROJECTS */
-  .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; }
-  .proj-card {
-    background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.5rem;
-    display:flex; flex-direction:column; transition:box-shadow .2s, border-color .2s;
-    border-top:3px solid #2563EB;
-  }
-  .proj-card:hover { border-color:#2563EB; box-shadow:0 4px 18px rgba(37,99,235,.07); }
-  .proj-num { font-size:.71rem; font-weight:600; letter-spacing:.08em; color:var(--txt3); text-transform:uppercase; margin-bottom:.65rem; }
-  .proj-card h3 { font-family:'Fraunces',serif; font-size:.97rem; font-weight:600; color:var(--navy); margin-bottom:.55rem; line-height:1.3; }
-  .proj-card p { font-size:.83rem; color:var(--txt2); font-weight:300; line-height:1.8; flex:1; margin-bottom:.9rem; }
-
-  /* CLIENTS */
-  #clients { padding:3.5rem 0; background:var(--white); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .clients-eyebrow { text-align:center; font-size:.71rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--txt3); margin-bottom:1.5rem; }
-  .marquee-wrap { overflow:hidden; mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent); }
-  .marquee { display:flex; gap:1.5rem; animation:scroll 30s linear infinite; width:max-content; }
-  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-  .client-pill {
-    background:var(--bg); border:1px solid gray; border-radius:5px;
-    padding:.45rem 1.35rem; font-size:.9rem; color:var(--txt2); font-weight:500; white-space:nowrap;
-  }
-
-  /* CERTIFICATIONS */
-  .cert-full-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.65rem; }
-  .cert-full-item {
-    background:var(--bg); border:1px solid var(--line); border-radius:7px;
-    padding:.8rem 1rem; font-size:.8rem; color:var(--txt2); font-weight:400;
-    display:flex; align-items:flex-start; gap:.6rem; line-height:1.45;
-  }
-  .cert-full-item::before { content:''; width:5px; height:5px; border-radius:50%; background:#2563EB; flex-shrink:0; margin-top:.42rem; }
-
-  /* EDUCATION */
-  .edu-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:2rem; }
-  .edu-card { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.5rem; }
-  .edu-icon { width:38px; height:38px; background:var(--tag-bg); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.95rem; margin-bottom:.9rem; }
-  .edu-card h3 { font-size:.88rem; font-weight:600; color:var(--navy); margin-bottom:.25rem; }
-  .edu-sub { font-size:.78rem; color:#2563EB; font-weight:500; margin-bottom:.55rem; }
-  .edu-card p { font-size:.82rem; color:var(--txt2); font-weight:300; line-height:1.7; }
-
-  /* CONTACT */
-  #contact { background:var(--navy); padding:6rem 0; }
-  .contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
-  #contact h2 { color:#fff; }
-  #contact .section-intro { color:#94A3B8; }
-  .contact-links { display:flex; flex-direction:column; gap:.75rem; }
-  .contact-link {
-    display:flex; align-items:center; gap:.9rem;
-    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
-    border-radius:8px; padding:.95rem 1.2rem; text-decoration:none; color:#fff; transition:all .15s;
-  }
-  .contact-link:hover { background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2); }
-  .contact-link-ico { width:34px; height:34px; background:rgba(255,255,255,.07); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:.85rem; flex-shrink:0; }
-  .cl-label { font-size:.7rem; color:#64748B; margin-bottom:.1rem; }
-  .cl-value { font-size:.85rem; font-weight:500; color:#E2E8F0; }
-  .contact-cta { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:2.25rem; }
-  .contact-cta h3 { font-family:'Fraunces',serif; font-size:1.35rem; font-weight:700; color:#fff; margin-bottom:.7rem; line-height:1.25; }
-  .contact-cta p { font-size:.88rem; color:#94A3B8; font-weight:300; margin-bottom:1.5rem; line-height:1.8; }
-
-  /* FOOTER */
-  footer { padding:1.6rem 2.5rem; text-align:center; background:#071529; font-size:.78rem; color:#475569; border-top:1px solid rgba(255,255,255,.06); }
-
-  /* RESPONSIVE */
-  @media(max-width:900px){
-    .hero-inner,.about-grid,.contact-inner { grid-template-columns:1fr; }
-    .hero-card { display:none; }
-    .skills-grid,.projects-grid,.cert-full-grid,.edu-grid { grid-template-columns:1fr 1fr; }
-    .tl-item { grid-template-columns:1fr; }
-    .tl-date,.tl-dot,.tl-line { display:none; }
-    .tl-body { margin-left:0; }
-  }
-  @media(max-width:600px){
-    .skills-grid,.projects-grid,.cert-full-grid,.edu-grid { grid-template-columns:1fr; }
-    nav .nav-links { display:none; }
-    .container { padding:0 1.25rem; }
-  }
-</style>
+<script>
+  (function () {
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      var prefersDark = globalThis.matchMedia && globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
+      var activeTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.dataset.theme = activeTheme;
+    } catch {
+      document.documentElement.dataset.theme = 'light';
+    }
+  })();
+</script>
+<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
+<a href="#about" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
+
 <nav>
   <div class="nav-logo">
-    <a href="https://github.com/redashu" target="_blank" aria-label="GitHub Profile" style="display:flex;align-items:center;color:var(--navy);text-decoration:none;">
+    <a href="https://github.com/redashu" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" style="display:flex;align-items:center;color:var(--navy);text-decoration:none;">
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
       </svg>
@@ -272,6 +44,7 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-cta">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch between dark and light theme">Dark</button>
     <a href="portfolio.pdf" download>Download CV</a>
     <a href="#contact">Get in Touch</a>
   </div>
@@ -292,10 +65,9 @@
     <div class="hero-card">
       <div style="display: flex; align-items: center; justify-content: center;">
         <div class="avatar">
-          <img src="https://avatars.githubusercontent.com/u/8552914?v=4" alt="Profile Pic">
+          <img src="https://avatars.githubusercontent.com/u/8552914?v=4" alt="Ashutoshh Singh" loading="lazy" decoding="async">
         </div>
       </div>
-      <!-- <div class="hero-name">Ashutoshh Singh</div> -->
       <div class="hero-title-sm">Jaipur, India &nbsp;·&nbsp; RHCA #120-053-087</div>
       <div class="divider"></div>
       <div class="stat-row">
@@ -313,8 +85,8 @@
     <div class="clients-eyebrow">Trusted by 100+ global enterprises</div>
     <div class="marquee-wrap">
    <div class="marquee">
-        <span class="client-pill">Cisco Systems</span> <span class="client-pill">JCI</span>  <span class="client-pill">Fiserv</span> <span class="client-pill">CLoud4C</span> <span class="client-pill">Oracle India</span><span class="client-pill">Ernst &amp; Young</span><span class="client-pill">JP Morgan Chase</span><span class="client-pill">Walmart</span><span class="client-pill">BMO</span><span class="client-pill">Mobileum</span><span class="client-pill">TCS</span><span class="client-pill">Wipro</span><span class="client-pill">Infosys</span><span class="client-pill">Microsoft</span><span class="client-pill">Red Hat</span><span class="client-pill">Accenture</span><span class="client-pill">Deloitte</span><span class="client-pill">Capgemini</span><span class="client-pill">Adobe</span><span class="client-pill">Salesforce</span><span class="client-pill">Vodafone</span><span class="client-pill">Ericsson</span><span class="client-pill">Fidelity</span><span class="client-pill">Honeywell</span><span class="client-pill">Roche</span><span class="client-pill">NASA</span><span class="client-pill">USPTO</span><span class="client-pill">USGS</span><span class="client-pill">Bank of America</span><span class="client-pill">Blue Cross &amp; Blue Shield</span><span class="client-pill">CGI</span><span class="client-pill">Epsilon</span><span class="client-pill">Mercedes-Benz</span><span class="client-pill">Siemens</span><span class="client-pill">Orange</span><span class="client-pill">BFC Systems</span><span class="client-pill">Aristocrat</span><span class="client-pill">Unisys</span><span class="client-pill">LKQ</span><span class="client-pill">Rakuten Symphony</span><span class="client-pill">Eurofins</span>
-        <span class="client-pill">Cisco Systems</span> <span class="client-pill">JCI</span>  <span class="client-pill">Fiserv</span> <span class="client-pill">CLoud4C</span> <span class="client-pill">Oracle India</span><span class="client-pill">Ernst &amp; Young</span><span class="client-pill">JP Morgan Chase</span><span class="client-pill">Walmart</span><span class="client-pill">BMO</span><span class="client-pill">Mobileum</span><span class="client-pill">TCS</span><span class="client-pill">Wipro</span><span class="client-pill">Infosys</span><span class="client-pill">Microsoft</span><span class="client-pill">Red Hat</span><span class="client-pill">Accenture</span><span class="client-pill">Deloitte</span><span class="client-pill">Capgemini</span><span class="client-pill">Adobe</span><span class="client-pill">Salesforce</span><span class="client-pill">Vodafone</span><span class="client-pill">Ericsson</span><span class="client-pill">Fidelity</span><span class="client-pill">Honeywell</span><span class="client-pill">Roche</span><span class="client-pill">NASA</span><span class="client-pill">USPTO</span><span class="client-pill">USGS</span><span class="client-pill">Bank of America</span><span class="client-pill">Blue Cross &amp; Blue Shield</span><span class="client-pill">CGI</span><span class="client-pill">Epsilon</span><span class="client-pill">Mercedes-Benz</span><span class="client-pill">Siemens</span><span class="client-pill">Orange</span><span class="client-pill">BFC Systems</span><span class="client-pill">Aristocrat</span><span class="client-pill">Unisys</span><span class="client-pill">LKQ</span><span class="client-pill">Rakuten Symphony</span><span class="client-pill">Eurofins</span>
+        <span class="client-pill">Cisco Systems</span> <span class="client-pill">JCI</span>  <span class="client-pill">Fiserv</span> <span class="client-pill">Cloud4C</span> <span class="client-pill">Oracle India</span><span class="client-pill">Ernst &amp; Young</span><span class="client-pill">JP Morgan Chase</span><span class="client-pill">Walmart</span><span class="client-pill">BMO</span><span class="client-pill">Mobileum</span><span class="client-pill">TCS</span><span class="client-pill">Wipro</span><span class="client-pill">Infosys</span><span class="client-pill">Microsoft</span><span class="client-pill">Red Hat</span><span class="client-pill">Accenture</span><span class="client-pill">Deloitte</span><span class="client-pill">Capgemini</span><span class="client-pill">Adobe</span><span class="client-pill">Salesforce</span><span class="client-pill">Vodafone</span><span class="client-pill">Ericsson</span><span class="client-pill">Fidelity</span><span class="client-pill">Honeywell</span><span class="client-pill">Roche</span><span class="client-pill">NASA</span><span class="client-pill">USPTO</span><span class="client-pill">USGS</span><span class="client-pill">Bank of America</span><span class="client-pill">Blue Cross &amp; Blue Shield</span><span class="client-pill">CGI</span><span class="client-pill">Epsilon</span><span class="client-pill">Mercedes-Benz</span><span class="client-pill">Siemens</span><span class="client-pill">Orange</span><span class="client-pill">BFC Systems</span><span class="client-pill">Aristocrat</span><span class="client-pill">Unisys</span><span class="client-pill">LKQ</span><span class="client-pill">Rakuten Symphony</span><span class="client-pill">Eurofins</span><span class="client-pill">Euroclear</span>
+        <span class="client-pill">Cisco Systems</span> <span class="client-pill">JCI</span>  <span class="client-pill">Fiserv</span> <span class="client-pill">Cloud4C</span> <span class="client-pill">Oracle India</span><span class="client-pill">Ernst &amp; Young</span><span class="client-pill">JP Morgan Chase</span><span class="client-pill">Walmart</span><span class="client-pill">BMO</span><span class="client-pill">Mobileum</span><span class="client-pill">TCS</span><span class="client-pill">Wipro</span><span class="client-pill">Infosys</span><span class="client-pill">Microsoft</span><span class="client-pill">Red Hat</span><span class="client-pill">Accenture</span><span class="client-pill">Deloitte</span><span class="client-pill">Capgemini</span><span class="client-pill">Adobe</span><span class="client-pill">Salesforce</span><span class="client-pill">Vodafone</span><span class="client-pill">Ericsson</span><span class="client-pill">Fidelity</span><span class="client-pill">Honeywell</span><span class="client-pill">Roche</span><span class="client-pill">NASA</span><span class="client-pill">USPTO</span><span class="client-pill">USGS</span><span class="client-pill">Bank of America</span><span class="client-pill">Blue Cross &amp; Blue Shield</span><span class="client-pill">CGI</span><span class="client-pill">Epsilon</span><span class="client-pill">Mercedes-Benz</span><span class="client-pill">Siemens</span><span class="client-pill">Orange</span><span class="client-pill">BFC Systems</span><span class="client-pill">Aristocrat</span><span class="client-pill">Unisys</span><span class="client-pill">LKQ</span><span class="client-pill">Rakuten Symphony</span><span class="client-pill">Eurofins</span><span class="client-pill">Euroclear</span>
       </div>
     </div>
   </div>
@@ -564,7 +336,7 @@
             <div class="contact-link-ico">📧</div>
             <div><div class="cl-label">Primary Email</div><div class="cl-value" id="email1-val"></div></div>
           </a>
-          <a href="https://www.linkedin.com/in/ashutoshh" target="_blank" class="contact-link">
+          <a href="https://www.linkedin.com/in/ashutoshh" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Open LinkedIn profile in a new tab">
             <div class="contact-link-ico">💼</div>
             <div><div class="cl-label">LinkedIn</div><div class="cl-value">linkedin.com/in/ashutoshh</div></div>
           </a>
@@ -584,7 +356,7 @@
 </section>
 
 <footer>
-  Ashutoshh Singh &nbsp;·&nbsp; Red Hat Certified Architect &nbsp;·&nbsp; Databricks Certified Data Engineer &nbsp;·&nbsp; RHCA #120-053-087 &nbsp;·&nbsp; © 2025
+  Ashutoshh Singh &nbsp;·&nbsp; Red Hat Certified Architect &nbsp;·&nbsp; Databricks Certified Data Engineer &nbsp;·&nbsp; RHCA #120-053-087 &nbsp;·&nbsp; © 2026
 </footer>
 
 <script>
@@ -595,6 +367,28 @@
     document.getElementById('email2-val').textContent = e2;
     document.getElementById('email1-link').href = 'mailto:' + e1;
     document.getElementById('email2-link').href = 'mailto:' + e2;
+
+    var root = document.documentElement;
+    var themeToggle = document.getElementById('theme-toggle');
+
+    function updateThemeToggleLabel(theme) {
+      themeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
+      themeToggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' theme');
+    }
+
+    function setTheme(theme) {
+      root.dataset.theme = theme;
+      localStorage.setItem('theme', theme);
+      updateThemeToggleLabel(theme);
+    }
+
+    var initialTheme = root.dataset.theme || 'light';
+    updateThemeToggleLabel(initialTheme);
+
+    themeToggle.addEventListener('click', function () {
+      var currentTheme = root.dataset.theme || 'light';
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
   })();
 </script>
 </body>

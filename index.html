@@ -384,6 +384,14 @@
       return 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + alpha + ')';
     }
 
+    function moveParticle(particle, width, height) {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+
+      if (particle.x <= 0 || particle.x >= width) particle.vx *= -1;
+      if (particle.y <= 0 || particle.y >= height) particle.vy *= -1;
+    }
+
     function initHeroBackground() {
       var canvas = document.getElementById('hero-bg-canvas');
       var hero = document.getElementById('hero');
@@ -397,26 +405,100 @@
       var particles = [];
       var palette = null;
       var rafId = null;
-      var maxLinkDistance = 120;
+      var maxLinkDistance = 148;
+      var audioCtx = null;
+      var masterGain = null;
+      var audioUnlocked = false;
+      var lastHoverToneAt = 0;
+      var pointer = {
+        active: false,
+        x: 0,
+        y: 0,
+        radius: 180,
+        force: 0.035
+      };
+
+      function ensureAudioGraph() {
+        var AudioCtor = globalThis.AudioContext || globalThis.webkitAudioContext;
+        if (!AudioCtor) return false;
+
+        if (!audioCtx) {
+          audioCtx = new AudioCtor();
+          masterGain = audioCtx.createGain();
+          masterGain.gain.value = 0.045;
+          masterGain.connect(audioCtx.destination);
+        }
+
+        return true;
+      }
+
+      function unlockAudio() {
+        if (!ensureAudioGraph() || !audioCtx) return;
+
+        if (audioCtx.state === 'running') {
+          audioUnlocked = true;
+          return;
+        }
+
+        audioCtx.resume().then(function () {
+          audioUnlocked = true;
+        }).catch(function () {
+          audioUnlocked = false;
+        });
+      }
+
+      function playTone(type, frequency, duration, volume) {
+        if (!audioUnlocked || !audioCtx || !masterGain) return;
+
+        var now = audioCtx.currentTime;
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(frequency, now);
+        osc.frequency.exponentialRampToValueAtTime(Math.max(120, frequency * 0.85), now + duration);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(masterGain);
+
+        osc.start(now);
+        osc.stop(now + duration + 0.03);
+      }
+
+      function playHoverTone() {
+        var nowMs = Date.now();
+        if (nowMs - lastHoverToneAt < 280) return;
+
+        lastHoverToneAt = nowMs;
+        playTone('sine', 620 + Math.random() * 120, 0.08, 0.03);
+      }
+
+      function playClickTone() {
+        playTone('triangle', 420, 0.12, 0.05);
+      }
 
       function setPalette() {
         var styles = getComputedStyle(document.documentElement);
         palette = {
-          dot: rgbaFromVar(styles, '--accent-soft', 0.48, '#FDBA74'),
-          line: rgbaFromVar(styles, '--accent', 0.18, '#FF6B57'),
-          haze: rgbaFromVar(styles, '--accent', 0.1, '#FF6B57')
+          dot: rgbaFromVar(styles, '--accent-soft', 0.56, '#FDBA74'),
+          lineRgb: hexToRgb(styles.getPropertyValue('--accent')) || hexToRgb('#FF6B57'),
+          haze: rgbaFromVar(styles, '--accent', 0.14, '#FF6B57')
         };
       }
 
       function createParticle(width, height) {
-        var speedX = (Math.random() - 0.5) * 0.45;
-        var speedY = (Math.random() - 0.5) * 0.45;
+        var speedX = (Math.random() - 0.5) * 0.52;
+        var speedY = (Math.random() - 0.5) * 0.52;
         return {
           x: Math.random() * width,
           y: Math.random() * height,
           vx: speedX,
           vy: speedY,
-          r: Math.random() * 2.8 + 0.7
+          r: Math.random() * 2.9 + 0.7
         };
       }
 
@@ -431,7 +513,7 @@
         canvas.style.height = height + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        var targetCount = Math.max(18, Math.min(42, Math.floor(width / 38)));
+        var targetCount = Math.max(24, Math.min(56, Math.floor(width / 30)));
         if (particles.length < targetCount) {
           while (particles.length < targetCount) {
             particles.push(createParticle(width, height));
@@ -442,11 +524,62 @@
       }
 
       function drawHaze(width, height) {
-        var gradient = ctx.createRadialGradient(width * 0.78, height * 0.24, width * 0.05, width * 0.78, height * 0.24, width * 0.55);
+        var gradient = ctx.createRadialGradient(width * 0.76, height * 0.22, width * 0.03, width * 0.76, height * 0.22, width * 0.5);
         gradient.addColorStop(0, palette.haze);
         gradient.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, width, height);
+      }
+
+      function applyPointerInfluence(particle) {
+        if (!pointer.active) return;
+
+        var pdx = pointer.x - particle.x;
+        var pdy = pointer.y - particle.y;
+        var pDist = Math.hypot(pdx, pdy);
+
+        if (pDist >= pointer.radius || pDist <= 0.001) return;
+
+        var influence = (1 - pDist / pointer.radius) * pointer.force;
+        particle.vx += (pdx / pDist) * influence;
+        particle.vy += (pdy / pDist) * influence;
+      }
+
+      function capParticleSpeed(particle) {
+        particle.vx *= 0.985;
+        particle.vy *= 0.985;
+
+        var maxSpeed = 0.9;
+        var speed = Math.hypot(particle.vx, particle.vy);
+        if (speed > maxSpeed) {
+          particle.vx = (particle.vx / speed) * maxSpeed;
+          particle.vy = (particle.vy / speed) * maxSpeed;
+        }
+      }
+
+      function drawParticle(particle) {
+        ctx.beginPath();
+        ctx.fillStyle = palette.dot;
+        ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function drawParticleLinks(particle, particleIndex) {
+        for (var j = particleIndex + 1; j < particles.length; j += 1) {
+          var other = particles[j];
+          var dx = particle.x - other.x;
+          var dy = particle.y - other.y;
+          var dist = Math.hypot(dx, dy);
+          if (dist < maxLinkDistance) {
+            var opacity = (1 - dist / maxLinkDistance) * 0.6;
+            ctx.strokeStyle = 'rgba(' + palette.lineRgb.r + ',' + palette.lineRgb.g + ',' + palette.lineRgb.b + ',' + (0.08 + opacity).toFixed(2) + ')';
+            ctx.lineWidth = 0.95;
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(other.x, other.y);
+            ctx.stroke();
+          }
+        }
       }
 
       function animate() {
@@ -457,32 +590,11 @@
 
         for (var i = 0; i < particles.length; i += 1) {
           var p = particles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x <= 0 || p.x >= width) p.vx *= -1;
-          if (p.y <= 0 || p.y >= height) p.vy *= -1;
-
-          ctx.beginPath();
-          ctx.fillStyle = palette.dot;
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
-
-          for (var j = i + 1; j < particles.length; j += 1) {
-            var q = particles[j];
-            var dx = p.x - q.x;
-            var dy = p.y - q.y;
-            var dist = Math.hypot(dx, dy);
-            if (dist < maxLinkDistance) {
-              var opacity = (1 - dist / maxLinkDistance) * 0.5;
-              ctx.strokeStyle = palette.line.replace(/0\.18\)$/, (0.05 + opacity).toFixed(2) + ')');
-              ctx.lineWidth = 0.8;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.stroke();
-            }
-          }
+          applyPointerInfluence(p);
+          capParticleSpeed(p);
+          moveParticle(p, width, height);
+          drawParticle(p);
+          drawParticleLinks(p, i);
         }
 
         rafId = globalThis.requestAnimationFrame(animate);
@@ -491,6 +603,27 @@
       setPalette();
       resize();
       animate();
+
+      function setPointerFromEvent(evt) {
+        var rect = hero.getBoundingClientRect();
+        pointer.active = true;
+        pointer.x = evt.clientX - rect.left;
+        pointer.y = evt.clientY - rect.top;
+      }
+
+      hero.addEventListener('mousemove', setPointerFromEvent);
+      hero.addEventListener('mouseenter', function (evt) {
+        setPointerFromEvent(evt);
+        playHoverTone();
+      });
+      hero.addEventListener('mouseleave', function () {
+        pointer.active = false;
+      });
+      hero.addEventListener('click', function () {
+        unlockAudio();
+        playClickTone();
+      });
+      hero.addEventListener('pointerdown', unlockAudio);
 
       globalThis.addEventListener('resize', resize);
       document.addEventListener('visibilitychange', function () {

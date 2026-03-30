@@ -180,7 +180,9 @@
     display:flex; align-items:flex-start; gap:.7rem;
     padding:.7rem 1rem; background:var(--bg); border:1px solid var(--line); border-radius:8px;
     font-size:.83rem; color:var(--txt2); line-height:1.5;
+    transition:box-shadow .2s, border-color .2s;
   }
+  .cert-item:hover { border-color:var(--accent-soft); box-shadow:0 4px 18px var(--accent-shadow); }
   .cert-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.45rem; }
 
   /* SKILLS */
@@ -204,7 +206,11 @@
   .tl-item:last-child .tl-line { display:none; }
   .tl-dot { position:absolute; left:153px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--white); border:2px solid var(--accent); z-index:1; }
   .tl-date { text-align:right; padding-top:.15rem; margin-right: 8.5px; font-size:.76rem; font-weight:500; color:var(--txt3); letter-spacing:.02em; }
-  .tl-body { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.35rem 1.5rem; margin-left:.5rem; }
+  .tl-body {
+    background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.35rem 1.5rem; margin-left:.5rem;
+    transition:box-shadow .2s, border-color .2s;
+  }
+  .tl-item:hover .tl-body { border-color:var(--accent-soft); box-shadow:0 4px 18px var(--accent-shadow); }
   .tl-role { font-size:.92rem; font-weight:600; color:var(--heading); margin-bottom:.2rem; }
   .tl-company { font-size:.8rem; font-weight:500; color:var(--accent); margin-bottom:.75rem; }
   .tl-desc { font-size:.85rem; color:var(--txt2); font-weight:300; line-height:1.8; }
@@ -238,12 +244,18 @@
     background:var(--bg); border:1px solid var(--line); border-radius:7px;
     padding:.8rem 1rem; font-size:.8rem; color:var(--txt2); font-weight:400;
     display:flex; align-items:flex-start; gap:.6rem; line-height:1.45;
+    transition:box-shadow .2s, border-color .2s;
   }
+  .cert-full-item:hover { border-color:var(--accent-soft); box-shadow:0 4px 18px var(--accent-shadow); }
   .cert-full-item::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.42rem; }
 
   /* EDUCATION */
   .edu-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; margin-top:2rem; }
-  .edu-card { background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.5rem; }
+  .edu-card {
+    background:var(--white); border:1px solid var(--line); border-radius:10px; padding:1.5rem;
+    transition:box-shadow .2s, border-color .2s;
+  }
+  .edu-card:hover { border-color:var(--accent-soft); box-shadow:0 4px 18px var(--accent-shadow); }
   .edu-icon { width:38px; height:38px; background:var(--tag-bg); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.95rem; margin-bottom:.9rem; }
   .edu-card h3 { font-size:.88rem; font-weight:600; color:var(--heading); margin-bottom:.25rem; }
   .edu-sub { font-size:.78rem; color:var(--accent); font-weight:500; margin-bottom:.55rem; }
@@ -260,11 +272,15 @@
     background:#1B2F4A; border:1px solid #2D4566;
     border-radius:8px; padding:.95rem 1.2rem; text-decoration:none; color:#F8FAFC; transition:all .15s;
   }
-  .contact-link:hover { background:#243B5A; border-color:#3B5A83; }
+  .contact-link:hover { background:#243B5A; border-color:var(--accent-soft); box-shadow:0 4px 18px var(--accent-shadow); }
   .contact-link-ico { width:34px; height:34px; background:rgba(255,255,255,.07); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:.85rem; flex-shrink:0; }
   .cl-label { font-size:.7rem; color:var(--txt3); margin-bottom:.1rem; }
   .cl-value { font-size:.85rem; font-weight:500; color:#E2E8F0; }
-  .contact-cta { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:2.25rem; }
+  .contact-cta {
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:2.25rem;
+    transition:box-shadow .2s, border-color .2s;
+  }
+  .contact-cta:hover { border-color:var(--accent-soft); box-shadow:0 4px 18px var(--accent-shadow); }
   .contact-cta h3 { font-family:'Fraunces',serif; font-size:1.35rem; font-weight:700; color:#fff; margin-bottom:.7rem; line-height:1.25; }
   .contact-cta p { font-size:.88rem; color:#94A3B8; font-weight:300; margin-bottom:1.5rem; line-height:1.8; }
 
@@ -300,10 +316,15 @@
     .marquee { animation: none; }
     .stat-box,
     .skill-card,
+    .tl-body,
     .proj-card,
+    .cert-item,
+    .cert-full-item,
+    .edu-card,
     .btn-primary,
     .btn-ghost,
     .contact-link,
+    .contact-cta,
     .nav-links a,
     .nav-cta a { transition: none !important; }
   }

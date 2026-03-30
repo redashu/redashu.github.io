@@ -405,86 +405,20 @@
       var particles = [];
       var palette = null;
       var rafId = null;
-      var maxLinkDistance = 148;
-      var audioCtx = null;
-      var masterGain = null;
-      var audioUnlocked = false;
-      var lastHoverToneAt = 0;
+      var maxLinkDistance = 172;
+      var startTime = performance.now();
       var pointer = {
         active: false,
         x: 0,
         y: 0,
-        radius: 180,
-        force: 0.035
+        radius: 210,
+        force: 0.04
       };
-
-      function ensureAudioGraph() {
-        var AudioCtor = globalThis.AudioContext || globalThis.webkitAudioContext;
-        if (!AudioCtor) return false;
-
-        if (!audioCtx) {
-          audioCtx = new AudioCtor();
-          masterGain = audioCtx.createGain();
-          masterGain.gain.value = 0.045;
-          masterGain.connect(audioCtx.destination);
-        }
-
-        return true;
-      }
-
-      function unlockAudio() {
-        if (!ensureAudioGraph() || !audioCtx) return;
-
-        if (audioCtx.state === 'running') {
-          audioUnlocked = true;
-          return;
-        }
-
-        audioCtx.resume().then(function () {
-          audioUnlocked = true;
-        }).catch(function () {
-          audioUnlocked = false;
-        });
-      }
-
-      function playTone(type, frequency, duration, volume) {
-        if (!audioUnlocked || !audioCtx || !masterGain) return;
-
-        var now = audioCtx.currentTime;
-        var osc = audioCtx.createOscillator();
-        var gain = audioCtx.createGain();
-
-        osc.type = type;
-        osc.frequency.setValueAtTime(frequency, now);
-        osc.frequency.exponentialRampToValueAtTime(Math.max(120, frequency * 0.85), now + duration);
-
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(volume, now + 0.012);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-        osc.connect(gain);
-        gain.connect(masterGain);
-
-        osc.start(now);
-        osc.stop(now + duration + 0.03);
-      }
-
-      function playHoverTone() {
-        var nowMs = Date.now();
-        if (nowMs - lastHoverToneAt < 280) return;
-
-        lastHoverToneAt = nowMs;
-        playTone('sine', 620 + Math.random() * 120, 0.08, 0.03);
-      }
-
-      function playClickTone() {
-        playTone('triangle', 420, 0.12, 0.05);
-      }
 
       function setPalette() {
         var styles = getComputedStyle(document.documentElement);
         palette = {
-          dot: rgbaFromVar(styles, '--accent-soft', 0.56, '#FDBA74'),
+          dotRgb: hexToRgb(styles.getPropertyValue('--accent-soft')) || hexToRgb('#FDBA74'),
           lineRgb: hexToRgb(styles.getPropertyValue('--accent')) || hexToRgb('#FF6B57'),
           haze: rgbaFromVar(styles, '--accent', 0.14, '#FF6B57')
         };
@@ -498,7 +432,10 @@
           y: Math.random() * height,
           vx: speedX,
           vy: speedY,
-          r: Math.random() * 2.9 + 0.7
+          r: Math.random() * 2.6 + 0.75,
+          baseAlpha: 0.32 + Math.random() * 0.22,
+          twinkleAmp: 0.07 + Math.random() * 0.09,
+          phase: Math.random() * Math.PI * 2
         };
       }
 
@@ -513,7 +450,7 @@
         canvas.style.height = height + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        var targetCount = Math.max(24, Math.min(56, Math.floor(width / 30)));
+        var targetCount = Math.max(28, Math.min(64, Math.floor(width / 26)));
         if (particles.length < targetCount) {
           while (particles.length < targetCount) {
             particles.push(createParticle(width, height));
@@ -558,8 +495,11 @@
       }
 
       function drawParticle(particle) {
+        var elapsed = (performance.now() - startTime) * 0.001;
+        var twinkle = particle.baseAlpha + Math.sin(elapsed * 2.2 + particle.phase) * particle.twinkleAmp;
+        var alpha = Math.max(0.16, Math.min(0.82, twinkle));
         ctx.beginPath();
-        ctx.fillStyle = palette.dot;
+        ctx.fillStyle = 'rgba(' + palette.dotRgb.r + ',' + palette.dotRgb.g + ',' + palette.dotRgb.b + ',' + alpha.toFixed(2) + ')';
         ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -571,9 +511,9 @@
           var dy = particle.y - other.y;
           var dist = Math.hypot(dx, dy);
           if (dist < maxLinkDistance) {
-            var opacity = (1 - dist / maxLinkDistance) * 0.6;
-            ctx.strokeStyle = 'rgba(' + palette.lineRgb.r + ',' + palette.lineRgb.g + ',' + palette.lineRgb.b + ',' + (0.08 + opacity).toFixed(2) + ')';
-            ctx.lineWidth = 0.95;
+            var opacity = (1 - dist / maxLinkDistance) * 0.72;
+            ctx.strokeStyle = 'rgba(' + palette.lineRgb.r + ',' + palette.lineRgb.g + ',' + palette.lineRgb.b + ',' + (0.07 + opacity).toFixed(2) + ')';
+            ctx.lineWidth = 1.02;
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(other.x, other.y);
@@ -614,16 +554,10 @@
       hero.addEventListener('mousemove', setPointerFromEvent);
       hero.addEventListener('mouseenter', function (evt) {
         setPointerFromEvent(evt);
-        playHoverTone();
       });
       hero.addEventListener('mouseleave', function () {
         pointer.active = false;
       });
-      hero.addEventListener('click', function () {
-        unlockAudio();
-        playClickTone();
-      });
-      hero.addEventListener('pointerdown', unlockAudio);
 
       globalThis.addEventListener('resize', resize);
       document.addEventListener('visibilitychange', function () {

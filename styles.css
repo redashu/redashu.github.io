@@ -151,7 +151,6 @@
     border:1px solid rgba(255,255,255,.15); transition:all .15s;
   }
   .btn-ghost:hover { border-color:rgba(255,255,255,.3); color:#fff; }
-
   /* Hero card */
   .hero-card {
     background: transparent;

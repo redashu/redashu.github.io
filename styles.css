@@ -107,10 +107,26 @@
   .container { max-width:1080px; margin:0 auto; padding:0 2.5rem; }
 
   /* HERO */
-  #hero { background:var(--hero-bg); padding:5.5rem 2.5rem 5rem; color:#fff; }
+  #hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:var(--hero-bg); padding:5.5rem 2.5rem 5rem; color:#fff;
+  }
+  .hero-bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .85;
+  }
   .hero-inner {
     max-width:1080px; margin:0 auto;
     display:grid; grid-template-columns:1fr 320px; gap:5rem; align-items:center;
+    position: relative;
+    z-index: 1;
   }
   .hero-eyebrow {
     display:inline-flex; align-items:center; gap:.6rem;
@@ -313,6 +329,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
+    .hero-bg-canvas { display: none; }
     .marquee { animation: none; }
     .stat-box,
     .skill-card,

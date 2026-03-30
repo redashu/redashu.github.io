@@ -51,6 +51,7 @@
 </nav>
 
 <section id="hero">
+  <canvas id="hero-bg-canvas" class="hero-bg-canvas"></canvas>
   <div class="hero-inner">
     <div>
       <div class="hero-eyebrow"><span></span>Available for Consulting &amp; Training</div>
@@ -361,6 +362,150 @@
 
 <script>
   (function(){
+    function hexToRgb(hex) {
+      if (!hex) return null;
+      var clean = hex.trim();
+      if (clean[0] === '#') clean = clean.slice(1);
+      if (clean.length === 3) {
+        clean = clean.split('').map(function (ch) { return ch + ch; }).join('');
+      }
+      if (clean.length !== 6) return null;
+      var value = Number.parseInt(clean, 16);
+      if (Number.isNaN(value)) return null;
+      return {
+        r: (value >> 16) & 255,
+        g: (value >> 8) & 255,
+        b: value & 255
+      };
+    }
+
+    function rgbaFromVar(styles, varName, alpha, fallbackHex) {
+      var rgb = hexToRgb(styles.getPropertyValue(varName)) || hexToRgb(fallbackHex);
+      return 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + alpha + ')';
+    }
+
+    function initHeroBackground() {
+      var canvas = document.getElementById('hero-bg-canvas');
+      var hero = document.getElementById('hero');
+      if (!canvas || !hero || !canvas.getContext) return;
+
+      var prefersReduced = globalThis.matchMedia && globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      var ctx = canvas.getContext('2d');
+      var dpr = Math.min(globalThis.devicePixelRatio || 1, 2);
+      var particles = [];
+      var palette = null;
+      var rafId = null;
+      var maxLinkDistance = 120;
+
+      function setPalette() {
+        var styles = getComputedStyle(document.documentElement);
+        palette = {
+          dot: rgbaFromVar(styles, '--accent-soft', 0.48, '#FDBA74'),
+          line: rgbaFromVar(styles, '--accent', 0.18, '#FF6B57'),
+          haze: rgbaFromVar(styles, '--accent', 0.1, '#FF6B57')
+        };
+      }
+
+      function createParticle(width, height) {
+        var speedX = (Math.random() - 0.5) * 0.45;
+        var speedY = (Math.random() - 0.5) * 0.45;
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: speedX,
+          vy: speedY,
+          r: Math.random() * 2.8 + 0.7
+        };
+      }
+
+      function resize() {
+        var rect = hero.getBoundingClientRect();
+        var width = Math.max(1, Math.floor(rect.width));
+        var height = Math.max(1, Math.floor(rect.height));
+
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        var targetCount = Math.max(18, Math.min(42, Math.floor(width / 38)));
+        if (particles.length < targetCount) {
+          while (particles.length < targetCount) {
+            particles.push(createParticle(width, height));
+          }
+        } else if (particles.length > targetCount) {
+          particles.length = targetCount;
+        }
+      }
+
+      function drawHaze(width, height) {
+        var gradient = ctx.createRadialGradient(width * 0.78, height * 0.24, width * 0.05, width * 0.78, height * 0.24, width * 0.55);
+        gradient.addColorStop(0, palette.haze);
+        gradient.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      function animate() {
+        var width = canvas.width / dpr;
+        var height = canvas.height / dpr;
+        ctx.clearRect(0, 0, width, height);
+        drawHaze(width, height);
+
+        for (var i = 0; i < particles.length; i += 1) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x <= 0 || p.x >= width) p.vx *= -1;
+          if (p.y <= 0 || p.y >= height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.fillStyle = palette.dot;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          for (var j = i + 1; j < particles.length; j += 1) {
+            var q = particles[j];
+            var dx = p.x - q.x;
+            var dy = p.y - q.y;
+            var dist = Math.hypot(dx, dy);
+            if (dist < maxLinkDistance) {
+              var opacity = (1 - dist / maxLinkDistance) * 0.5;
+              ctx.strokeStyle = palette.line.replace(/0\.18\)$/, (0.05 + opacity).toFixed(2) + ')');
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = globalThis.requestAnimationFrame(animate);
+      }
+
+      setPalette();
+      resize();
+      animate();
+
+      globalThis.addEventListener('resize', resize);
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden && rafId !== null) {
+          globalThis.cancelAnimationFrame(rafId);
+          rafId = null;
+          return;
+        }
+        if (!document.hidden && rafId === null) {
+          animate();
+        }
+      });
+      globalThis.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setPalette);
+    }
+
     var e1 = 'learntechbyme' + '@' + 'gmail.com';
     var e2 = 'ashutoshh' + '@' + 'linux.com';
     document.getElementById('email1-val').textContent = e1;
@@ -389,6 +534,8 @@
       var currentTheme = root.dataset.theme || 'light';
       setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
+
+    initHeroBackground();
   })();
 </script>
 </body>

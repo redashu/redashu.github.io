@@ -352,9 +352,20 @@
         </div>
       </div>
       <div class="contact-cta">
-        <h3>Available for Consulting &amp; Training</h3>
-        <p>Whether you need enterprise DevOps consulting, Databricks data platform implementation, Kubernetes security hardening, or hands-on GenAI training for your engineering team — I would be glad to help.</p>
-        <a href="/cdn-cgi/l/email-protection#74181115061a0011171c160d1911341319151d185a171b194b0701161e11170049371b1a070118001d1a13543d1a05011d060d52161b100d493c1118181b58543d5403151a0054001b54101d071701070754155404061b1e11170054031d001c540d1b015a" class="btn-primary">Send a Message</a>
+        <h3>No AI in the Loop — Just Me</h3>
+        <p>Every message here lands directly in my inbox — read and replied to by me, Ashutoshh Singh. No chatbot, no automated responder, no AI triaging your request.</p>
+        <div class="gform-wrap">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfI4M5GzkpDUoZCpukDrvBEPZlNphpgWIj8hw2xTnb2qx2kUw/viewform?embedded=true"
+            width="100%"
+            height="520"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Contact Ashutoshh Singh">
+            Loading form…
+          </iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -583,6 +594,32 @@
     document.getElementById('email2-val').textContent = e2;
     document.getElementById('email1-link').href = 'mailto:' + e1;
     document.getElementById('email2-link').href = 'mailto:' + e2;
+
+    globalThis.submitContactForm = function() {
+      var name    = document.getElementById('cf-name').value.trim();
+      var email   = document.getElementById('cf-email').value.trim();
+      var subject = document.getElementById('cf-subject').value.trim();
+      var message = document.getElementById('cf-message').value.trim();
+      var errEl   = document.getElementById('cf-error');
+
+      errEl.style.display = 'none';
+      errEl.textContent = '';
+
+      if (!name)    { errEl.textContent = 'Please enter your name.';    errEl.style.display='block'; return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = 'Please enter a valid email address.';
+        errEl.style.display = 'block'; return;
+      }
+      if (!message) { errEl.textContent = 'Please enter a message.';   errEl.style.display='block'; return; }
+
+      var sub  = subject || 'Consulting / Training Enquiry';
+      var body = 'Hi Ashutoshh,\n\n' + message + '\n\n---\nFrom: ' + name + '\nEmail: ' + email;
+      var mailto = 'mailto:' + e1 + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(body);
+
+      globalThis.location.href = mailto;
+      document.getElementById('contact-form-wrap').style.display = 'none';
+      document.getElementById('cf-success').style.display = 'block';
+    };
 
     var root = document.documentElement;
     var themeToggle = document.getElementById('theme-toggle');

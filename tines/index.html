@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Tines SOAR Training — Track 1 & Track 2 lab infrastructure and setup requirements."/>
+<title>Tines SOAR Training | Track 1 & Track 2 Lab Setup — Ashutoshh Singh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<script>
+  (function () {
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      var prefersDark = globalThis.matchMedia && globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
+      var activeTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.dataset.theme = activeTheme;
+    } catch {
+      document.documentElement.dataset.theme = 'light';
+    }
+  })();
+</script>
+<style>
+  :root[data-theme="light"]{
+    --bg:#FFF8F1; --bg-alt:#FFF3E7; --white:#FFFFFF; --navy:#2B2A2F; --heading:#2B2A2F;
+    --txt:#1F2937; --txt-soft:#5B5A62; --line:#E7DDD3; --accent:#FF6B57; --accent-soft:#FDBA74;
+    --accent-shadow:rgba(255,107,87,.18); --tag-bg:#FFF1E6; --tag-txt:#9A3412; --nav-bg:rgba(255,255,255,0.9);
+    --card-shadow: 0 10px 30px rgba(43,42,47,.06); --track1:#2563EB; --track1-soft:#DBEAFE; --track1-bg:#EFF6FF;
+    --track2:#7C3AED; --track2-soft:#EDE1FE; --track2-bg:#F5F0FF; --ok:#15803D; --ok-bg:#ECFDF3; --blk:#B91C1C; --blk-bg:#FEF2F2;
+  }
+  :root[data-theme="dark"]{
+    --bg:#111217; --bg-alt:#17181D; --white:#1B1D24; --navy:#F3F4F6; --heading:#F3F4F6;
+    --txt:#E5E7EB; --txt-soft:#A3A2AA; --line:#343741; --accent:#FF8A75; --accent-soft:#FFD0A6;
+    --accent-shadow:rgba(255,138,117,.2); --tag-bg:#3C2722; --tag-txt:#FFD2A6; --nav-bg:rgba(17,18,23,0.9);
+    --card-shadow: 0 10px 30px rgba(0,0,0,.35); --track1:#60A5FA; --track1-soft:#1E3A5F; --track1-bg:#152238;
+    --track2:#C4B5FD; --track2-soft:#3B2E5C; --track2-bg:#211A33; --ok:#4ADE80; --ok-bg:#0F2A1B; --blk:#F87171; --blk-bg:#2C1414;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif; background:var(--bg); color:var(--txt);
+    line-height:1.6; transition:background .3s ease, color .3s ease;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces',serif; color:var(--heading); letter-spacing:-.01em;}
+  a{color:inherit;}
+  .container{max-width:1100px; margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50; backdrop-filter:blur(10px);
+    background:var(--nav-bg); border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px;
+  }
+  .nav-brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:700; font-size:1.15rem; color:var(--navy); text-decoration:none;}
+  .nav-brand .dot{width:10px;height:10px;border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-shadow);}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+  .back-link{font-size:.88rem; color:var(--txt-soft); text-decoration:none; display:flex; align-items:center; gap:6px; transition:color .2s;}
+  .back-link:hover{color:var(--accent);}
+  .theme-toggle{
+    border:1px solid var(--line); background:transparent; color:var(--txt);
+    padding:7px 16px; border-radius:100px; font-size:.82rem; cursor:pointer; font-weight:500;
+    transition:all .2s;
+  }
+  .theme-toggle:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* HERO */
+  .hero{
+    padding:80px 24px 60px; text-align:center; position:relative; overflow:hidden;
+    background:linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+    background:var(--tag-bg); padding:6px 16px; border-radius:100px; margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(2.1rem, 5vw, 3.4rem); font-weight:700; margin-bottom:16px; line-height:1.1;}
+  .hero p.lead{font-size:1.08rem; color:var(--txt-soft); max-width:640px; margin:0 auto 34px;}
+  .hero-stats{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .hstat{
+    background:var(--white); border:1px solid var(--line); border-radius:16px; padding:16px 26px;
+    box-shadow:var(--card-shadow); min-width:130px;
+  }
+  .hstat .num{font-family:'Fraunces',serif; font-size:1.7rem; font-weight:700; color:var(--accent);}
+  .hstat .lbl{font-size:.76rem; color:var(--txt-soft); text-transform:uppercase; letter-spacing:.05em; margin-top:2px;}
+
+  /* TRACK SELECTOR */
+  .selector-section{padding:64px 24px 20px;}
+  .selector-heading{text-align:center; margin-bottom:40px;}
+  .selector-heading .eyebrow{
+    font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:10px;
+  }
+  .selector-heading h2{font-size:clamp(1.6rem,3.4vw,2.2rem);}
+  .track-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:1000px; margin:0 auto;}
+  @media (max-width:760px){ .track-grid{grid-template-columns:1fr;} }
+
+  .track-card{
+    background:var(--white); border:1px solid var(--line); border-radius:22px; padding:34px 32px;
+    cursor:pointer; text-align:left; position:relative; overflow:hidden;
+    box-shadow:var(--card-shadow); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .track-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:5px;
+  }
+  .track-card.t1::before{background:linear-gradient(90deg, var(--track1), var(--track1-soft));}
+  .track-card.t2::before{background:linear-gradient(90deg, var(--track2), var(--track2-soft));}
+  .track-card:hover{transform:translateY(-6px); box-shadow:0 20px 45px rgba(0,0,0,.12);}
+  .track-card.active{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-shadow), 0 20px 45px rgba(0,0,0,.1);}
+
+  .track-icon{
+    width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; margin-bottom:20px;
+  }
+  .t1 .track-icon{background:var(--track1-bg); color:var(--track1);}
+  .t2 .track-icon{background:var(--track2-bg); color:var(--track2);}
+
+  .track-card .tag{
+    display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    padding:4px 12px; border-radius:100px; margin-bottom:14px;
+  }
+  .t1 .tag{background:var(--track1-bg); color:var(--track1);}
+  .t2 .tag{background:var(--track2-bg); color:var(--track2);}
+
+  .track-card h3{font-size:1.45rem; margin-bottom:10px;}
+  .track-card p{color:var(--txt-soft); font-size:.94rem; margin-bottom:20px;}
+  .track-card .cta{
+    display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:.9rem;
+  }
+  .t1 .cta{color:var(--track1);}
+  .t2 .cta{color:var(--track2);}
+  .track-card .cta svg{transition:transform .2s;}
+  .track-card:hover .cta svg{transform:translateX(4px);}
+
+  .day-pills{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;}
+  .day-pill{
+    font-size:.72rem; padding:4px 10px; border-radius:100px; border:1px solid var(--line); color:var(--txt-soft);
+  }
+
+  /* DETAIL PANELS */
+  .detail-panel{
+    max-width:1000px; margin:0 auto; padding:0 24px 90px;
+    display:none; animation:fadeIn .4s ease;
+  }
+  .detail-panel.open{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+
+  .panel-header{
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+    margin-bottom:36px; padding-bottom:24px; border-bottom:1px solid var(--line);
+  }
+  .panel-header h2{font-size:clamp(1.5rem,3.2vw,2rem);}
+  .close-btn{
+    border:1px solid var(--line); background:var(--white); color:var(--txt-soft);
+    padding:8px 18px; border-radius:100px; font-size:.85rem; cursor:pointer; font-weight:500;
+    display:flex; align-items:center; gap:6px; transition:all .2s;
+  }
+  .close-btn:hover{border-color:var(--accent); color:var(--accent);}
+
+  .block{
+    background:var(--white); border:1px solid var(--line); border-radius:18px; padding:28px 30px;
+    margin-bottom:22px; box-shadow:var(--card-shadow);
+  }
+  .block h4{
+    font-size:1.05rem; display:flex; align-items:center; gap:10px; margin-bottom:18px;
+    font-family:'Inter',sans-serif; font-weight:700;
+  }
+  .block h4 .num{
+    width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+    font-size:1rem; flex-shrink:0;
+  }
+  .t1-theme .num{background:var(--track1-bg); color:var(--track1);}
+  .t2-theme .num{background:var(--track2-bg); color:var(--track2);}
+
+  .item-list{list-style:none;}
+  .item-list li{
+    display:flex; gap:12px; padding:11px 0; border-bottom:1px dashed var(--line); font-size:.94rem;
+  }
+  .item-list li:last-child{border-bottom:none;}
+  .item-list li .chk{flex-shrink:0; margin-top:3px; color:var(--ok);}
+  .item-list li strong{color:var(--heading);}
+  .item-list li .sub{display:block; color:var(--txt-soft); font-size:.87rem; margin-top:2px;}
+
+  .warn-box{
+    background:var(--blk-bg); border:1px solid rgba(185,28,28,.25); border-radius:14px;
+    padding:16px 18px; margin-top:14px; font-size:.88rem; color:var(--txt);
+  }
+  .warn-box strong{color:var(--blk);}
+
+  code{
+    background:var(--tag-bg); color:var(--tag-txt); padding:2px 7px; border-radius:6px;
+    font-family:'SFMono-Regular',Consolas,monospace; font-size:.85em;
+  }
+
+  /* Feasibility Matrix Table */
+  .matrix-wrap{overflow-x:auto; border-radius:16px; border:1px solid var(--line); box-shadow:var(--card-shadow);}
+  table.matrix{width:100%; border-collapse:collapse; font-size:.88rem; background:var(--white);}
+  table.matrix th{
+    text-align:left; padding:14px 16px; background:var(--bg-alt); color:var(--heading);
+    font-family:'Fraunces',serif; font-weight:600; border-bottom:2px solid var(--line); white-space:nowrap;
+  }
+  table.matrix td{padding:14px 16px; border-bottom:1px solid var(--line); vertical-align:top;}
+  table.matrix tr:last-child td{border-bottom:none;}
+  .status-pill{
+    display:inline-block; padding:3px 11px; border-radius:100px; font-size:.75rem; font-weight:600; white-space:nowrap;
+  }
+  .status-yes{background:var(--ok-bg); color:var(--ok);}
+  .status-no{background:var(--blk-bg); color:var(--blk);}
+
+  /* Datasets grid */
+  .dataset-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:640px){.dataset-grid{grid-template-columns:1fr;}}
+  .dataset-card{
+    border:1px solid var(--line); border-radius:14px; padding:16px 18px; background:var(--bg-alt);
+  }
+  .dataset-card code{display:inline-block; margin-bottom:8px;}
+  .dataset-card p{font-size:.86rem; color:var(--txt-soft);}
+
+  footer{
+    text-align:center; padding:36px 24px; color:var(--txt-soft); font-size:.85rem;
+    border-top:1px solid var(--line);
+  }
+  footer a{color:var(--accent); text-decoration:none; font-weight:600;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand"><span class="dot"></span>Tines SOAR Training</a>
+  <div class="nav-right">
+    <a href="https://ashutoshh.delvex.io/" class="back-link">&larr; Back to Portfolio</a>
+    <button id="theme-toggle" class="theme-toggle" type="button">Dark</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow"><span>●</span> Instructor-Led Lab Blueprint</div>
+    <h1>Tines Community Edition<br/>Training Labs</h1>
+    <p class="lead">A two-track, ten-day SOAR automation curriculum — from context &amp; design fundamentals to AI-powered incident response engineering, built entirely on the free Tines tier.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">2</div><div class="lbl">Tracks</div></div>
+      <div class="hstat"><div class="num">10</div><div class="lbl">Lab Days</div></div>
+      <div class="hstat"><div class="num">8/10</div><div class="lbl">100% Free-Tier</div></div>
+      <div class="hstat"><div class="num">Free</div><div class="lbl">Tines Tenant</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="selector-section">
+  <div class="selector-heading">
+    <div class="eyebrow">Choose a Track</div>
+    <h2>Click a track to explore full setup &amp; day-by-day details</h2>
+  </div>
+  <div class="container">
+    <div class="track-grid">
+
+      <button class="track-card t1" id="card-t1" onclick="openTrack('t1')">
+        <div class="track-icon">🧭</div>
+        <span class="tag">Track 1 · Foundations</span>
+        <h3>Context, Execution &amp; APIs</h3>
+        <p>Five days building core Tines fluency — canvas design, execution &amp; state tracing, UI actions, story chaining at scale, and API authentication.</p>
+        <div class="day-pills">
+          <span class="day-pill">Day 1 — Context &amp; Design</span>
+          <span class="day-pill">Day 2 — Execution &amp; State</span>
+          <span class="day-pill">Day 3 — UI &amp; Actions</span>
+          <span class="day-pill">Day 4 — Scale &amp; Chaining</span>
+          <span class="day-pill">Day 5 — APIs &amp; Auth</span>
+        </div>
+        <br/>
+        <span class="cta">View Track 1 Details <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </button>
+
+      <button class="track-card t2" id="card-t2" onclick="openTrack('t2')">
+        <div class="track-icon">🛡️</div>
+        <span class="tag">Track 2 · Advanced</span>
+        <h3>Ops, Design &amp; AI Engineering</h3>
+        <p>Five days going deeper — testing &amp; ops maturity, Cases/Pages/Records, advanced story refactoring, AI-powered automation, and a capstone build.</p>
+        <div class="day-pills">
+          <span class="day-pill">Day 1 — Testing &amp; Ops</span>
+          <span class="day-pill">Day 2 — Cases, Pages, Records</span>
+          <span class="day-pill">Day 3 — Advanced Design</span>
+          <span class="day-pill">Day 4 — AI Engineering</span>
+          <span class="day-pill">Day 5 — Capstone &amp; Exit</span>
+        </div>
+        <br/>
+        <span class="cta">View Track 2 Details <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRACK 1 DETAIL -->
+<div class="detail-panel" id="panel-t1">
+  <div class="panel-header">
+    <h2>🧭 Track 1 — Lab Setup Requirements</h2>
+    <button class="close-btn" onclick="closeTrack()">✕ Close</button>
+  </div>
+
+  <div class="block t1-theme">
+    <h4><span class="num">1</span> Core Environment (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× Dedicated Virtual Machine (VM) or VDI</strong></div></li>
+      <li><span class="chk">✓</span><div><strong>Google Chrome or Mozilla Firefox</strong> installed on the VM <span class="sub">Tines is fully web-based.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Clean Corporate/Lab Email Address</strong> <span class="sub">e.g. <code>student01@labdomain.com</code></span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Text/Code Editor</strong> (VS Code or Notepad++) <span class="sub">To edit and format JSON payloads.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× API Client</strong> (Postman or Bruno) <span class="sub">For manual cURL testing before bringing requests into Tines.</span></div></li>
+    </ul>
+    <div class="warn-box"><strong>Crucial:</strong> Avoid generic public emails like Gmail/Outlook when creating accounts — Tines handles corporate email suffixes better during automated setup.</div>
+  </div>
+
+  <div class="block t1-theme">
+    <h4><span class="num">2</span> Collaboration &amp; Alert Destinations (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× Dedicated Slack Workspace or Microsoft Teams Sandbox</strong>
+        <span class="sub">Each student needs admin/creator access to their own channel/workspace to freely create Incoming Webhooks and Custom Apps/Bots to receive Tines alerts.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="block t1-theme">
+    <h4><span class="num">3</span> Third-Party Sandbox Application Accounts (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× Free Tines Community Edition Tenant</strong> <span class="sub">Registered using the student's lab email address.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Free GitHub Account</strong> <span class="sub">Registered with the lab email. Used via the GitHub REST API as a free alternative to Jira — creating, updating, and closing "Issues" as tickets during incident response workflows.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Free VirusTotal Community API Key</strong> <span class="sub">Used during Day 4 &amp; Day 5 enrichment labs to look up file hashes, IPs, and domains — no premium threat-intel licensing needed.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="block t1-theme">
+    <h4><span class="num">4</span> Instructor-Provided Datasets (Stored on the VMs)</h4>
+    <p style="color:var(--txt-soft); font-size:.9rem; margin-bottom:16px;">Place a folder on each student's desktop containing the following pre-built JSON test files:</p>
+    <div class="dataset-grid">
+      <div class="dataset-card">
+        <code>phishing_intake.json</code>
+        <p>A raw email structure containing headers, body text, and an embedded malicious URL.</p>
+      </div>
+      <div class="dataset-card">
+        <code>edr_alerts_batch.json</code>
+        <p>A tiny JSON array of exactly 5 elements (IPs and hostnames) to safely test Explode/Implode without exhausting the 25,000 monthly event limit.</p>
+      </div>
+      <div class="dataset-card" style="grid-column:1/-1;">
+        <code>malformed_data.json</code>
+        <p>An intentionally broken payload with missing keys, null fields, and inconsistent date formats (YYYY-MM-DD mixed with Epoch timestamps) — used for the formula clinic troubleshooting labs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRACK 2 DETAIL -->
+<div class="detail-panel" id="panel-t2">
+  <div class="panel-header">
+    <h2>🛡️ Track 2 — Lab Setup &amp; Feasibility</h2>
+    <button class="close-btn" onclick="closeTrack()">✕ Close</button>
+  </div>
+
+  <div class="block t2-theme">
+    <h4><span class="num">📊</span> Day-by-Day Platform Feasibility Matrix</h4>
+    <p style="color:var(--txt-soft); font-size:.9rem; margin-bottom:16px;">What's natively deliverable on free Tines Community Edition vs. what needs a workaround.</p>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead><tr><th>Module</th><th>Native?</th><th>Notes / Workarounds</th></tr></thead>
+        <tbody>
+          <tr><td>T1·D1 — Context &amp; Design</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Purely conceptual mapping &amp; diagramming. Works beautifully on the canvas.</td></tr>
+          <tr><td>T1·D2 — Execution &amp; State</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Trace events via event log. Logs reset after 24h on free tier.</td></tr>
+          <tr><td>T1·D3 — UI &amp; Actions</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Free access to standard actions and the formula testing Workbench.</td></tr>
+          <tr><td>T1·D4 — Scale &amp; Chaining</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Uses "Send to Story" &amp; "Explode/Implode." Limit test arrays to 5 items to protect the 25k event limit.</td></tr>
+          <tr><td>T1·D5 — APIs &amp; Auth</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Supports text credentials &amp; webhooks. Use free public sandboxes (e.g. HTTPBin).</td></tr>
+          <tr><td>T2·D1 — Testing &amp; Ops</td><td><span class="status-pill status-no">Partial</span></td><td><strong>Blocker:</strong> Tenant Health Dashboards, Time Saved Dashboards, and Formal Peer Review Gates are missing from the free tier. Use static screenshot handouts.</td></tr>
+          <tr><td>T2·D2 — Cases, Pages, Records</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Full CRUD, Pages &amp; Cases work. Archive old stories to stay within the 3-active-app limit.</td></tr>
+          <tr><td>T2·D3 — Advanced Design</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Refactoring monoliths into child stories works. Keep inputs small to prevent event spikes.</td></tr>
+          <tr><td>T2·D4 — AI Engineering</td><td><span class="status-pill status-no">Bypassed</span></td><td><strong>Blocker:</strong> Free tier caps native AI at 50 credits/month. <strong>Fix:</strong> Bypass with an HTTP Request action wired to an external LLM API key.</td></tr>
+          <tr><td>T2·D5 — Capstone &amp; Exit</td><td><span class="status-pill status-yes">Yes 100%</span></td><td>Complete individual builds using the AI API bypass. Peer reviews via export/import of JSON files.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block t2-theme">
+    <h4><span class="num">🖥️</span> Core Workstation Layer (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× Dedicated VM or VDI</strong> with outbound internet access</div></li>
+      <li><span class="chk">✓</span><div><strong>Google Chrome or Mozilla Firefox</strong> installed <span class="sub">Tines is a cloud-based web app.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Dedicated Lab Email Address</strong> <span class="sub">e.g. <code>student01@yourlabdomain.com</code> — avoid public domains like Gmail to prevent account creation filtering.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Text/Code Editor</strong> (e.g. VS Code) <span class="sub">To inspect and clean up JSON structures.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× API Tester</strong> (Postman or Bruno) <span class="sub">To test raw cURL configurations before moving them into Tines.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="block t2-theme">
+    <h4><span class="num">🏢</span> Tines Platform Configuration (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× Free Tines Community Edition Tenant</strong> <span class="sub">Registered under the assigned lab email.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>Clean Canvas Enforcement Policy</strong> <span class="sub">Students archive/delete completed labs daily so they never breach the 3-active-workflow limit.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="block t2-theme">
+    <h4><span class="num">💬</span> Destination Sandboxes (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× Dedicated Slack Workspace or Microsoft Teams Sandbox</strong>
+        <span class="sub">Each student gets Admin/Creator rights to freely configure Incoming Webhooks and Custom Apps without restrictions.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="block t2-theme">
+    <h4><span class="num">🧠</span> AI &amp; Third-Party API Integrations (Per Student)</h4>
+    <ul class="item-list">
+      <li><span class="chk">✓</span><div><strong>1× External LLM API Key</strong> (OpenAI, Anthropic, or Mistral) <span class="sub">Saved as a text file on the student's desktop — the critical bypass for Track 2 Day 4's 50-credit native cap.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Free GitHub Account</strong> <span class="sub">GitHub REST API as a zero-cost alternative to a premium Jira ticketing infrastructure.</span></div></li>
+      <li><span class="chk">✓</span><div><strong>1× Free VirusTotal Community API Key</strong> <span class="sub">Used for malicious URL/IP enrichment lookups during advanced orchestration modules.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="block t2-theme">
+    <h4><span class="num">📊</span> Instructor Seed Datasets &amp; Handouts</h4>
+    <p style="color:var(--txt-soft); font-size:.9rem; margin-bottom:16px;">Host a shared folder accessible to all student VMs containing:</p>
+    <div class="dataset-grid">
+      <div class="dataset-card"><code>phishing_intake.json</code><p>Raw email headers and text for the initial ingestion labs.</p></div>
+      <div class="dataset-card"><code>edr_alerts_batch.json</code><p>Strictly limited 5-item array of simulated endpoint alerts to practice Explode/Implode loops safely.</p></div>
+      <div class="dataset-card"><code>malformed_data_clinic.json</code><p>Inconsistent, broken data payloads used to test advanced formula cleanup strings in the Workbench.</p></div>
+      <div class="dataset-card"><code>monolith_40_action_challenge.json</code><p>The unoptimized, messy story file for the Track 2 Day 3 refactoring challenge.</p></div>
+      <div class="dataset-card" style="grid-column:1/-1;"><code>tenant_health_mockup.pdf</code><p>A static visual document displaying an enterprise dashboard layout, allowing students to complete Track 2 Day 1's metrics evaluation lab.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Built for the Tines SOAR Automation Training Program &nbsp;·&nbsp; <a href="https://ashutoshh.delvex.io/">ashutoshh.delvex.io</a>
+</footer>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  function syncToggleLabel(){
+    const t = document.documentElement.dataset.theme;
+    toggle.textContent = t === 'dark' ? 'Light' : 'Dark';
+  }
+  syncToggleLabel();
+  toggle.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+    syncToggleLabel();
+  });
+
+  function openTrack(id){
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.track-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('open');
+    document.getElementById('card-' + id).classList.add('active');
+    document.getElementById('panel-' + id).scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function closeTrack(){
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.track-card').forEach(c => c.classList.remove('active'));
+    document.querySelector('.selector-section').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+</script>
+
+</body>
+</html>

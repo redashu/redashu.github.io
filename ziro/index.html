@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northeast India, On Foot &amp; By Rail — Sep 22 to Oct 6, 2026</title>
+<meta name="description" content="A 15-day trail from Jaipur through Ziro Valley and Meghalaya — flights, trains, day-by-day stops, and verified permit &amp; safety notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7EFDA;
+    --paper-soft:#F0E2BE;
+    --deep:#0F231C;
+    --deep-2:#163A2E;
+    --moss:#3C7A52;
+    --paddy:#7FB35A;
+    --paddy-light:#C7E2A0;
+    --forest:#245C46;
+    --clay:#C0532B;
+    --clay-soft:#F0CBA6;
+    --river:#2E86A8;
+    --river-soft:#C4E6ED;
+    --river-deep:#1E5670;
+    --sunset:#E68A3D;
+    --sunset-soft:#F7D9A6;
+    --marigold:#E0A62E;
+    --berry:#A23E5C;
+    --berry-soft:#EBC7D2;
+    --ink:#1C2620;
+    --ink-soft:#54604E;
+    --line:#D6C48E;
+    --gold:#D9A93E;
+    --radius-lg: 28px 6px 28px 6px;
+    --radius-sm: 14px 4px 14px 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--deep);
+    margin:0;
+  }
+  a{color:inherit;}
+  .icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:-0.15em;}
+  img,svg{display:block;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- back-to-site bar ---------- */
+  .backbar{
+    background:var(--deep);
+    color:var(--paper-soft);
+    font-size:13px;
+    padding:9px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    letter-spacing:.01em;
+  }
+  .backbar a{text-decoration:none;opacity:.85;border-bottom:1px solid rgba(243,234,211,.35);}
+  .backbar a:hover{opacity:1;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,#0B1B16 0%, var(--deep) 45%, var(--deep-2) 100%);
+    color:var(--paper);
+    overflow:hidden;
+    padding:86px 0 120px;
+  }
+  .hero-glow{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(420px 320px at 82% 8%, rgba(230,138,61,.22), transparent 70%),
+      radial-gradient(480px 360px at 8% 95%, rgba(46,134,168,.28), transparent 70%);
+  }
+  .hero .wrap{position:relative;z-index:3;}
+  .hero-eyebrow{
+    font-size:14px;
+    color:var(--paddy-light);
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem,6vw,4.2rem);
+    color:var(--paper);
+    line-height:1.04;
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--paddy-light);}
+  .hero p.lede{
+    max-width:46ch;
+    font-size:18px;
+    color:#D9E5DC;
+    margin-top:22px;
+  }
+  .hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    margin-top:40px;
+    font-size:14px;
+    color:#C7D6CC;
+  }
+  .hero-meta b{display:block;font-family:'Fraunces',serif;font-size:20px;color:var(--paper);font-weight:500;}
+  .hero-mountains{
+    position:absolute;bottom:0;left:0;width:100%;z-index:1;line-height:0;
+  }
+  .cloud{position:absolute;opacity:.5;animation:drift 70s linear infinite;}
+  .cloud.c2{animation-duration:95s;animation-delay:-30s;opacity:.35;}
+  .cloud.c3{animation-duration:120s;animation-delay:-60s;opacity:.25;}
+  @keyframes drift{from{transform:translateX(-10%);}to{transform:translateX(110%);}}
+  @media (prefers-reduced-motion:reduce){.cloud{animation:none;}}
+
+  /* ---------- verified strip ---------- */
+  .verified{background:var(--deep-2);color:var(--paper);padding:34px 0 40px;border-top:1px solid rgba(255,255,255,.08);}
+  .verified-head{display:flex;align-items:center;gap:10px;color:var(--paddy-light);font-size:14px;margin-bottom:18px;}
+  .alert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .alert-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+    border-left:3px solid rgba(255,255,255,.25);
+    border-radius:var(--radius-sm);
+    padding:18px 20px;
+  }
+  .alert-card.warn{border-color:rgba(196,120,71,.55);background:rgba(178,78,44,.14);}
+  .alert-card.sunset{border-left-color:var(--sunset);}
+  .alert-card.sunset .icon{color:var(--sunset)!important;}
+  .alert-card.river{border-left-color:var(--river);}
+  .alert-card.river .icon{color:#7FCBE0!important;}
+  .alert-card.forest{border-left-color:var(--paddy);}
+  .alert-card.forest .icon{color:var(--paddy-light)!important;}
+  .alert-card .a-head{display:flex;gap:10px;align-items:flex-start;font-family:'Fraunces',serif;font-size:16px;color:var(--paper);margin-bottom:8px;}
+  .alert-card .a-head .icon{margin-top:3px;flex-shrink:0;color:var(--gold);}
+  .alert-card.warn .a-head .icon{color:#E4906A;}
+  .alert-card p{font-size:14px;color:#CBD6CE;margin:0;}
+  .alert-card a{color:var(--gold);text-decoration:underline;}
+
+  /* ---------- section shell ---------- */
+  section{padding:64px 0;}
+  .section-head{max-width:60ch;margin-bottom:36px;}
+  .section-head .tag{color:var(--clay);font-size:14px;font-weight:700;display:block;margin-bottom:8px;}
+  .section-head h2{font-size:clamp(1.6rem,3.4vw,2.3rem);}
+  .section-head p{color:var(--ink-soft);margin-top:10px;font-size:16px;}
+
+  /* ---------- stats bar ---------- */
+  .stats{background:var(--paper-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;}
+  .stats .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;}
+  .stat b{font-family:'Fraunces',serif;font-size:2rem;color:var(--deep);display:block;font-weight:600;}
+  .stat span{font-size:13px;color:var(--ink-soft);}
+
+  /* ---------- route path ---------- */
+  .route{overflow-x:auto;padding-bottom:8px;}
+  .route-track{
+    display:flex;
+    align-items:flex-start;
+    gap:0;
+    min-width:900px;
+    position:relative;
+    padding-top:8px;
+  }
+  .route-track::before{
+    content:"";
+    position:absolute;
+    top:19px;left:24px;right:24px;
+    height:2px;
+    background:repeating-linear-gradient(90deg,var(--moss) 0 10px, transparent 10px 18px);
+  }
+  .waypoint{flex:1;text-align:center;position:relative;padding:0 6px;}
+  .waypoint .dot{
+    width:16px;height:16px;border-radius:50%;
+    background:var(--paper);border:3px solid var(--moss);
+    margin:4px auto 14px;position:relative;z-index:2;
+  }
+  .waypoint.ziro .dot{border-color:var(--sunset);background:var(--sunset-soft);}
+  .waypoint.ziro b{color:var(--sunset);}
+  .waypoint b{display:block;font-family:'Fraunces',serif;font-size:15px;color:var(--deep);}
+  .waypoint span{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+  /* ---------- transit cards ---------- */
+  .transit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+  .ticket{
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    border-top:5px solid var(--ink);
+    border-radius:var(--radius-sm);
+    padding:20px 22px;
+    position:relative;
+  }
+  .ticket.fly{border-top-color:var(--sunset);}
+  .ticket.rail{border-top-color:var(--river);}
+  .ticket.cab{border-top-color:var(--forest);}
+  .ticket::after{
+    content:"";position:absolute;left:0;right:0;top:52px;
+    border-top:2px dashed var(--line);
+  }
+  .ticket .t-mode{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--moss);font-weight:700;margin-bottom:6px;}
+  .ticket.fly .t-mode{color:var(--sunset);}
+  .ticket.rail .t-mode{color:var(--river);}
+  .ticket.cab .t-mode{color:var(--forest);}
+  .ticket .t-route{font-family:'Fraunces',serif;font-size:19px;color:var(--deep);margin-bottom:16px;}
+  .ticket .t-when{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft);margin-bottom:4px;padding-top:14px;}
+  .ticket .t-code{margin-top:10px;font-size:12px;color:var(--clay);font-weight:700;}
+
+  /* ---------- day timeline ---------- */
+  .journey{background:var(--paper);}
+  .day-block{position:relative;padding-left:56px;margin-bottom:56px;}
+  .day-block:last-child{margin-bottom:0;}
+  .day-rail{
+    position:absolute;left:19px;top:6px;bottom:-56px;width:2px;
+    background:linear-gradient(var(--moss),var(--paddy));
+  }
+  .day-block:last-child .day-rail{display:none;}
+  .day-num{
+    position:absolute;left:0;top:0;
+    width:40px;height:40px;border-radius:50%;
+    background:var(--deep);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:16px;font-weight:600;
+  }
+  .day-head{margin-bottom:6px;}
+  .day-head .d-date{font-size:13px;color:var(--clay);font-weight:700;letter-spacing:.02em;}
+  .day-head h3{font-size:1.4rem;margin-top:3px;}
+  .day-head .d-sub{color:var(--ink-soft);font-size:14px;margin-top:4px;}
+  .stop-list{margin-top:18px;display:flex;flex-direction:column;gap:14px;}
+  .stop{
+    display:grid;
+    grid-template-columns:52px 64px 1fr;
+    gap:14px;
+    align-items:start;
+    background:var(--paper-soft);
+    border-radius:var(--radius-sm);
+    padding:12px 16px;
+  }
+  .stop .s-icon{
+    width:36px;height:36px;border-radius:50%;
+    background:var(--deep-2);color:var(--paddy-light);
+    display:flex;align-items:center;justify-content:center;font-size:17px;
+  }
+
+  /* Ziro leg — marigold & berry, echoing the music-festival flags and bonfires */
+  #ziro .day-num{background:var(--sunset);color:#3A1E08;}
+  #ziro .day-rail{background:linear-gradient(var(--sunset),var(--marigold));}
+  #ziro .s-icon{background:var(--berry);color:var(--sunset-soft);}
+  #ziro .callout.warn{background:var(--sunset-soft);color:#5A3410;}
+  #ziro .opt-badge.a{background:var(--sunset-soft);color:#6B3B12;}
+  #ziro .opt-badge.b{background:var(--berry-soft);color:#6E2740;}
+
+  /* Meghalaya leg — waterfall blues & deep forest */
+  #meghalaya .day-num{background:var(--river-deep);color:var(--river-soft);}
+  #meghalaya .day-rail{background:linear-gradient(var(--forest),var(--river));}
+  #meghalaya .s-icon{background:var(--forest);color:var(--river-soft);}
+  .stop .s-time{font-size:13px;color:var(--ink-soft);font-weight:700;padding-top:8px;}
+  .stop .s-title{font-family:'Fraunces',serif;font-size:15.5px;color:var(--deep);font-weight:600;}
+  .stop .s-desc{font-size:13.5px;color:var(--ink-soft);margin-top:2px;}
+  @media (max-width:560px){
+    .stop{grid-template-columns:40px 1fr;}
+    .stop .s-time{grid-column:2;order:-1;padding-top:0;}
+  }
+
+  .callout{
+    margin-top:16px;
+    border-radius:var(--radius-sm);
+    padding:16px 18px;
+    font-size:14px;
+    display:flex;
+    gap:12px;
+  }
+  .callout .icon{flex-shrink:0;margin-top:2px;width:20px;height:20px;}
+  .callout.warn{background:var(--clay-soft);color:#5A2A14;}
+  .callout.tip{background:var(--river-soft);color:#1B3C4E;}
+  .callout b{display:block;margin-bottom:2px;font-family:'Fraunces',serif;font-size:14.5px;}
+  .callout ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:5px;}
+
+  .opt-badge{
+    display:inline-block;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.02em;
+    padding:2px 8px;
+    border-radius:20px;
+    margin-bottom:4px;
+  }
+  .opt-badge.a{background:var(--paddy-light);color:#294420;}
+  .opt-badge.b{background:var(--river-soft);color:#1B3C4E;}
+
+  /* ---------- packing ---------- */
+  .pack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;}
+  .pack-card{background:var(--paper-soft);border-radius:var(--radius-sm);padding:20px 22px;border:1px solid var(--line);}
+  .pack-card h3{font-size:16px;display:flex;gap:8px;align-items:center;margin-bottom:10px;}
+  .pack-card ul{margin:0;padding-left:18px;font-size:14px;color:var(--ink-soft);display:flex;flex-direction:column;gap:6px;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--deep);color:#9FB0A5;padding:36px 0;font-size:13px;}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;}
+  footer a{color:var(--paddy-light);text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+
+  ::selection{background:var(--paddy);color:var(--deep);}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 21l1.5-6 6.5-3.2c1.4-.7 1.4-2.5 0-3.2L12 5.4 10.5 3l-1 .5 1 4.9-5 2.4-2-1.3-1 .4 1.6 3 -1.6 3 1 .4 2-1.3 5 2.4-1 4.9z"/></symbol>
+  <symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 11h14M9 16l-2.5 4M15 16l2.5 4M8 7h2M14 7h2"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16V12l2-5h12l2 5v4"/><path d="M4 16h16M7 16v2M17 16v2"/><circle cx="7.5" cy="16" r="1.3"/><circle cx="16.5" cy="16" r="1.3"/></symbol>
+  <symbol id="i-fall" viewBox="0 0 24 24"><path d="M6 3c1 3-1 4 0 7s3 2 2 6M12 3c1 3-1 4 0 7s3 2 2 6M18 3c1 3-1 4 0 7s3 2 2 6"/><path d="M3 19h18"/></symbol>
+  <symbol id="i-boot" viewBox="0 0 24 24"><path d="M8 3v9l-4 3v3h13c2 0 3-1 3-2 0-2-2-2-4-3l-3-2V3z"/><path d="M8 7h4"/></symbol>
+  <symbol id="i-cave" viewBox="0 0 24 24"><path d="M3 20c1-8 6-14 9-14s8 6 9 14"/><path d="M8 20c1-5 3-9 4-9s3 4 4 9"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3-3 4-3 7a3 3 0 006 0c0-1-1-2-1-3 2 1 3 3 3 5a5 5 0 01-10 0c0-4 3-6 5-9z"/></symbol>
+  <symbol id="i-boat" viewBox="0 0 24 24"><path d="M4 14h16l-2 5H6z"/><path d="M12 14V4M12 4l5 3M12 8l-4 2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path d="M6 3v8a3 3 0 006 0V3M9 11v10M6 3v4M18 3c-1.5 0-2 2-2 4s.5 4 2 4 2-2 2-4-.5-4-2-4z" fill="none"/><path d="M18 11v10"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M9 12h6M9 15h6M9 18h4"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M4 20c8 0 16-4 16-16-12 0-16 8-16 16z"/><path d="M4 20c3-6 7-10 12-12"/></symbol>
+  <symbol id="i-mountain" viewBox="0 0 24 24"><path d="M2 19l6-10 4 6 2-3 8 7z"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 9v0M18 15v0"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12 2l9 9-9 9-9-9V2z"/><circle cx="8" cy="6" r="1.2"/></symbol>
+  <symbol id="i-temple" viewBox="0 0 24 24"><path d="M12 2l6 5H6z"/><path d="M5 8h14M6 8v11M18 8v11M9 19v-6h6v6"/><path d="M4 19h16"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M5 8h11v6a5 5 0 01-5 5H10a5 5 0 01-5-5z"/><path d="M16 9h2a2.5 2.5 0 010 5h-2"/><path d="M8 4c0 1-1 1-1 2M12 4c0 1-1 1-1 2"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5z"/><path d="M9 8a3 3 0 016 0"/></symbol>
+  <symbol id="i-bird" viewBox="0 0 24 24"><path d="M3 14c3 1 5 0 6-2 1 3 4 4 7 3-2 3-6 4-9 2-2-1-3-2-4-3z"/><circle cx="17" cy="8" r="1"/><path d="M17 5c2 0 4 1 4 3-2 0-3 1-4 2-1-2-2-4 0-5z"/></symbol>
+  <symbol id="i-lights" viewBox="0 0 24 24"><path d="M3 6c4 3 14 3 18 0"/><circle cx="6" cy="10" r="1.2"/><circle cx="10.5" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="18.5" cy="10" r="1.2"/></symbol>
+</svg>
+
+<div class="backbar">
+  <span>Personal trip site</span>
+  <a href="../index.html">&larr; Back to main site</a>
+</div>
+
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-mountains">
+    <svg viewBox="0 0 1200 260" preserveAspectRatio="none" width="100%" height="260">
+      <path d="M0 220 L120 140 L230 200 L340 90 L460 190 L600 60 L740 180 L860 120 L980 210 L1100 130 L1200 190 L1200 260 L0 260 Z" fill="#1F4A38"/>
+      <path d="M0 240 L160 180 L300 230 L420 150 L560 220 L700 130 L850 220 L980 170 L1100 230 L1200 200 L1200 260 L0 260 Z" fill="#122E24"/>
+    </svg>
+  </div>
+  <svg class="cloud" style="top:60px;left:5%;width:140px;opacity:.5" viewBox="0 0 140 40"><ellipse cx="40" cy="24" rx="38" ry="14" fill="#EDE1C6"/><ellipse cx="80" cy="18" rx="30" ry="12" fill="#EDE1C6"/></svg>
+  <svg class="cloud c2" style="top:110px;left:40%;width:100px" viewBox="0 0 140 40"><ellipse cx="40" cy="24" rx="38" ry="14" fill="#EDE1C6"/><ellipse cx="80" cy="18" rx="26" ry="10" fill="#EDE1C6"/></svg>
+  <svg class="cloud c3" style="top:40px;left:70%;width:120px" viewBox="0 0 140 40"><ellipse cx="40" cy="24" rx="38" ry="14" fill="#EDE1C6"/><ellipse cx="80" cy="18" rx="28" ry="11" fill="#EDE1C6"/></svg>
+
+  <div class="wrap">
+    <div class="hero-eyebrow"><svg class="icon" width="16" height="16"><use href="#i-leaf"/></svg> Jaipur &rarr; Guwahati &rarr; Ziro &rarr; Meghalaya &rarr; Jaipur</div>
+    <h1>Rice terraces, root bridges<br> &amp; a river you can see through.</h1>
+    <p class="lede">A 15-day trail across three states — Apatani paddy country in Ziro Valley, then a slow loop through Meghalaya's waterfalls, root bridges and glass-clear rivers.</p>
+    <div class="hero-meta">
+      <div><b>Sep 22 &ndash; Oct 6, 2026</b>15 days on the road</div>
+      <div><b>3 states</b>Assam &middot; Arunachal Pradesh &middot; Meghalaya</div>
+      <div><b>2 flights &middot; 2 trains</b>plus a private cab for the Meghalaya loop</div>
+    </div>
+  </div>
+</header>
+
+<section class="verified">
+  <div class="wrap">
+    <div class="verified-head"><svg class="icon" width="16" height="16"><use href="#i-shield"/></svg> Checked against current official &amp; local sources before this trip</div>
+    <div class="alert-grid">
+      <div class="alert-card sunset">
+        <div class="a-head"><svg class="icon" width="18" height="18"><use href="#i-doc"/></svg> Ziro needs a permit — Meghalaya doesn't</div>
+        <p>Ziro Valley sits inside Arunachal Pradesh, so every Indian traveller who isn't a resident needs an <b>Inner Line Permit (ILP)</b> to enter — there's no route around a check gate. Apply online at <a href="https://arunachalilp.com" target="_blank" rel="noopener">arunachalilp.com</a> (about &#8377;100, ready in 1&ndash;2 days, valid 15&ndash;30 days). Meghalaya, where the rest of this trip happens, needs no permit at all.</p>
+      </div>
+      <div class="alert-card river">
+        <div class="a-head"><svg class="icon" width="18" height="18"><use href="#i-fall"/></svg> Wei Sawdong: reopened, watch it anyway</div>
+        <p>Wei Sawdong Falls near Sohra has a history of temporary closures from a land dispute between neighbouring villages — most recently a closure in early July 2026 that was lifted on July 14. It should be open on Sep 30, but this has flipped before, so the Day 2 plan below has a ready swap.</p>
+      </div>
+      <div class="alert-card forest">
+        <div class="a-head"><svg class="icon" width="18" height="18"><use href="#i-cash"/></svg> Cash before the river</div>
+        <p>Down at Shnongpdeng and along the Dawki border stretch, mobile signal and card machines are patchy to non-existent. Carry enough cash in a waterproof pouch before you reach the riverside camps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><b>15</b><span>days, Jaipur to Jaipur</span></div>
+    <div class="stat"><b>04</b><span>nights in Ziro Valley</span></div>
+    <div class="stat"><b>07</b><span>nights on the Meghalaya loop</span></div>
+    <div class="stat"><b>1</b><span>ILP permit to sort first</span></div>
+  </div>
+</section>
+
+<section id="route">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">The route</span>
+      <h2>One loop, three very different landscapes</h2>
+      <p>Out of Jaipur by air, into Ziro by overnight rail, then a slow anti-clockwise arc through Meghalaya by road before flying home from Guwahati.</p>
+    </div>
+    <div class="route">
+      <div class="route-track">
+        <div class="waypoint"><div class="dot"></div><b>Jaipur</b><span>Sep 22, 06:30</span></div>
+        <div class="waypoint"><div class="dot"></div><b>Guwahati</b><span>Sep 22&ndash;23</span></div>
+        <div class="waypoint ziro"><div class="dot"></div><b>Ziro Valley</b><span>Sep 24&ndash;28</span></div>
+        <div class="waypoint"><div class="dot"></div><b>Sohra</b><span>Sep 29&ndash;Oct 1</span></div>
+        <div class="waypoint"><div class="dot"></div><b>Mawlynnong</b><span>Oct 2</span></div>
+        <div class="waypoint"><div class="dot"></div><b>Shnongpdeng</b><span>Oct 3&ndash;5</span></div>
+        <div class="waypoint"><div class="dot"></div><b>Guwahati</b><span>Oct 6</span></div>
+        <div class="waypoint"><div class="dot"></div><b>Jaipur</b><span>Oct 6, 6 PM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats" style="background:var(--paper)">
+  <div class="wrap" style="display:block">
+    <div class="section-head" style="margin-bottom:24px">
+      <span class="tag">Flights &amp; trains</span>
+      <h2>The five legs that hold the trip together</h2>
+    </div>
+    <div class="transit-grid">
+      <div class="ticket fly">
+        <div class="t-mode"><svg class="icon" width="16" height="16"><use href="#i-plane"/></svg> Flight &middot; Indigo 6E 748</div>
+        <div class="t-route">Jaipur (JAI) &rarr; Guwahati (GAU)</div>
+        <div class="t-when"><span>Tue, Sep 22</span><span>06:30 &rarr; 09:10</span></div>
+        <div class="t-code">JAI Terminal 2 &middot; GAU Terminal 1, LGBI Airport</div>
+      </div>
+      <div class="ticket rail">
+        <div class="t-mode"><svg class="icon" width="16" height="16"><use href="#i-train"/></svg> Train &middot; Donyi Polo Express 15817</div>
+        <div class="t-route">Guwahati &rarr; Naharlagun</div>
+        <div class="t-when"><span>Wed, Sep 23</span><span>23:15 &rarr; Thu 08:15</span></div>
+        <div class="t-code">Overnight &middot; gateway to Ziro Valley</div>
+      </div>
+      <div class="ticket rail">
+        <div class="t-mode"><svg class="icon" width="16" height="16"><use href="#i-train"/></svg> Train &middot; Donyi Polo Express 15818</div>
+        <div class="t-route">Naharlagun &rarr; Guwahati</div>
+        <div class="t-when"><span>Mon, Sep 28</span><span>overnight</span></div>
+        <div class="t-code">Back to Guwahati to start the Meghalaya loop</div>
+      </div>
+      <div class="ticket cab">
+        <div class="t-mode"><svg class="icon" width="16" height="16"><use href="#i-car"/></svg> Private cab &middot; road transfer</div>
+        <div class="t-route">Guwahati &rarr; Sohra (Cherrapunji)</div>
+        <div class="t-when"><span>Tue, Sep 29</span><span>09:00 AM start</span></div>
+        <div class="t-code">Stops at Nongpoh, Umiam Lake &amp; Elephant Falls &middot; same cab covers the whole Meghalaya loop through Dawki/Shnongpdeng</div>
+      </div>
+      <div class="ticket fly">
+        <div class="t-mode"><svg class="icon" width="16" height="16"><use href="#i-plane"/></svg> Flight &middot; Indigo 6E 749</div>
+        <div class="t-route">Guwahati (GAU) &rarr; Jaipur (JAI)</div>
+        <div class="t-when"><span>Tue, Oct 6</span><span>6:00 PM</span></div>
+        <div class="t-code">Trip closes here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ziro">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Sep 22&ndash;28</span>
+      <h2>Guwahati &amp; Ziro Valley</h2>
+      <p>Two easy days in Guwahati to break the journey, then four nights among the Apatani rice fields of Ziro.</p>
+    </div>
+
+    <div class="alert-card sunset" style="margin-bottom:36px;background:var(--sunset-soft);border-color:rgba(230,138,61,.5)">
+      <div class="a-head" style="color:#4A2A0C"><svg class="icon" width="18" height="18" style="color:var(--berry)!important"><use href="#i-warn"/></svg> Critical checklist before you leave</div>
+      <p style="color:#5A3410">
+        <svg class="icon" width="14" height="14"><use href="#i-doc"/></svg> Print 3 physical copies of the Arunachal Inner Line Permit (ILP) &middot;
+        <svg class="icon" width="14" height="14"><use href="#i-tag"/></svg> Pre-book Kamakhya special-entry tickets online &middot;
+        <svg class="icon" width="14" height="14"><use href="#i-doc"/></svg> Keep original ID cards handy for train and state border check-posts &middot;
+        <svg class="icon" width="14" height="14"><use href="#i-cash"/></svg> Carry plenty of physical cash — ATMs can fail in the hills.
+      </p>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">1</div>
+      <div class="day-head">
+        <span class="d-date">Sep 22</span>
+        <h3>Arrival, island &amp; sunset river views</h3>
+        <p class="d-sub">Land, check in, then an afternoon and evening on the Brahmaputra — pick the classic or the offbeat version of each stop.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-plane"/></svg></div><div class="s-time">09:10 AM</div><div><div class="s-title">Land at GAU Airport</div><div class="s-desc">Flight 6E 748.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">10:00 AM</div><div><div class="s-title">Cab to hotel</div><div class="s-desc">Uber or prepaid taxi to a hotel near the railway station — useful for tomorrow night's train.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-home"/></svg></div><div class="s-time">11:30 AM</div><div><div class="s-title">Hotel check-in &amp; refresh</div><div class="s-desc">&nbsp;</div></div></div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boat"/></svg></div><div class="s-time">01:30 PM</div>
+          <div>
+            <span class="opt-badge a">Option A</span>
+            <div class="s-title">Public ferry to Umananda (Peacock) Island</div><div class="s-desc">A short river crossing to the island temple, known for its resident monkeys.</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-home"/></svg></div><div class="s-time">01:30 PM</div>
+          <div>
+            <span class="opt-badge b">Option B &middot; Offbeat</span>
+            <div class="s-title">Brahmaputra River Heritage Centre</div><div class="s-desc">A quieter walk through the riverside heritage centre instead of the ferry crowd.</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boat"/></svg></div><div class="s-time">04:30 PM</div>
+          <div>
+            <span class="opt-badge a">Option A</span>
+            <div class="s-title">Brahmaputra sunset cruise</div><div class="s-desc">Board the Alfresco Grand for a sunset cruise on the river.</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-cup"/></svg></div><div class="s-time">04:30 PM</div>
+          <div>
+            <span class="opt-badge b">Option B &middot; Offbeat</span>
+            <div class="s-title">Rooftop sunset &amp; coffee</div><div class="s-desc">Daphne's Cafe, for the same sunset with a quieter rooftop view.</div>
+          </div>
+        </div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">07:30 PM</div><div><div class="s-title">Dinner: Assamese thali</div><div class="s-desc">Paradise Restaurant or Gam's Delicacy, for an authentic Assamese thali.</div></div></div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">2</div>
+      <div class="day-head">
+        <span class="d-date">Sep 23</span>
+        <h3>Temples, nature &amp; train departure</h3>
+        <p class="d-sub">An early temple visit, a relaxed afternoon, then check out and board the night train.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-temple"/></svg></div><div class="s-time">07:00 AM</div><div><div class="s-title">Kamakhya Temple, early</div><div class="s-desc">An early start beats the massive queue.</div></div></div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-temple"/></svg></div><div class="s-time">12:00 PM</div>
+          <div>
+            <span class="opt-badge a">Option A</span>
+            <div class="s-title">Assam State Museum</div><div class="s-desc">Tribal culture and history exhibits.</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-cup"/></svg></div><div class="s-time">12:00 PM</div>
+          <div>
+            <span class="opt-badge b">Option B &middot; Offbeat</span>
+            <div class="s-title">Aesthetic lunch at Lush &ndash; The Café</div><div class="s-desc">Near the Jorpukhuri ponds.</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-bag"/></svg></div><div class="s-time">03:30 PM</div>
+          <div>
+            <span class="opt-badge a">Option A</span>
+            <div class="s-title">Souvenir &amp; tea shopping</div><div class="s-desc">Fancy Bazaar.</div>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-bird"/></svg></div><div class="s-time">03:30 PM</div>
+          <div>
+            <span class="opt-badge b">Option B &middot; Offbeat</span>
+            <div class="s-title">Bird watching at Deepor Beel</div><div class="s-desc">A serene nature walk instead of the market.</div>
+          </div>
+        </div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-lights"/></svg></div><div class="s-time">06:30 PM</div><div><div class="s-title">Unwind at The HideOut Café</div><div class="s-desc">Fairy lights, bamboo-grove setting.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">09:00 PM</div><div><div class="s-title">Heavy dinner &amp; hotel check-out</div><div class="s-desc">&nbsp;</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-train"/></svg></div><div class="s-time">11:15 PM</div><div><div class="s-title">Reach Guwahati Junction Railway Station</div><div class="s-desc">&nbsp;</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-train"/></svg></div><div class="s-time">11:55 PM</div><div><div class="s-title">Board Donyi Polo Express 15817</div><div class="s-desc">Scheduled platform arrival around 11:40 PM — be there in good time.</div></div></div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">3</div>
+      <div class="day-head">
+        <span class="d-date">Sep 24</span>
+        <h3>Arrival in Arunachal</h3>
+        <p class="d-sub">Off the train and up into the valley.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-train"/></svg></div><div class="s-time">08:15 AM</div><div><div class="s-title">Arrive Naharlagun Station</div><div class="s-desc">&nbsp;</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">09:30 AM</div><div><div class="s-title">Cab to Ziro</div><div class="s-desc">Pre-booked private cab or shared Sumo.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-leaf"/></svg></div><div class="s-time">Afternoon</div><div><div class="s-title">Reach Ziro Valley</div><div class="s-desc">&nbsp;</div></div></div>
+      </div>
+      <div class="callout warn">
+        <svg class="icon" width="20" height="20"><use href="#i-doc"/></svg>
+        <div><b>Before this leg</b>Have your Inner Line Permit sorted and printed — check posts on the Guwahati&ndash;Naharlagun route will ask for it.</div>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">4</div>
+      <div class="day-head">
+        <span class="d-date">Sep 24&ndash;28</span>
+        <h3>Ziro Valley</h3>
+        <p class="d-sub">Four nights among the pine ridges and paddy fields of the Apatani plateau.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-leaf"/></svg></div>
+          <div class="s-time">Sep 24&ndash;28</div>
+          <div><div class="s-title">Valley days: villages, viewpoints, pine ridges</div><div class="s-desc">Open days to explore Hong, Hija and Ziro town, the Apatani rice-cum-fish fields, and the pine-covered ridge walks.</div></div>
+        </div>
+        <div class="stop">
+          <div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-train"/></svg></div>
+          <div class="s-time">Sep 28, night</div>
+          <div><div class="s-title">Board Donyi Polo Express 15818</div><div class="s-desc">Overnight back to Guwahati to start the Meghalaya loop.</div></div>
+        </div>
+      </div>
+      <div class="callout tip">
+        <svg class="icon" width="20" height="20"><use href="#i-doc"/></svg>
+        <div><b>Still to confirm</b>Check locally for sleeping-bag or warm-gear rental in Ziro — nights on the plateau get cold.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="meghalaya" class="journey">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Sep 29&ndash;Oct 6</span>
+      <h2>The Meghalaya loop</h2>
+      <p>Guwahati &rarr; Sohra &rarr; Mawlynnong &rarr; Shnongpdeng &rarr; Jaintia Hills, by private cab, closing back through Guwahati.</p>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">1</div>
+      <div class="day-head">
+        <span class="d-date">Sep 29</span>
+        <h3>Guwahati to Sohra</h3>
+        <p class="d-sub">A scenic drive with waterfalls and viewpoints along the way.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">09:00 AM</div><div><div class="s-title">Depart Guwahati</div><div class="s-desc">Right after the morning peak, for a smooth exit from the city.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">10:45 AM</div><div><div class="s-title">Nongpoh roadside stalls</div><div class="s-desc">Quick leg-stretch — fresh local pineapples and small sweet bananas.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">12:30 PM</div><div><div class="s-title">Lunch at Jiva Veg Restaurant</div><div class="s-desc">Top-voted highway restaurant — clean and reliably good.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-mountain"/></svg></div><div class="s-time">02:15 PM</div><div><div class="s-title">Umiam Lake viewpoint</div><div class="s-desc">The "Scotland of the East" panorama — worth the quick stop for photos.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">03:00 PM</div><div><div class="s-title">Shillong bypass road</div><div class="s-desc">Swings onto the quiet highway, skipping about 1.5 hours of city traffic.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fall"/></svg></div><div class="s-time">04:30 PM</div><div><div class="s-title">Elephant Falls</div><div class="s-desc">Paved stone stairs down to all three tiers of the falls.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-mountain"/></svg></div><div class="s-time">05:45 PM</div><div><div class="s-title">Mawkdok valley viewpoint</div><div class="s-desc">Dramatic canyon gateway to Sohra — sunset mist floating through the hills.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-home"/></svg></div><div class="s-time">08:00 PM</div><div><div class="s-title">Arrive Sohra</div><div class="s-desc">Check in, warm dinner, rest.</div></div></div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">2</div>
+      <div class="day-head">
+        <span class="d-date">Sep 30</span>
+        <h3>Sohra sightseeing</h3>
+        <p class="d-sub">Waterfalls, caves and the border viewpoint, staying the night in Sohra.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fall"/></svg></div><div class="s-time">08:30 AM</div><div><div class="s-title">Nohkalikai Falls</div><div class="s-desc">India's tallest plunge waterfall — go early, before mist rolls in.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-cave"/></svg></div><div class="s-time">10:30 AM</div><div><div class="s-title">Arwah Cave</div><div class="s-desc">A cliffside walk to a dark cave lined with real sea fossils.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">01:00 PM</div><div><div class="s-title">Lunch at Orange Roots</div><div class="s-desc">Clean, pure-veg highway stop for a quick meal.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-cave"/></svg></div><div class="s-time">02:30 PM</div><div><div class="s-title">Mawsmai Cave</div><div class="s-desc">Fully lit limestone cave — narrow paths to climb and squeeze through.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-mountain"/></svg></div><div class="s-time">04:15 PM</div><div><div class="s-title">Seven Sisters Viewpoint &amp; Eco Park</div><div class="s-desc">Seven waterfalls side by side, with the Bangladesh plains beyond.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fire"/></svg></div><div class="s-time">06:00 PM</div><div><div class="s-title">Back to the resort</div><div class="s-desc">Hot dinner and a bonfire night.</div></div></div>
+      </div>
+      <div class="callout warn">
+        <svg class="icon" width="20" height="20"><use href="#i-fall"/></svg>
+        <div><b>Backup plan, if Wei Sawdong is open</b>Keep Nohkalikai at 8:30 AM, but swap Arwah Cave for Dainthlen Falls and the trek down to Wei Sawdong Falls at 10:30 AM, then continue to lunch as normal.</div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">3</div>
+      <div class="day-head">
+        <span class="d-date">Oct 1</span>
+        <h3>Living Root Bridge trek</h3>
+        <p class="d-sub">The 3,500-step descent to Nongriat, with an optional push to Rainbow Falls.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">07:00 AM</div><div><div class="s-title">Drive to Tyrna village</div><div class="s-desc">Early start to beat the midday jungle heat — taxi drops you at the trailhead.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boot"/></svg></div><div class="s-time">07:45 AM</div><div><div class="s-title">Start the 3,500-step descent</div><div class="s-desc">Stone steps, steel suspension bridges, deep jungle.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-leaf"/></svg></div><div class="s-time">09:30 AM</div><div><div class="s-title">Double Decker Root Bridge</div><div class="s-desc">Reach Nongriat village — explore the living root structures, rest by the river.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fall"/></svg></div><div class="s-time">11:30 AM</div><div><div class="s-title">Push to Rainbow Falls (optional)</div><div class="s-desc">A deep turquoise pool with a near-permanent afternoon rainbow.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boot"/></svg></div><div class="s-time">01:30 PM</div><div><div class="s-title">The climb back up</div><div class="s-desc">Take it slow — taxi waits at the top with dry clothes and AC.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">05:00 PM</div><div><div class="s-title">Ginger tea &amp; relaxation</div><div class="s-desc">Warm drinks at a local highway café before heading back to the resort.</div></div></div>
+      </div>
+      <div class="callout tip">
+        <svg class="icon" width="20" height="20"><use href="#i-boot"/></svg>
+        <div><b>Pack for the trek</b>In the taxi boot: dry clothes, a towel, spare sandals. In your backpack: water, energy bars, mosquito repellent, a lightweight raincoat.</div>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">4</div>
+      <div class="day-head">
+        <span class="d-date">Oct 2</span>
+        <h3>Mawlynnong — the cleanest village</h3>
+        <p class="d-sub">Root bridges, a treetop skywalk, and a homestay night with no day-tourist crowds.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">08:30 AM</div><div><div class="s-title">Leave Sohra resort</div><div class="s-desc">A beautiful 2.5-hour downhill drive — leave early for clear road visibility.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-leaf"/></svg></div><div class="s-time">11:15 AM</div><div><div class="s-title">Riwai Living Root Bridge</div><div class="s-desc">A flat 5-minute walk from taxi parking to a stunning ancient root bridge.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-mountain"/></svg></div><div class="s-time">12:15 PM</div><div><div class="s-title">Nohwet Sky Walk</div><div class="s-desc">A handmade bamboo treetop platform with views into Bangladesh.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-home"/></svg></div><div class="s-time">01:15 PM</div><div><div class="s-title">Homestay check-in &amp; lunch</div><div class="s-desc">Fresh local Khasi rice, lentils and smoked meats.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-leaf"/></svg></div><div class="s-time">03:00 PM</div><div><div class="s-title">Village walk</div><div class="s-desc">Clean stone pathways and manicured front-yard flower gardens.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-home"/></svg></div><div class="s-time">04:30 PM</div><div><div class="s-title">The quiet evening</div><div class="s-desc">Day tourists leave — total silence, a home-cooked dinner, stargazing.</div></div></div>
+      </div>
+      <div class="callout tip">
+        <svg class="icon" width="20" height="20"><use href="#i-car"/></svg>
+        <div><b>For the driver</b>Since it's a private taxi, remind the driver to pay the standard village green fee at the entrance gate for smooth parking in the overnight tourist lot.</div>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">5</div>
+      <div class="day-head">
+        <span class="d-date">Oct 3</span>
+        <h3>Shnongpdeng — glass water &amp; river sports</h3>
+        <p class="d-sub">Staying by the river near Dawki, not in Dawki town itself.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">08:30 AM</div><div><div class="s-title">Check out of Mawlynnong</div><div class="s-desc">A smooth 1.5-hour downhill border drive.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-home"/></svg></div><div class="s-time">10:00 AM</div><div><div class="s-title">Camp check-in</div><div class="s-desc">Drop bags at the Shnongpdeng beach tents, change into swimwear.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boat"/></svg></div><div class="s-time">10:30 AM</div><div><div class="s-title">Peak-light glass boat ride</div><div class="s-desc">Sun directly overhead — the best time for the famous "floating boat" photos.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">12:30 PM</div><div><div class="s-title">Beachside lunch</div><div class="s-desc">A hot meal by the water, relaxing on the pebble beach.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boat"/></svg></div><div class="s-time">02:00 PM</div><div><div class="s-title">Kayaking &amp; cliff jumping</div><div class="s-desc">Afternoon water sports — paddle the river, dive off the rock cliffs.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fire"/></svg></div><div class="s-time">05:30 PM</div><div><div class="s-title">Riverside bonfire &amp; BBQ</div><div class="s-desc">A warm beach fire, fresh barbecue, stargazing by the river.</div></div></div>
+      </div>
+      <div class="callout tip">
+        <svg class="icon" width="20" height="20"><use href="#i-cash"/></svg>
+        <div><b>Photo &amp; cash tips</b>Bring a microfibre cloth for camera-lens splashes, and keep plenty of cash in a waterproof pouch — signal and card machines are weak down at the river.</div>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-block">
+      <div class="day-rail"></div>
+      <div class="day-num">6</div>
+      <div class="day-head">
+        <span class="d-date">Oct 4</span>
+        <h3>Jaintia Hills waterfalls</h3>
+        <p class="d-sub">A day trip north to Krang Suri and Phe Phe, back to Shnongpdeng for the night.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">08:30 AM</div><div><div class="s-title">Drive north to the hills</div><div class="s-desc">Leave Shnongpdeng camp with fresh towels and a change of clothes in the boot.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boot"/></svg></div><div class="s-time">09:30 AM</div><div><div class="s-title">Krang Suri Falls trek</div><div class="s-desc">An easy 20-minute downhill walk behind the waterfall curtain into a hidden cave.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fall"/></svg></div><div class="s-time">10:30 AM</div><div><div class="s-title">Swim in the turquoise pool</div><div class="s-desc">Rent a life jacket and swim in the magical blue waters.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-food"/></svg></div><div class="s-time">12:45 PM</div><div><div class="s-title">Highway lunch near Amlarem</div><div class="s-desc">A quick roadside meal after swimming.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-boot"/></svg></div><div class="s-time">02:15 PM</div><div><div class="s-title">Phe Phe Falls</div><div class="s-desc">A flat meadow trek, a bamboo raft crossing, and a short hike into a hidden gorge.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fall"/></svg></div><div class="s-time">03:15 PM</div><div><div class="s-title">The two-tiered giant</div><div class="s-desc">An untouched blue lagoon surrounded by dark rock walls.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-fire"/></svg></div><div class="s-time">05:00 PM</div><div><div class="s-title">Back to the river base</div><div class="s-desc">Final beach bonfire and barbecue night at Shnongpdeng.</div></div></div>
+      </div>
+      <div class="callout tip">
+        <svg class="icon" width="20" height="20"><use href="#i-leaf"/></svg>
+        <div><b>Travel hack</b>You'll change clothes twice today — pack a separate plastic bag to keep wet swimwear away from dry clothes in the boot.</div>
+      </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-block">
+      <div class="day-num">7</div>
+      <div class="day-head">
+        <span class="d-date">Oct 5&ndash;6</span>
+        <h3>Back to Guwahati, fly home</h3>
+        <p class="d-sub">A buffer day for the drive back, then the evening flight to Jaipur.</p>
+      </div>
+      <div class="stop-list">
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-car"/></svg></div><div class="s-time">Oct 5</div><div><div class="s-title">Check out of Shnongpdeng</div><div class="s-desc">Transfer back towards Guwahati — keep this as a loose buffer day for delays.</div></div></div>
+        <div class="stop"><div class="s-icon"><svg class="icon" width="18" height="18"><use href="#i-plane"/></svg></div><div class="s-time">Oct 6, 6:00 PM</div><div><div class="s-title">Fly Guwahati &rarr; Jaipur</div><div class="s-desc">Indigo 6E 749 — trip closes here.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Before you go</span>
+      <h2>Packing &amp; essentials, gathered from the notes above</h2>
+    </div>
+    <div class="pack-grid">
+      <div class="pack-card">
+        <h3><svg class="icon" width="18" height="18"><use href="#i-doc"/></svg> Documents</h3>
+        <ul>
+          <li>Inner Line Permit (ILP) for Ziro Valley — printed and digital copy</li>
+          <li>Government photo ID for check posts and hotel check-ins</li>
+          <li>Flight and train tickets, downloaded offline</li>
+        </ul>
+      </div>
+      <div class="pack-card">
+        <h3><svg class="icon" width="18" height="18"><use href="#i-cash"/></svg> Money &amp; signal</h3>
+        <ul>
+          <li>Cash in a waterproof pouch for Shnongpdeng / Dawki</li>
+          <li>Offline maps downloaded before entering the hills</li>
+        </ul>
+      </div>
+      <div class="pack-card">
+        <h3><svg class="icon" width="18" height="18"><use href="#i-boot"/></svg> Root bridge trek (Oct 1)</h3>
+        <ul>
+          <li>In the taxi boot: dry clothes, towel, spare sandals</li>
+          <li>In the backpack: water, energy bars, mosquito repellent, light raincoat</li>
+        </ul>
+      </div>
+      <div class="pack-card">
+        <h3><svg class="icon" width="18" height="18"><use href="#i-mountain"/></svg> Ziro Valley cold nights</h3>
+        <ul>
+          <li>Warm layers for pine-ridge evenings</li>
+          <li>Sleeping bag rental — still to confirm locally</li>
+        </ul>
+      </div>
+      <div class="pack-card">
+        <h3><svg class="icon" width="18" height="18"><use href="#i-boat"/></svg> River days (Oct 3&ndash;4)</h3>
+        <ul>
+          <li>Swimwear, quick-dry clothes, a separate wet-clothes bag</li>
+          <li>Microfibre cloth for splash-proofing camera lenses</li>
+        </ul>
+      </div>
+      <div class="pack-card">
+        <h3><svg class="icon" width="18" height="18"><use href="#i-shield"/></svg> Day before travel</h3>
+        <ul>
+          <li>Recheck Wei Sawdong status locally before Sep 30</li>
+          <li>Confirm ILP validity window covers the full Ziro stay</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Northeast India &middot; Sep 22&ndash;Oct 6, 2026 &middot; last checked against sources Sep 10, 2026</span>
+    <span>Sources: arunachalilp.com &middot; theshillongtimes.com &middot; hubnetwork.in</span>
+  </div>
+</footer>
+
+</body>
+</html>

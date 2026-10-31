@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programming & Data Foundations | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1520;--panel:#192131;--tx:#e8edf5;--mu:#8e9bb0;--ln:#34415a;--ac:#f2b94b;--bl:hsl(210 70% 62%);--ok:hsl(150 55% 45%);--sh:0 6px 18px #0006}
+[data-theme=light]{--bg:#f3f5f9;--panel:#fff;--tx:#152033;--mu:#5d6b82;--ln:#b9c3d4;--ac:#c47f00;--bl:hsl(210 70% 42%);--ok:hsl(150 55% 32%);--sh:0 6px 18px #1a2a4a1f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 1</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>Programming & Data Foundations</h1>
+<p>Build the Python and data-handling skills you need to develop LLM applications, RAG pipelines and AI agents. Built for working professionals in IT Operations, DevOps, SRE, DBA, Cloud and Data Engineering.</p>
+<div class="facts"><div><b>40 hours</b> of concepts, labs and assignments</div><div><b id="hd">0</b> of 40 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main id="mods"></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Python Fundamentals",h:8,
+T:[["Python Introduction","Installation, interpreter, IDE, virtual environments, pip",1],["Variables & Data Types","Strings, integers, floats, booleans, type conversion",1],["Data Structures","Lists, tuples, sets, dictionaries",1.5],["Conditional Statements","if, elif, else, logical operators",.5],["Loops","for, while, break, continue, enumerate, range",1],["Functions","Parameters, return values, default arguments, *args, **kwargs",1],["Exception Handling","try, except, finally, raising exceptions",1],["File Handling","Read/write text, CSV, JSON, basic log processing",1]],
+A:[["Assignment 1: Server Inventory Processor",["Store server details in Python data structures.","Filter servers based on OS, environment and status.","Generate a summary of active and inactive servers."]],["Assignment 2: Log Analyzer",["Read a sample application log file.","Count INFO, WARNING and ERROR messages.","Identify the most frequent errors.","Handle missing files and malformed records."]]],
+D:"Python scripts with sample input and output.",C:"After hour 8: submit the Python fundamentals assignments."},
+{t:"Python OOP, Modules & Packages",h:6,
+T:[["Modules & Packages","Importing modules, creating reusable modules, package structure",1],["Object-Oriented Programming","Classes, objects, attributes, methods, constructors",1.5],["OOP Principles","Inheritance, encapsulation, polymorphism",1],["Working with Libraries","Installing packages, imports, requirements.txt",.5],["Project Structure","Separating configuration, business logic and utilities",1],["Configuration & Secrets","Environment variables, .env, python-dotenv",1]],
+A:[["Assignment 3: Server Monitoring Application",["Create a Server class with hostname, IP, CPU and memory utilization.","Implement methods to check server health.","Create multiple server objects and identify unhealthy servers.","Separate classes and utilities into different Python modules.","Load configuration from environment variables."]]],
+D:"A modular Python application with reusable classes and configuration.",C:"After hour 14: submit the modular server monitoring application."},
+{t:"REST APIs, JSON & Asynchronous Programming",h:6,
+T:[["HTTP Fundamentals","HTTP methods, status codes, headers, request/response",1],["REST APIs","Endpoints, query parameters, authentication basics",1],["JSON Processing","Serialization, deserialization, nested JSON",1],["Python API Integration","requests, GET/POST, response validation",1],["Error Handling","Timeouts, retries, HTTP errors, logging",1],["Asynchronous Programming","async/await, asyncio, concurrent API calls",1]],
+A:[["Assignment 4: Infrastructure API Collector",["Call a public or simulated infrastructure API.","Retrieve server or service information.","Parse the JSON response.","Filter unhealthy services.","Handle API failures and timeouts."]],["Assignment 5: Concurrent Health Checker",["Check multiple simulated service endpoints.","Compare sequential and asynchronous execution.","Generate a consolidated health report."]]],
+D:"A Python application that collects and processes data from multiple APIs.",C:"After hour 20: submit the API collector and health checker."},
+{t:"SQL & Database Fundamentals",h:6,N:"Recommended stack: PostgreSQL or MySQL with Python.",
+T:[["SQL Fundamentals","Tables, rows, columns, primary and foreign keys",1],["CRUD Operations","SELECT, INSERT, UPDATE, DELETE",1],["Filtering & Aggregation","WHERE, ORDER BY, GROUP BY, aggregate functions",1],["Joins","INNER JOIN, LEFT JOIN and relationships",1],["Python Database Integration","Connecting to a database, executing queries, parameterized SQL",1],["Transactions & Errors","Commit, rollback, connection handling, SQL exceptions",1]],
+A:[["Assignment 6: IT Operations Database",["Create tables for servers, incidents and applications.","Insert sample records.","Find servers associated with critical incidents.","Calculate incident counts by severity.","Retrieve incident data using Python.","Use parameterized SQL queries to avoid SQL injection."]]],
+D:"SQL scripts and a Python application that retrieves operational data from the database.",C:"After hour 26: submit the database assignment."},
+{t:"Data Engineering Fundamentals",h:10,
+T:[["Data Fundamentals","Structured, semi-structured and unstructured data",1],["ETL/ELT","Extract, transform, load; batch processing",1],["Data Formats","CSV, JSON, JSONL, Parquet and YAML",1],["Data Processing","Pandas, filtering, grouping, merging and transformation",2],["Data Quality","Missing values, duplicates, schema and validation",1],["Large File Processing","Streaming files, generators, memory-efficient processing",1],["Logging & Data Pipelines","Pipeline stages, error handling, logging",1],["Big Data Introduction","Distributed processing, Spark fundamentals",1],["Data Storage","Filesystems, object storage and data organization",1]],
+A:[["Assignment 7: IT Incident Data Pipeline",["Read incident records from CSV and JSON files.","Clean missing and inconsistent values.","Remove duplicate records using a defined business key.","Standardize timestamps and severity levels.","Generate incident summaries using Pandas.","Export the cleaned dataset to CSV and JSON."]],["Assignment 8: Large Log Processing",["Process a large synthetic log file.","Identify frequent errors and affected services.","Avoid loading the entire file into memory.","Measure execution time and memory usage.","Explain when Spark would be preferable to local Python processing."]]],
+D:"A reusable data-processing pipeline with validation, logging and output reports.",C:"After hour 36: submit the data engineering assignments."},
+{t:"Integrated Assignment & Assessment",h:4,
+T:[["Design and implementation","Plan the modules, then build the data collector",2],["Testing and debugging","Test each stage with sample data and fix failures",1],["Demonstration and assessment","Walk through the project and results",1]],
+A:[["Project: IT Operations Data Collector",["Collect data from a REST API.","Read application logs from files.","Retrieve historical incidents from a SQL database.","Clean and combine the collected data.","Identify critical incidents.","Generate a JSON or CSV report.","Handle exceptions and log execution details.","Use separate modules and environment-based configuration."]]],
+D:"A working application with a report, logs and a live demonstration.",C:"After hour 40: demonstrate the integrated project."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s1")||"{}");theme=localStorage.getItem("aiops-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s1",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML=M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/40*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+refresh();
+</script>
+</body>
+</html>

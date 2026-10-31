@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ML, Deep Learning & NLP Foundations | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 2</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>ML, Deep Learning & NLP Foundations</h1>
+<p>Understand how LLMs and Transformers work without becoming an ML developer. Learning is concept-first and demo-driven: you run prewritten notebooks, and you never train models from scratch. Examples come from IT Operations, DevOps, SRE, cloud and infrastructure work.</p>
+<div class="facts"><div><b>16 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 16 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main id="mods"></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"AI, ML & Deep Learning Fundamentals",h:2,
+T:[["Introduction to AI","What AI is and its applications",.25],["AI vs. ML vs. Deep Learning vs. GenAI","Differences and relationships",.5],["Traditional ML vs. Deep Learning","Feature engineering and representation learning",.5],["ML Lifecycle","Data collection, training, validation, testing and inference",.5],["AI Applications in IT Operations","Incident prediction, anomaly detection and classification",.25]],
+K:[["AI","The broader field of building systems that perform intelligent tasks."],["ML","Learns patterns from data."],["Deep Learning","Uses multilayer neural networks."],["Generative AI","Produces content such as text, images and code."],["LLMs","Deep learning models designed mainly for language tasks."]],
+P:"Watch a simple example that predicts whether a server is healthy from historical metrics. Observe the input features, prediction and output without implementing the algorithm.",
+A:[["Assignment 1: Classify the Use Cases",["Predicting server failure: traditional ML, deep learning or GenAI?","Grouping similar incidents: which category?","Generating a Kubernetes troubleshooting explanation: which category?","Classifying support tickets: which category?","Answering questions using internal documentation: which category?"]]],
+C:"End of hour 2: submit Assignment 1."},
+{t:"Types of Machine Learning",h:2,
+T:[["Supervised Learning","Labeled data, classification and regression",.5],["Unsupervised Learning","Clustering and anomaly detection",.5],["Reinforcement Learning","Agent, environment, actions, rewards and policy",.5],["Model Evaluation","Training data, test data, overfitting and generalization",.5]],
+K:[["Supervised","Classification predicts an incident category. Regression estimates future CPU utilization."],["Unsupervised","Clustering groups similar incidents. Anomaly detection finds unusual server behavior."],["Reinforcement","An agent acts in an environment, gets rewards or penalties and learns a policy."],["RLHF (preview)","A brief link to LLM training. Details come in the LLM module."]],
+P:"Run a prewritten scikit-learn notebook that demonstrates classification and clustering.",
+A:[["Assignment 2: Pick the Learning Type",["Choose five IT use cases.","Identify the learning category for each one.","Explain your choice for each one."]]],
+C:"End of hour 4: submit Assignment 2."},
+{t:"Artificial Neural Networks (ANN)",h:3,
+T:[["Biological Inspiration","Neurons and connections",.25],["ANN Architecture","Input, hidden and output layers",.5],["Neurons and Parameters","Inputs, weights, bias and weighted sums",.5],["Activation Functions","ReLU, sigmoid, tanh and softmax",.5],["Forward Propagation","How inputs generate predictions",.5],["Loss Functions","Measuring prediction error",.25],["Backpropagation","Gradients and weight updates",.25],["Training vs. Inference","Learning versus using learned parameters",.25]],
+K:[["Weights","Decide how strongly each input contributes to a neuron."],["Bias","A learnable value that shifts the weighted input."],["Layers","Deeper networks can learn more complex representations."],["Activation functions","Add nonlinearity so networks learn complex patterns."],["Forward propagation","Inputs pass through the network to make a prediction."],["Loss","Measures the gap between prediction and target."],["Backpropagation","Gradients help an optimizer adjust weights and biases."],["Training vs. inference","Training adjusts parameters. Inference uses them to predict."]],
+P:"Run a prewritten notebook that visualizes a small neural network. Spot the input features, weights and biases, hidden layers, activation functions and output predictions.",
+A:[["Assignment 3: Label the Network",["Label the components in the neural network diagram.","Explain how an input becomes an output."]]],
+C:"End of hour 7: submit Assignment 3."},
+{t:"Deep Learning Architectures",h:2,
+T:[["Feedforward Neural Networks","Basic neural network architecture",.25],["CNN","Convolutional Neural Networks and image processing",.25],["RNN","Recurrent Neural Networks and sequence processing",.25],["LSTM","Handling longer-term dependencies in sequences",.25],["Attention Mechanism","Context-dependent relationships between tokens",.5],["Transformer Introduction","Why Transformers became central to modern LLMs",.5]],
+K:[["Feedforward network","Learns mappings from inputs to outputs."],["CNN","Learns spatial patterns, especially in images."],["RNN","Processes sequential information."],["LSTM","Handles longer dependencies better than basic RNNs."],["Transformer","Uses attention for token relationships and parallel training."],["Remember","CNNs, RNNs and LSTMs are still useful, not obsolete."]],
+P:"View prebuilt visualizations that compare a feedforward network, an RNN and a Transformer.",
+A:[["Assignment 4: Match and Explain",["Match each architecture to its application.","Explain why Transformers matter for modern LLMs."]]],
+C:"End of hour 9: submit Assignment 4."},
+{t:"Natural Language Processing (NLP)",h:3,
+T:[["NLP Fundamentals","What NLP is and common applications",.25],["Text Preprocessing","Normalization, punctuation and text cleaning",.5],["Tokenization","Words, subwords, tokens and token IDs",.5],["Vocabulary","Token vocabulary and vocabulary size",.25],["Traditional Text Representation","Bag of Words and TF-IDF",.5],["Word Embeddings","Representing words as numerical vectors",.5],["Semantic Similarity","Similarity between text representations",.5]],
+K:[["Text preprocessing","Normalize and clean text. Modern LLM pipelines do not always remove punctuation or stop words."],["Tokenization","A tokenizer turns text into tokens, mapped to numeric token IDs."],["Vocabulary","The token units a given tokenizer recognizes."],["Bag of Words and TF-IDF","Traditional ways to represent documents as numbers."],["Word embeddings","Words or other units as numerical vectors."],["Semantic similarity","Similar meanings can have similar vectors, depending on the model."]],
+P:"Run a prewritten notebook that tokenizes an incident description, shows token IDs, compares Bag of Words with TF-IDF, creates embeddings with a pretrained model and compares two incident descriptions.",
+A:[["Assignment 5: Incident Descriptions",["Take five IT incident descriptions.","Explain how tokenization breaks down the text.","Identify the difference between tokens and token IDs.","Explain how embeddings can help find similar incidents."]]],
+C:"End of hour 12: submit Assignment 5."},
+{t:"NLP-to-LLM Bridge",h:3,
+T:[["Static vs. Contextual Embeddings","Traditional word vectors versus context-dependent representations",.5],["Attention Mechanism","Query, Key and Value at a conceptual level",.75],["Self-Attention","How tokens interact with other tokens in context",.5],["Positional Information","Why token order matters",.25],["Transformer Architecture","Encoder, decoder and encoder-decoder patterns",.5],["From Text to Prediction","Tokens, model computation and next-token prediction",.5]],
+K:[["Static vs. contextual","Classic word vectors are fixed. Contextual ones change with surrounding text."],["Query, Key, Value","Query: what is this token looking for? Key: what does each token offer? Value: what it contributes. An analogy, not literal understanding."],["Self-attention","Tokens use other tokens to build contextual representations."],["Positional information","Order matters, so the model needs token positions."],["Architectures","Encoder-only, decoder-only and encoder-decoder. Many modern generative LLMs are decoder-only."],["Next-token prediction","The model scores possible next tokens, a decoding strategy picks one, and the loop repeats."]],
+P:"Use a pretrained tokenizer and a small language model to display the input text, token IDs, a next-token prediction and the generated output. Run and inspect the notebook. You do not implement attention or Transformer layers.",
+A:[["Assignment 6: Explain the Flow",["In your own words, explain: Text → Tokenization → Token IDs → Transformer processing → Next-token prediction → Generated text."]]],
+C:"End of hour 15: submit Assignment 6."},
+{t:"Final Assessment",h:1,
+T:[["Conceptual quiz","Covers ML, ANN, NLP and Transformers",.5],["Architecture explanation and review","Explain the architecture and review your assignments",.5]],
+A:[["Assessment questions: can you answer these?",["What is the difference between AI, ML and Deep Learning?","What are supervised and unsupervised learning?","What do weights and biases do in a neural network?","What is the difference between training and inference?","How do CNNs, RNNs and Transformers differ?","What is tokenization?","How are token IDs different from embeddings?","What is semantic similarity?","What do Query, Key and Value mean in attention?","How does a Transformer contribute to next-token prediction?"]]],
+C:"End of hour 16: complete the final assessment."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s2")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s2",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML=M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>Python demonstration:</strong> ${m.P}</div>`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+refresh();
+</script>
+</body>
+</html>

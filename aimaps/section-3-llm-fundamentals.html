@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transformers & LLM Fundamentals | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 3</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>Transformers & LLM Fundamentals</h1>
+<p>Learn how LLMs work inside, from tokens to logits, and how to choose a model and plan its deployment. Learning is 80% concepts and 20% prewritten Python demonstrations, so you run and inspect notebooks instead of building models.</p>
+<div class="facts"><div><b>12 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 12 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main id="mods"></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"LLM Fundamentals",h:1.5,
+T:[["What LLMs Are","A deep learning model for language",.25],["How LLMs Work","From text to tokens to a generated answer",.5],["Training vs. Inference","Learning parameters versus using them",.25],["Next-Token Prediction","Predicting one token at a time, in a loop",.5]],
+K:[["What an LLM is","A deep learning model trained on large text to predict and generate language."],["How it works","Text becomes tokens, flows through Transformer layers and produces scores for the next token."],["Training vs. inference","Training adjusts parameters. Inference uses fixed parameters to generate."],["Next-token prediction","The model predicts one token, adds it to the text and repeats."]],
+A:[["Self-check",["Explain training vs. inference.","Explain next-token prediction."]]],
+C:"End of hour 1.5: finish the self-check."},
+{t:"Transformer Architecture",h:2.5,
+T:[["Encoder, Decoder and Encoder-Decoder","The three architecture patterns",.5],["Self-Attention","How tokens use other tokens as context",.75],["Multi-Head Attention","Several attention views in parallel",.75],["Positional Encoding","Giving the model token order",.5]],
+K:[["Encoder, decoder, encoder-decoder","Encoders understand input, decoders generate output. Many modern LLMs are decoder-only."],["Self-attention","Each token weighs the other tokens to build a context-aware representation."],["Multi-head attention","Several attention heads look for different relationships in parallel."],["Positional encoding","Adds token order, since attention alone does not know order."]],
+A:[["Self-check",["Describe how multi-head attention extends self-attention.","Explain why positional encoding is needed."]]],
+C:"End of hour 4: finish the self-check."},
+{t:"LLM Internal Architecture",h:2,
+T:[["Layers and Neurons","Stacked layers that transform each token",.5],["Parameters, Weights and Biases","The learned numbers that define a model",.5],["Hidden Dimensions and Embeddings","The vector size carried through the model",.5],["Logits","Raw scores for every possible next token",.5]],
+K:[["Layers and neurons","Stacked Transformer layers hold the neurons that transform each token representation."],["Parameters, weights, biases","Learned numbers that define the model. Parameter count drives memory needs."],["Hidden dimensions and embeddings","The vector size that carries each token through the model."],["Logits","Raw scores for every vocabulary token, turned into probabilities to pick the next token."]],
+P:"Run a prewritten notebook that lists a small model's layers and parameter counts.",
+A:[["Self-check",["Explain parameters, weights and biases.","Explain what logits are."]]],
+C:"End of hour 6: finish the self-check."},
+{t:"Tokenization & Context Window",h:1,
+T:[["Tokens and Token IDs","Text split into tokens, then mapped to numbers",.25],["Vocabulary","The tokens a tokenizer knows",.25],["Context Limits","How much text fits in one request",.25],["Input and Output Tokens","What counts toward limits and cost",.25]],
+K:[["Tokens and token IDs","Text splits into tokens, and each token maps to a number."],["Vocabulary","The set of tokens a tokenizer knows."],["Context window","The maximum tokens a model handles at once, input plus output."],["Input vs. output tokens","Both count toward limits, and are often priced and timed differently."]],
+P:"Use a prewritten notebook with a tokenizer to see tokens, token IDs and token counts for your own text.",
+A:[["Assignment 1: Tokenize a Sentence",["Pick a sentence from an IT incident or log.","Inspect how it becomes tokens.","Inspect the matching token IDs."]]],
+C:"End of hour 7: submit Assignment 1."},
+{t:"LLM Model Categories",h:1.5,
+T:[["Model Families","GPT, Llama, Qwen, Mistral, Gemma",.5],["Base vs. Instruct Models","Predicting text versus following instructions",.5],["Open-Weight vs. Proprietary Models","Self-hosted weights versus API access, plus licenses",.5]],
+K:[["Families","GPT, Llama, Qwen, Mistral and Gemma differ in size, license and strengths."],["Base vs. instruct","Base models predict text. Instruct models are tuned to follow instructions."],["Open-weight vs. proprietary","Open-weight models you can host yourself. Proprietary models come through an API. Check licenses, for example Apache 2.0 or the Llama license."]],
+A:[["Self-check",["Explain base vs. instruct models.","Explain open-weight vs. proprietary models."]]],
+C:"End of hour 8.5: finish the self-check."},
+{t:"LLM Training Lifecycle",h:1,
+T:[["Pretraining","Learning language from huge text collections",.25],["Supervised Fine-Tuning","Learning from example instructions and answers",.25],["Preference Alignment","Steering outputs toward preferred answers",.25],["Inference","Serving the trained model",.25]],
+K:[["Pretraining","Learn language patterns from huge text collections."],["Supervised fine-tuning","Train on example instructions and answers."],["Preference alignment","Tune outputs toward human-preferred responses."],["Inference","Serve the trained model to generate answers."]],
+A:[["Self-check",["Put the lifecycle in order: pretraining, fine-tuning, alignment, inference.","Explain what each stage changes."]]],
+C:"End of hour 9.5: finish the self-check."},
+{t:"Model Selection & Capabilities",h:1,
+T:[["Model Size","Parameters, memory and cost",.25],["Reasoning, Coding and Multimodal Models","Specialties and when to use them",.25],["Latency, Quality and Cost","The trade-off triangle",.25],["Deployment Fit","Matching a model to hardware, budget and data rules",.25]],
+K:[["Model size","Larger models are usually stronger, but need more memory and cost more to run."],["Specialties","Reasoning, coding and multimodal models suit different jobs."],["Trade-offs","Balance latency, quality and cost for your workload."],["Deployment fit","Match the model to your hardware, budget and data rules."]],
+A:[["Assignment 2: Compare Two LLMs",["Choose two LLMs.","Compare their size.","Compare their capabilities.","Compare their deployment requirements."]]],
+C:"End of hour 10.5: submit Assignment 2."},
+{t:"Python Demonstrations & Assessment",h:1.5,
+T:[["Tokenizer Exploration","Tokens and token IDs for your own text",.5],["Model Output Inspection","Logits and next-token choices",.5],["Inference Demonstration","A full generation from prompt to answer",.5]],
+P:"Run the prewritten notebooks for tokenizer exploration, model output inspection and a full inference run. Run and inspect them. You do not build anything from scratch.",
+A:[["Assignment 3: Draw the Flow",["Draw: Input → Tokenization → Transformer → Logits → Next Token → Generated Response.","Explain each step in your own words."]],["Assessment: Explain and Decide",["Explain how an LLM works internally.","Justify a model choice and its deployment needs."]]],
+C:"End of hour 12: submit Assignment 3 and complete the assessment."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s3")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s3",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML=M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>Python demonstration:</strong> ${m.P}</div>`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+refresh();
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On-Premises & Local LLM Deployment | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.cmd{margin-bottom:10px;border:1.5px solid var(--ln);border-radius:12px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--panel);font-size:.85rem;color:var(--mu)}
+.cb{border:1px solid var(--ln);background:none;border-radius:8px;padding:2px 10px;font-size:.8rem}
+.cmd pre{margin:0;padding:10px 12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#141a2b;color:#e8edf5}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 5</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>On-Premises & Local LLM Deployment</h1>
+<p>Pick the right deployment tool, run an LLM on your own hardware, expose it through an API, containerize it, and understand how to grow from a laptop to GPU servers and multi-node clusters. The focus is infrastructure and deployment, not training.</p>
+<div class="facts"><div><b>16 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 16 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main id="mods"></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Understanding Local and On-Premises Deployment",h:1,
+T:[["What Local Deployment Means","Your hardware runs the model: app, API server, inference engine, CPU or GPU",.25],["Local vs. Cloud Inference","Control, cost, scaling, maintenance and internet needs",.5],["Deployment Options Overview","Ollama, LM Studio, llama.cpp and vLLM, plus Docker and Ray",.25]],
+K:[["Local deployment","You download weights and run the model on your own hardware instead of calling a provider."],["Request flow","User, web UI or app, LLM API server, inference engine, CPU or GPU, response."],["Security is still your job","Local does not mean secure. Access control, authentication, network limits, logging and licensing still matter."]],
+A:[["Self-check",["Explain how local and cloud inference differ.","Name the four tools and what each is for."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Ollama: Simple Local Deployment",h:2,
+T:[["What Is Ollama?","A local model runtime with an HTTP API",.5],["Lab 1: Install and Run Ollama","Install on Ubuntu, then run a small model",.5],["Manage Models","List, inspect and remove models",.25],["Test the API with curl","The local API on port 11434",.25],["Test Ollama from Python","Call the model with requests",.5]],
+K:[["Ollama","A local model runtime and manager with an HTTP API on port 11434."],["Capabilities","Download and run models, manage several, serve an API, use CPU or GPU, run in containers."],["If the API fails","Check the model exists, the server is running and port 11434 is reachable."]],
+X:[["Install check and first run","ollama --version\nollama run qwen2.5:1.5b"],["Manage models","ollama list\nollama ps\nollama rm qwen2.5:1.5b"],["Test the API","curl http://localhost:11434/api/tags\ncurl http://localhost:11434/api/generate -d '{\"model\":\"qwen2.5:1.5b\",\"prompt\":\"Explain what a Linux process is.\",\"stream\":false}'"]],
+A:[["Ollama assessment",["Install Ollama.","Download and run a model.","List installed models.","Generate a response using the CLI.","Call the API with curl.","Call the API from Python.","Diagnose an API connection failure."]]],
+C:"Checkpoint: complete the Ollama assessment."},
+{t:"LM Studio: Desktop Deployment",h:1.5,
+T:[["What Is LM Studio?","A desktop app for local models",.25],["Lab 2: Deploy Through the GUI","Download, load and chat",.5],["Start the API Server","OpenAI-compatible endpoints",.25],["Test with Python","Use the OpenAI client",.25],["Ollama vs. LM Studio","When to choose each",.25]],
+K:[["LM Studio","A desktop app to download, load and chat with models. Its server can expose OpenAI-compatible endpoints."],["Default port","The API usually runs on 1234. Check your configuration and authentication settings."],["Ollama vs. LM Studio","Ollama is CLI-first and suits headless work. LM Studio is GUI-first and suits demos."]],
+X:[["Start the server and list models","lms server start\ncurl http://localhost:1234/v1/models"]],
+A:[["Test: Local Model over HTTP",["Run a local model in LM Studio.","Invoke it with an HTTP request.","Explain the desktop app vs. its inference API."]]],
+C:"Checkpoint: finish the test."},
+{t:"Linux-Based Model Deployment",h:1,
+T:[["Why Linux?","SSH, services, containers, GPU tooling",.25],["Check the Machine","OS, CPU, RAM, disk and GPU",.25],["GPU Deployment Prerequisites","What must be true before you start",.25],["Run Ollama as a Server","systemd status and logs",.25]],
+K:[["Why Linux","SSH administration, services, containers, GPU tooling, monitoring and automation."],["GPU prerequisites","Supported GPU, driver, runtime libraries, engine support for the model and precision, enough VRAM."],["Careful","nvidia-smi showing a GPU does not prove every engine can use it. Keep services on localhost unless remote access is needed."]],
+X:[["Check the machine","cat /etc/os-release\nlscpu\nfree -h\ndf -h\nnvidia-smi"],["Ollama service","systemctl status ollama\njournalctl -u ollama -n 100 --no-pager"]],
+A:[["Lab 3: Server-Readiness Report",["Record OS version, CPU and core count, RAM and storage.","Record the GPU model and VRAM, if any.","Choose a model and estimate its memory needs.","Note the API endpoint and port.","Run a basic service-health check."]]],
+C:"Checkpoint: submit the readiness report."},
+{t:"llama.cpp and GGUF Models",h:1.5,
+T:[["What Are llama.cpp and GGUF?","An engine and its file format",.5],["llama.cpp vs. Ollama","Control versus convenience",.25],["Lab 4: Run a GGUF Model","Start llama-server on localhost",.5],["Test the Server and Compare Quantizations","Size, memory, speed and quality",.25]],
+K:[["llama.cpp","Efficient inference on CPU, GPU backends and hybrid setups, with an OpenAI-compatible server."],["GGUF","A file format with weights, metadata and tokenizer. It is a format, not an engine."],["Quant names","Q4_K_M, Q5_K_M and Q8_0 are different quantization variants."],["Lesson","Pick by quality, memory and speed, not by the smallest file."]],
+X:[["Run a server (bound to localhost)","llama-server -m /models/model.gguf -c 4096 --host 127.0.0.1 --port 8080"],["Test it","curl http://127.0.0.1:8080/v1/models"]],
+A:[["Exercise: Compare Three Quantized Variants",["Compare file size.","Compare RAM or VRAM use.","Compare generation speed.","Compare output quality on the same prompts.","Judge suitability for your hardware."]]],
+C:"Checkpoint: finish the comparison."},
+{t:"vLLM: High-Throughput Serving",h:2,
+T:[["What Is vLLM and Why Enterprises Use It","PagedAttention, continuous batching, OpenAI-compatible API",.5],["Continuous Batching","How requests share the GPU",.25],["Lab 5: Deploy vLLM with Docker","A small model on an NVIDIA GPU",.5],["Test the API","List models and chat",.25],["Monitor the Deployment","GPU, containers and latency",.25],["When to Choose vLLM","GPU servers with concurrency",.25]],
+K:[["vLLM","A serving engine with PagedAttention, continuous batching and an OpenAI-compatible API."],["Why enterprises use it","Many simultaneous requests, steady latency, efficient GPU use and streaming."],["Continuous batching","Active sequences are managed dynamically as requests arrive and finish."],["Record","GPU memory and utilization, latency, tokens per second and errors."]],
+PL:"Note",P:"Verify the current image, model compatibility, GPU prerequisites and memory needs before using this in a lab. For CPU-only demos, another runtime may be simpler.",
+X:[["Run vLLM in Docker","docker run --rm --gpus all --ipc=host -p 8000:8000 vllm/vllm-openai:latest --model Qwen/Qwen2.5-0.5B-Instruct"],["Test and monitor","curl http://localhost:8000/v1/models\nnvidia-smi\ndocker ps\ndocker logs <container_id>"]],
+A:[["vLLM assessment",["Deploy the model.","Call the API.","Inspect GPU memory.","Explain concurrent requests vs. a single interactive session."]]],
+C:"Checkpoint: complete the vLLM assessment."},
+{t:"Docker-Based LLM Deployment",h:1.5,
+T:[["Why Docker?","Reproducible runtime units",.25],["Run Ollama in Docker","Named volume for model data",.5],["Production Considerations","Storage, limits, health checks, TLS, secrets",.5],["Persistence Test","Recreate the container, keep the model",.25]],
+K:[["Why Docker","Reproducible images, versioning, restarts, model volumes and orchestration."],["Still needs a GPU","A container does not remove driver and runtime needs on the host."],["Production","Persistent storage, limits, health checks, logs, TLS, version pinning, network limits and secrets."]],
+X:[["Ollama in Docker (CPU example)","docker run -d --name ollama -p 127.0.0.1:11434:11434 -v ollama:/root/.ollama ollama/ollama\ndocker exec -it ollama ollama run qwen2.5:1.5b\ncurl http://localhost:11434/api/tags"]],
+A:[["Test: Recreate the Container",["Remove and recreate the container, keeping the volume.","Check that the downloaded model is still available."]]],
+C:"Checkpoint: finish the persistence test."},
+{t:"Multi-GPU Model Deployment",h:1,
+T:[["Why Use Multiple GPUs?","Fit a large model or serve more users",.25],["Tensor Parallelism","Splitting computation across GPUs",.25],["Replication for Throughput","One model copy per GPU",.25],["Worked Sizing and Strategy Exercise","70 GiB over 48 GiB GPUs",.25]],
+K:[["Goal A: fit a large model","Distribute the model across GPUs with tensor or pipeline parallelism."],["Goal B: serve more users","Replicate the model on each GPU behind a load balancer."],["Sizing","70 GiB over 48 GiB GPUs: two GPUs offer 96 GiB nominal, but partitioning and overhead decide."],["Remember","A second GPU does not automatically double performance."]],
+A:[["Exercise: Choose the Strategy",["Model does not fit on one GPU: which approach?","Model fits but more requests arrive: which approach?","Model fits and traffic is low: which approach?","Model spans several servers: which approach?","Explain why a second GPU does not double performance."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"Multi-Node Inference with Ray and vLLM",h:1,
+T:[["What Is Ray?","Distributed computing for LLM serving",.25],["Architecture and Two Patterns","One model across nodes, or replicas",.25],["What Must Be Configured","Versions, network, GPUs, firewall",.25],["Practical Two-Node Exercise","Head node, worker node, validation",.25]],
+K:[["Ray","A distributed framework. Ray Serve LLM works with vLLM for multi-node scaling and an OpenAI-compatible API."],["Pattern A","One model split across nodes."],["Pattern B","Independent replicas, one per node."],["Careful","A two-node Ray cluster does not prove inference is distributed. Network latency and bandwidth matter."]],
+A:[["Lab: Two-Node Cluster",["Prepare Node 1: runtime, GPU, network, head role.","Prepare Node 2: dependencies, connectivity, join the cluster.","Confirm both nodes are visible.","Verify the model and GPU allocation.","Send a request and inspect logs on both nodes."]]],
+C:"Checkpoint: finish the two-node lab."},
+{t:"OpenAI-Compatible APIs",h:1,
+T:[["What OpenAI-Compatible Means","Familiar request and response formats",.25],["Architecture and Switching Backends","One client, many engines",.25],["Why This Is Useful","Move from hosted to on-premises",.25],["API Validation Test","What to verify for each deployment",.25]],
+K:[["OpenAI-compatible","Engines like vLLM, LM Studio and llama.cpp follow familiar request and response formats."],["Switching backends","Change the base URL, model ID and key instead of rewriting your app."],["Caution","Tool calling, structured outputs and parameters can differ between models and engines."]],
+X:[["Point the client at a local server (Python)","from openai import OpenAI\nclient = OpenAI(base_url=\"http://localhost:8000/v1\", api_key=\"your-configured-key\")"]],
+A:[["API Validation Test",["Test the model-list endpoint.","Test the chat-completion endpoint.","Check authentication behavior.","Check error responses.","Check streaming behavior.","Check request and response formats."]]],
+C:"Checkpoint: finish the validation test."},
+{t:"Security and Troubleshooting",h:1,
+T:[["Common Deployment Failures","Symptom, likely cause, what to check",.5],["Security Checklist","Before exposing a model server",.5]],
+K:[["Model fails to load","Check model size, KV cache and runtime memory."],["GPU not detected","Check nvidia-smi and container GPU access."],["Connection refused or model not found","Check service status, logs, port and the /v1/models list."],["Slow or out of memory","Check utilization, context length, precision and concurrency."],["Container exits or multi-node fails","Check docker logs, node connectivity, ports and versions."],["Security","No unauthenticated public APIs. Use firewalls, authentication, TLS, secrets, pinned versions, license checks and monitoring. An API key alone may not secure every endpoint."]],
+A:[["Self-check",["Match three failure symptoms to what you would check.","Review the security checklist against your deployment."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Final Practical Test and Assessment",h:1.5,
+T:[["Assignment A: Model Deployment","Inspect, size, select, run, verify",.5],["Assignment B: API Integration","curl, Python and one diagnosed failure",.25],["Assignment C: Container Deployment","Docker, persistence, logs, recreate",.5],["Assignment D: Scaling Decision","Memory, distribution and replication",.25]],
+K:[["Scenario","Internal IT Operations Assistant: one Linux server, a small instruct model, an HTTP API for Python, Docker, monitoring and no public exposure."],["Scoring (100)","Hardware and model selection 20, deployment 25, API and Python 20, Docker and troubleshooting 15, scaling and security 20."]],
+A:[["Assignment A: Model Deployment",["Inspect the hardware.","Estimate model memory requirements.","Select Ollama, llama.cpp or vLLM.","Download and run the model.","Verify that inference works."]],["Assignment B: API Integration",["Identify the API endpoint.","Test it with curl.","Call it with Python.","Verify the generated response.","Diagnose one introduced API failure."]],["Assignment C: Container Deployment",["Run the service in Docker.","Persist model data.","Inspect container logs.","Verify the API from the host.","Recreate the container and confirm the data remains."]],["Assignment D: Scaling Decision",["The model no longer fits: what changes?","Ten users at once: what changes?","A higher response rate is needed: what changes?","Two GPU servers: what changes?","Remote API access: what changes?"]],["Assessment: can you answer these?",["Ollama vs. vLLM?","What is GGUF and how does it relate to llama.cpp?","Why is a quantized model useful on a CPU machine?","What does an OpenAI-compatible API provide?","Why does a container still need GPU access?","When do you use tensor parallelism?","When do you replicate a model across GPUs?","What role can Ray play in multi-node inference?","Why can a model load but fail under concurrent traffic?","Which security controls come before exposing an API?"]]],
+C:"Checkpoint: complete all assignments and the assessment."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s5")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s5",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML=M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175,305,70][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>${m.PL||"Python demonstration"}:</strong> ${m.P}</div>`:""}${m.X?`<h3>Commands to try</h3>${m.X.map(x=>`<div class="cmd"><div class="ch"><span>${x[0]}</span><button class="cb">Copy</button></div><pre>${x[1].replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>`).join("")}`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;
+ const t=b.closest(".cmd").querySelector("pre").textContent;
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)},()=>{b.textContent="Select and copy"})});
+refresh();
+</script>
+</body>
+</html>

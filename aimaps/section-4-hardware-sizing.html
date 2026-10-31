@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hardware Sizing & Deployment Planning | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.calc{border:2px solid var(--ac);border-radius:16px;padding:16px 18px;margin-bottom:48px;background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.calc h2{margin:0 0 4px;font-size:1.5rem}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0}
+.calc label{display:block;font-size:.85rem;color:var(--mu)}
+.calc input,.calc select{display:block;width:100%;margin-top:3px;padding:7px 10px;border-radius:9px;border:1.5px solid var(--ln);background:var(--panel);color:var(--tx);font:inherit}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.out div{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:10px 12px;font-size:.85rem;color:var(--mu)}
+.out b{display:block;font-size:1.35rem;color:var(--tx)}
+.out .fit{border-color:var(--ok)}.out .fit b{color:var(--ok)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 4</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>Hardware Sizing & Deployment Planning</h1>
+<p>Calculate first, deploy second, benchmark third. Learn to size memory for model weights, KV cache and runtime, choose between CPU and GPU, and estimate monthly cost. Then validate every estimate with a real benchmark.</p>
+<div class="facts"><div><b>20 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 20 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main><section class="calc" id="calc"><h2>Sizing calculator</h2><p class="note">Planning estimate for standard attention. Validate with a real benchmark.</p>
+<div class="cg">
+<label>Parameters (billions)<input id="c-p" type="number" value="8" min="0" step="any"></label>
+<label>Weight precision<select id="c-b"><option value="4">FP32</option><option value="2" selected>FP16 / BF16</option><option value="1">FP8 / INT8</option><option value="0.5">INT4</option></select></label>
+<label>Layers<input id="c-l" type="number" value="32" min="1"></label>
+<label>KV heads<input id="c-h" type="number" value="8" min="1"></label>
+<label>Head dimension<input id="c-d" type="number" value="128" min="1"></label>
+<label>KV cache precision<select id="c-k"><option value="2" selected>FP16</option><option value="1">FP8 / INT8</option></select></label>
+<label>Context (tokens)<input id="c-t" type="number" value="8192" min="1"></label>
+<label>Concurrent sequences<input id="c-s" type="number" value="4" min="1"></label>
+<label>Runtime memory (GiB)<input id="c-r" type="number" value="3" min="0" step="any"></label>
+</div><div class="out" id="c-out"></div></section><div id="mods"></div></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Understanding AI Hardware",h:1.5,
+T:[["CPU vs. GPU","General-purpose versus parallel computation",.5],["RAM, VRAM, Storage and Network","What each component holds and why it matters",.5],["What Happens When a Model Loads","From storage to the first generated token",.5]],
+K:[["CPU","General-purpose compute. Can run smaller models, usually slower."],["GPU","Parallel compute, usually preferred for performance."],["RAM vs. VRAM","RAM serves the OS, apps and CPU inference. VRAM holds GPU weights, KV cache and runtime allocations."],["Compute vs. capacity","A powerful GPU can still fail to load a model without enough VRAM."],["Loading a model","Read files, load weights into RAM or VRAM, allocate runtime memory, process tokens, cache KV, generate. Weights alone do not set GPU needs."]],
+A:[["Self-check",["Explain compute capability vs. memory capacity.","List what happens when a model loads."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Calculating Model-Weight Memory",h:2,
+T:[["The Fundamental Formula","Parameters × bytes per parameter",.5],["Worked Example: 7B in FP16","From 14 GB to about 13 GiB",.5],["Comparing Model Sizes","7B to 70B across precisions",.5],["GB vs. GiB and Real Overhead","Why real usage is higher than the estimate",.5]],
+K:[["Formula","Weight memory = parameters × bytes per parameter. In billions, the result is about GB."],["Bytes per parameter","FP32 4, FP16 and BF16 2, FP8 and INT8 1, INT4 0.5."],["7B in FP16","7 × 2 = 14 GB, about 13 GiB. A 16 GB GPU is not comfortable."],["70B quick table","280 GB FP32, 140 GB FP16, 70 GB INT8, 35 GB INT4."],["GB vs. GiB","1 GiB is about 1.074 GB. Real usage is higher than the estimate."]],
+A:[["Assignment 1: Weights for a 14B Model",["Calculate the FP16 weight memory.","Calculate the INT8 weight memory.","Calculate the INT4 theoretical weight memory."]]],
+C:"Checkpoint: submit Assignment 1."},
+{t:"Precision and Quantization",h:2,
+T:[["What Is Precision?","FP32, FP16, BF16, FP8, INT8 and INT4",.5],["What Is Quantization?","Fewer bits per weight",.5],["How to Choose","Matching format to goal and hardware",.5],["Practical Exercise: 7B on 16 GB","FP16, INT8 or INT4?",.5]],
+K:[["Precision","FP32, FP16, BF16 and FP8 are floating-point. INT8 and INT4 are integer formats."],["Quantization","A 7B model drops from 14 GB to about 7 GB (INT8) or 3.5 GB (INT4)."],["Real INT4 files","Often 4 to 5 GB or more, depending on the method and model."],["Choosing","Fidelity: FP16 or BF16. Balance: INT8. Tight memory: INT4. CPU: GGUF. Always benchmark quality."]],
+A:[["Exercise: 7B on a 16 GB GPU",["Compare FP16, INT8 and INT4 weight memory.","Choose a starting format and justify it."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"KV Cache and Context-Window Memory",h:2.5,
+T:[["What Is the KV Cache?","Cached keys and values for generation",.5],["The KV Cache Formula","What makes the cache grow",.5],["Worked Example: 8B Model","128 KiB per token, 1 GiB at 8K",.5],["Impact of Concurrency","Memory scales with sequences",.5],["32K and 128K Context","How long contexts change memory",.5]],
+K:[["What it is","Cached key and value tensors that avoid recomputing for every token."],["Formula","2 × layers × KV heads × head dim × bytes × tokens × sequences."],["8B example","32 layers, 8 KV heads, 128 head dim, FP16: 128 KiB per token, 1 GiB at 8K."],["Concurrency","1, 2, 4 and 8 sequences at 8K need 1, 2, 4 and 8 GiB."],["Long context","Per sequence: 16K is 2 GiB, 32K is 4 GiB, 64K is 8 GiB, 128K is 16 GiB."]],
+A:[["Assignment 2: KV Cache for 4 × 16K",["Calculate the KV cache per token for the example model.","Calculate the cache for one 16K-token sequence.","Multiply for four concurrent sequences."]]],
+C:"Checkpoint: submit Assignment 2."},
+{t:"Total VRAM and GPU Selection",h:2,
+T:[["The Total-Memory Formula","Weights, KV cache, runtime and headroom",.5],["Worked Example: Deploying an 8B Model","Step by step to about 21 to 23 GiB",.75],["GPU Selection Guidelines","From 8 GB to 80 GB",.75]],
+K:[["Total VRAM","Weights + KV cache + runtime memory + other allocations, plus headroom."],["8B FP16 example","14.9 GiB weights + 4 GiB KV + 2 to 4 GiB runtime = about 20.9 to 22.9 GiB."],["Decision","A 24 GB GPU is tight. A 32 GB GPU gives headroom. Validate with the real engine."],["GPU tiers","8 GB: small quantized. 12 to 16 GB: 7B to 8B quantized. 24 GB: flexible. 48 GB: larger models. 80 GB: demanding workloads."]],
+A:[["Self-check",["Add weights, KV cache and runtime memory for an 8B model.","Pick a GPU and explain the headroom."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Multi-GPU and Distributed Deployment",h:1.5,
+T:[["When You Need Multiple GPUs","Size, throughput and concurrency",.25],["Basic Capacity Calculation","Why 2 × 48 GiB may still not fit",.5],["Tensor vs. Pipeline Parallelism","Two ways to split a model",.5],["Deployment Planning Checklist","What to confirm first",.25]],
+K:[["Why multi-GPU","Model too big, more throughput, more concurrency, or engine support."],["Capacity check","90 GiB over 48 GiB GPUs is 1.875, so two GPUs. It may still not fit once runtime memory is counted."],["Tensor parallelism","Splits computation and weights across GPUs. GPU communication affects speed."],["Pipeline parallelism","Splits layers into stages across GPUs. Depends on stage balance."]],
+A:[["Self-check",["Explain tensor vs. pipeline parallelism.","List what to confirm before choosing multiple GPUs."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"CPU-Only Deployment and System RAM",h:1.5,
+T:[["Estimating RAM","Weights, cache, runtime, OS and margin",.5],["Example: 7B Model in INT4","About 9 to 14 GB before headroom",.5],["CPU Inference Considerations","What drives CPU speed",.5]],
+K:[["RAM formula","Weights + KV cache + runtime + OS and apps + safety margin."],["7B INT4 example","4 to 5 GB model + 1 GiB KV + 2 to 4 GB runtime + 2 to 4 GB OS = about 9 to 14 GB."],["Decision","16 GB may run it. 32 GB gives flexibility."],["Speed factors","Core count, memory bandwidth, quantization, context and engine. More cores do not scale linearly."]],
+A:[["Self-check",["Estimate RAM for a 7B INT4 model.","Name three factors that affect CPU inference speed."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Concurrency, Throughput and Performance",h:1.5,
+T:[["Important Metrics","Latency, TTFT, inter-token latency, throughput, concurrency",.5],["Estimating Generation Time","Tokens ÷ speed, plus TTFT",.5],["Max Users from VRAM?","A memory limit is not a performance limit",.5]],
+K:[["Metrics","Latency, time to first token (TTFT), inter-token latency, throughput and concurrency."],["Generation time","500 tokens at 50 tokens per second is 10 s. Add 1.5 s TTFT for about 11.5 s."],["Max users","KV budget ÷ KV per sequence gives a memory-only limit. Benchmark for real latency."]],
+A:[["Self-check",["Define TTFT and inter-token latency.","Explain why VRAM alone cannot give the maximum users."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Storage, Infrastructure and Cloud Cost",h:1.5,
+T:[["Storage Planning","Weights, images, logs and caches",.5],["Infrastructure Cost Formula","Hourly rate × hours per month",.5],["Cost Optimization Options","Smaller models, quantization, scaling",.5]],
+K:[["Storage","Weights, quantized versions, container images, code, logs, datasets and caches."],["Monthly cost","Hourly rate × hours used. Always-on is 24 × 30 = 720 hours."],["Example","₹200 per hour × 720 = ₹144,000 per month, before storage, network and taxes."],["Savings","Smaller model, quantization, scale down idle GPUs, batching, monitor tokens per second."]],
+A:[["Self-check",["Estimate monthly cost from an hourly rate.","List three ways to cut cost."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"End-to-End Deployment Sizing Exercises",h:4,
+T:[["Exercise 1: Small Local Model","Run a 7B model locally",.75],["Exercise 2: Internal IT Assistant","8B, FP16, 4 sequences, 8K context",.75],["Exercise 3: Enterprise Model","70B, INT4, 8K context, 4 sequences",1],["Exercise 4: Production Sizing","Design an LLM service for an IT support team",1.5]],
+K:[["Takeaway","Calculate first, deploy second, benchmark third. Formulas give an estimate. Tests prove quality, speed and cost."]],
+A:[["Exercise 1: Small Local Model",["Calculate FP16 and INT4 weight memory.","Estimate the KV cache for an 8K context.","Estimate total RAM or VRAM.","Decide whether CPU or GPU fits."]],["Exercise 2: Internal IT Assistant",["Calculate model-weight memory.","Calculate the KV cache.","Estimate total VRAM.","Pick a suitable GPU capacity.","Add headroom."]],["Exercise 3: Enterprise Model Deployment",["Calculate theoretical weight memory.","Estimate actual quantized weight storage.","Calculate KV cache from the model's real architecture.","Estimate total memory.","Compare single-GPU and multi-GPU deployment.","Identify performance and cost considerations."]],["Exercise 4: Production Sizing",["Choose a model and precision.","Size RAM and VRAM.","Decide GPU count and deployment strategy.","Estimate throughput.","Estimate monthly cost.","Write a benchmarking and scaling plan."]],["Final assessment: can you answer these?",["How much memory do the weights need?","How does quantization change that?","How much extra memory does the KV cache need?","How does context length affect memory?","How does concurrency affect memory and performance?","Will the model fit on one GPU?","If not, which multi-GPU strategy fits?","Is CPU inference viable?","What throughput and latency should you benchmark?","What will it cost per month?"]]],
+C:"Checkpoint: complete all four exercises and the final assessment."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s4")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s4",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML='<a href="#calc"><b>Sizing calculator</b><span>Try the formulas live</span></a>'+M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>Python demonstration:</strong> ${m.P}</div>`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+const G=1024**3;
+function calc(){const v=i=>+document.getElementById(i).value||0;
+ const w=v("c-p")*1e9*v("c-b"),kt=2*v("c-l")*v("c-h")*v("c-d")*v("c-k"),kv=kt*v("c-t")*v("c-s"),tot=w+kv+v("c-r")*G,need=tot*1.1/G;
+ const g=need<=80?[8,12,16,24,32,48,80].find(x=>x>=need)+" GiB GPU":"Multi-GPU: about "+Math.ceil(need)+" GiB";
+ $("#c-out").innerHTML=`<div><b>${(w/1e9).toFixed(1)} GB</b>weights (${(w/G).toFixed(1)} GiB)</div><div><b>${(kt/1024).toFixed(0)} KiB</b>KV cache per token</div><div><b>${(kv/G).toFixed(1)} GiB</b>KV cache total</div><div><b>${(tot/G).toFixed(1)} GiB</b>estimated total</div><div class="fit"><b>${g}</b>smallest common fit with 10% headroom (a planning guess)</div>`}
+document.querySelectorAll("#calc input,#calc select").forEach(e=>e.addEventListener("input",calc));calc();
+refresh();
+</script>
+</body>
+</html>

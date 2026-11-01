@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud-Based LLM Deployment | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.cmd{margin-bottom:10px;border:1.5px solid var(--ln);border-radius:12px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--panel);font-size:.85rem;color:var(--mu)}
+.cb{border:1px solid var(--ln);background:none;border-radius:8px;padding:2px 10px;font-size:.8rem}
+.cmd pre{margin:0;padding:10px 12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#141a2b;color:#e8edf5}
+.tri,.calc{border:2px solid var(--ac);border-radius:16px;padding:16px 18px;margin-bottom:36px;background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.tri h2,.calc h2{margin:0 0 4px;font-size:1.5rem}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.tabs button{border:1.5px solid hsl(var(--h) 85% 58%);background:var(--panel);border-radius:999px;padding:6px 16px}
+.tabs button.on{background:hsl(var(--h) 85% 58%);color:#101010;font-weight:600}
+.tp{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.tp div{background:var(--panel);border:1.5px solid hsl(var(--h) 85% 58%/.7);border-radius:12px;padding:10px 12px;font-size:.92rem}
+.tp small{display:block;color:var(--mu);font-size:.8rem}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0}
+.calc label{display:block;font-size:.85rem;color:var(--mu)}
+.calc input{display:block;width:100%;margin-top:3px;padding:7px 10px;border-radius:9px;border:1.5px solid var(--ln);background:var(--panel);color:var(--tx);font:inherit}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.out div{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:10px 12px;font-size:.85rem;color:var(--mu)}
+.out b{display:block;font-size:1.35rem;color:var(--tx)}
+.out .fit{border-color:var(--ok)}.out .fit b{color:var(--ok)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 6</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>Cloud-Based LLM Deployment</h1>
+<p>Deploy and consume cloud-hosted LLMs on Microsoft Foundry, Amazon Bedrock and Vertex AI. Secure access, connect models to applications, estimate cost and plan for production. Try the two interactive labs below before you start the modules.</p>
+<div class="facts"><div><b>15 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 15 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main><section class="tri" id="tri"><h2>One question, three clouds</h2><p class="note">Pick a platform to see how you sign in, name a model and call it. Claude models are available on all three.</p>
+<div class="tabs" id="tabs"></div><div class="tp" id="tp"></div></section>
+<section class="calc" id="cost"><h2>Cost lab: managed API or GPU VM?</h2><p class="note">Illustrative prices. Use real quotes from your provider.</p>
+<div class="cg">
+<label>Input price ($ per million tokens)<input id="k-ip" type="number" value="2" min="0" step="any"></label>
+<label>Output price ($ per million tokens)<input id="k-op" type="number" value="8" min="0" step="any"></label>
+<label>Input tokens per request<input id="k-i" type="number" value="2000" min="0"></label>
+<label>Output tokens per request<input id="k-o" type="number" value="500" min="0"></label>
+<label>Requests per day<input id="k-r" type="number" value="1000" min="0"></label>
+<label>GPU VM ($ per hour)<input id="k-v" type="number" value="3" min="0" step="any"></label>
+<label>VM hours per month<input id="k-h" type="number" value="720" min="0"></label>
+</div><div class="out" id="k-out"></div></section>
+<div id="mods"></div></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Cloud LLM Deployment Fundamentals",h:1,
+T:[["What Cloud Deployment Means","Use a provider instead of owning GPUs",.25],["Three Deployment Approaches","Managed API, dedicated hosting, self-hosted",.5],["Managed API vs. Self-Hosted","The practical rule",.25]],
+K:[["Cloud deployment","You use a provider to access or host a model. Your app still needs authentication, error handling, monitoring and access controls."],["A: managed API","The provider runs the infrastructure and you call an API."],["B: dedicated hosting","Provisioned compute or a managed endpoint. More control, but you may pay even when idle."],["C: self-hosted","GPU VMs or Kubernetes with an engine like vLLM. Most control, most operational work."],["Practical rule","Start with a managed API for application development. Self-host when control, availability or workload economics justify it."]],
+A:[["Self-check",["Describe approaches A, B and C.","Say when you would move from a managed API to self-hosting."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Microsoft Foundry",h:1.5,
+T:[["What Is Microsoft Foundry?","Models, deployments, tools and governance",.25],["Architecture","Subscription to resource, project, deployment, endpoint",.25],["Lab 1: Deploy a Model","From the model catalog to a working deployment",.25],["Understand the Endpoint","Model, version, deployment name, API, limits",.25],["Lab 2: Call the Model with Python","OpenAI client with environment variables",.25],["Authentication and Access Control","API keys vs. Microsoft Entra ID",.25]],
+K:[["Microsoft Foundry","Microsoft's platform for building and managing AI apps and agents, with models, deployments, tools, evaluation and governance."],["Layers","Subscription, resource group, Foundry resource, project, model deployment, endpoint, your app."],["Endpoint facts","Model name and version, deployment name, supported API, authentication and capacity or rate limits. Not every model supports every operation."],["Authentication","API keys are easy for labs but need secure storage and rotation. Microsoft Entra ID gives identity-based access with Azure RBAC."],["Security","Do not hard-code or commit keys. Use a secrets manager or managed identity."]],
+X:[["Install","python -m pip install openai"],["Call a Foundry deployment","import os\nfrom openai import OpenAI\nclient = OpenAI(base_url=os.environ[\"AZURE_OPENAI_BASE_URL\"], api_key=os.environ[\"AZURE_OPENAI_API_KEY\"])\nr = client.chat.completions.create(model=os.environ[\"AZURE_MODEL_DEPLOYMENT\"], messages=[{\"role\":\"user\",\"content\":\"Explain how Kubernetes handles a failed pod.\"}], max_tokens=200)\nprint(r.choices[0].message.content)"]],
+A:[["Lab 1: Deploy a Model",["Open the Foundry portal.","Create or select a resource and project.","Open the model catalog.","Choose a model that fits the lab.","Review its deployment options.","Deploy the model.","Wait for a successful provisioning state.","Record the endpoint, deployment name and authentication method."]],["Azure practical assessment",["Deploy a model successfully.","Retrieve the correct endpoint and deployment name.","Make a successful API request.","Handle an authentication failure correctly.","Store credentials securely.","Identify model and deployment quotas."]]],
+C:"Checkpoint: complete the Azure assessment."},
+{t:"Amazon Bedrock",h:1.5,
+T:[["What Is Amazon Bedrock?","Managed foundation models on AWS",.25],["Lab 3: Prepare Bedrock Access","Model, region, permissions",.25],["Configure AWS Credentials","Verify the active identity",.25],["Call a Model with Python","The Converse API",.25],["IAM Permissions","Least privilege for model invocation",.25],["When to Choose Bedrock","Fit and trade-offs",.25]],
+K:[["Amazon Bedrock","A managed AWS service for foundation models from Amazon and other providers. No GPU VM is needed to call a model."],["Flow","AWS account, IAM permissions, Bedrock, selected model, Bedrock API, your app."],["IAM","Give an app only the actions and resources it needs, not account-wide admin rights."],["Choose Bedrock when","Workloads run on AWS, you want AWS identity and security controls, or you want to compare several providers."]],
+X:[["Verify identity and install the SDK","aws sts get-caller-identity\npython -m pip install boto3"],["Call a model (Converse API)","import boto3\nclient = boto3.client(\"bedrock-runtime\", region_name=\"us-east-1\")\nr = client.converse(modelId=\"YOUR_SUPPORTED_MODEL_ID\", messages=[{\"role\":\"user\",\"content\":[{\"text\":\"Explain how Linux handles a failed system service.\"}]}], inferenceConfig={\"maxTokens\":200,\"temperature\":0.2})\nprint(r[\"output\"][\"message\"][\"content\"][0][\"text\"])"]],
+A:[["Lab 3: Prepare Bedrock Access",["Open Amazon Bedrock in the console.","Pick a model for the exercise.","Check regional availability and prerequisites.","Verify model access and permissions.","Configure an IAM role or user for the lab.","Confirm the model supports the inference operation."]],["Bedrock practical assessment",["Identify a supported model.","Configure AWS authentication.","Verify your AWS identity.","Invoke the model from Python.","Diagnose an access-denied error.","Explain why IAM permissions should be restricted."]]],
+C:"Checkpoint: complete the Bedrock assessment."},
+{t:"Google Cloud Vertex AI",h:1.5,
+T:[["What Is Vertex AI?","Managed APIs and deployable models",.25],["Lab 4: Prepare Vertex AI","Project, APIs, IAM, quota",.25],["Authentication","Application Default Credentials",.25],["Python Integration","Google Gen AI SDK",.5],["When to Choose Vertex AI","Fit and trade-offs",.25]],
+K:[["Vertex AI","Google Cloud's platform for generative AI models, apps and deployment."],["Two paths","Some models come through managed APIs. Others need deployment to an endpoint."],["Authentication","Application Default Credentials for development. Service or workload identity for production."],["Choose Vertex AI when","Workloads run on Google Cloud, or you want to compare managed inference with self-hosting on GKE or Compute Engine."]],
+X:[["Authenticate and install","gcloud auth application-default login\npython -m pip install google-genai"],["Call a model","from google import genai\nfrom google.genai import types\nclient = genai.Client(vertexai=True, project=\"YOUR_PROJECT_ID\", location=\"us-central1\")\nr = client.models.generate_content(model=\"YOUR_AVAILABLE_MODEL_ID\", contents=\"Explain how Kubernetes detects an unhealthy container.\", config=types.GenerateContentConfig(max_output_tokens=200, temperature=0.2))\nprint(r.text)"]],
+A:[["Lab 4: Prepare Vertex AI",["Select a Google Cloud project.","Enable the required APIs.","Configure IAM permissions.","Choose an available model.","Review its invocation or deployment requirements.","Configure authentication.","Verify regional availability and quota."]],["Vertex AI practical assessment",["Configure a project and permissions.","Authenticate successfully.","Call a supported model.","Explain a managed model API vs. a deployed endpoint.","Diagnose a permission or quota failure."]]],
+C:"Checkpoint: complete the Vertex AI assessment."},
+{t:"Models Across the Clouds",h:1,
+T:[["Which Models Live Where","Claude, GPT, Gemini and open-weight families",.25],["Same Model, Different Identifiers","Model IDs, deployment names, version names",.25],["Regions and Lifecycle","Availability, versions and retirements",.25],["Exercise: One Model, Two Clouds","Compare catalogs yourself",.25]],
+K:[["Same model, many doors","Claude is available on Bedrock, Vertex AI and Foundry. GPT models are offered through Foundry, Gemini through Vertex AI, and open-weight families appear in catalogs too. Always confirm in the live catalog."],["Different identifiers","Bedrock uses model IDs or inference profiles, Foundry uses deployment names, Vertex AI uses model or version names. Keep them in config, not in app logic."],["Features differ by platform","The same model can have different features, context limits or release timing on each cloud. Check each platform's docs."],["Lifecycle","Models are versioned and retired. Track versions, regions and retirement dates, and test before switching."]],
+PL:"Note",P:"Catalogs change quickly. This module teaches you how to check, not a list to memorize.",
+A:[["Exercise: One Model, Two Clouds",["Pick one model family.","Find it in two cloud catalogs.","Record each platform's identifier format.","Record regions and notable feature differences.","Note where to check retirement dates."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"Managed APIs vs. Self-Hosted Models",h:.75,
+T:[["The Scenario: Three Options","Managed API, GPU VM, Kubernetes",.25],["Comparison","Complexity, control, scaling, billing",.25],["How to Choose","Match the option to the team and workload",.25]],
+K:[["A: managed API","Low complexity, provider runs GPUs, limited runtime control. Best for application development."],["B: GPU VM","Medium complexity, high runtime control, you manage the VM."],["C: Kubernetes","High complexity, automated scaling, platform-level control, highest operational load."],["Careful","Kubernetes does not make an LLM faster or cheaper by itself. Model, hardware, engine and workload decide."]],
+A:[["Self-check",["Pick an option for a small team building an IT assistant, and explain why.","Pick an option for a platform team running many inference services."]]],
+C:"Checkpoint: finish the self-check."},
+{t:"Cloud GPU Infrastructure and Deployment",h:1,
+T:[["Managed API vs. Cloud GPU VM","What you must estimate to self-host",.25],["Deployment Workflow","From model choice to monitoring",.25],["Practical Exercise: 8B Model on a Cloud VM","Use the Section 4 methods",.5]],
+K:[["Estimate first","Model-weight memory, KV cache, runtime overhead, concurrency, CPU and RAM, model storage, network and security. Reuse Section 4."],["Workflow","Choose model, calculate memory, select GPU VM, configure drivers and runtime, deploy vLLM or another engine, expose a private API, test, monitor, optimize."]],
+A:[["Exercise: 8B Model on a Cloud GPU VM",["Calculate the weight memory (8B, FP16).","Estimate KV cache (8K context, 4 sequences) from the model's real architecture.","Add runtime overhead and headroom.","Select an appropriate GPU capacity.","Identify supported VM options in your cloud.","Estimate hourly and monthly cost.","Validate against real SKUs, regions and quota."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"Model Endpoints and API Integration",h:.75,
+T:[["What Is a Model Endpoint?","Managed, deployed or private",.25],["Why Endpoint Abstraction Matters","Keep details in configuration",.25],["Test the Integration","What a deployment test must verify",.25]],
+K:[["Endpoint","The interface your app uses: a managed API, a deployed endpoint or a private self-hosted server."],["You need","URL, model or deployment ID, credentials or identity, request format, timeouts and retries."],["Reachable is not working","An endpoint can respond while inference fails: bad credentials, an unsupported model or exhausted quota."]],
+X:[["Keep endpoint details in config","import os\nfrom openai import OpenAI\nclient = OpenAI(base_url=os.environ[\"LLM_BASE_URL\"], api_key=os.environ[\"LLM_API_KEY\"])\nmodel_name = os.environ[\"LLM_MODEL_NAME\"]"]],
+A:[["Integration test",["Check DNS and network connectivity.","Check the endpoint is reachable.","Check authentication.","Check the model identifier is valid.","Run a successful inference.","Check error handling.","Check timeout behavior."]]],
+C:"Checkpoint: finish the integration test."},
+{t:"Authentication, IAM and Access Control",h:.75,
+T:[["Common Authentication Approaches","Keys, IAM roles, managed and workload identity",.25],["Least Privilege","Minimum access, separate identities",.25],["Practical Test: Diagnose","Four realistic failures",.25]],
+K:[["Approaches","API keys, cloud IAM roles, managed or service identities, workload identity. The right one depends on provider, service and endpoint."],["Least privilege","Give an app only what it needs. Use separate identities for apps and admins, never commit secrets, rotate credentials, restrict management operations and audit access."]],
+A:[["Practical test: find the cause and the fix",["The model endpoint returns an authentication error.","A user reaches the console but cannot invoke the model.","A deployment works locally but fails under a service identity.","An API key was committed to a repository."]]],
+C:"Checkpoint: finish the diagnosis test."},
+{t:"Networking and Security",h:.75,
+T:[["Public vs. Private Access","Who can reach the endpoint",.25],["Enterprise Architecture","Users, app, backend, private network, endpoint",.25],["Security Checklist","Before production",.25]],
+K:[["Public vs. private","A public endpoint is reachable over the internet, subject to access controls. A private endpoint limits access to approved networks."],["Defense in depth","A private network does not replace application authorization, and an API key does not replace network security."],["Checklist","Inbound and outbound access, authentication, TLS, secrets, logging and retention, provider data-handling, prompt sensitivity, rate limits, network isolation."]],
+A:[["Exercise: Secure Architecture",["Draw an internal AI assistant that is not reachable from the public internet.","Mark where authentication and authorization happen.","Mark the network boundaries."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"Autoscaling and High Availability",h:.75,
+T:[["What Is Autoscaling?","Match capacity to demand",.25],["Horizontal vs. Vertical Scaling","Bigger instance or more instances",.25],["High Availability","Surviving an instance failure",.25]],
+K:[["Autoscaling","Adjust capacity to demand so you do not pay for idle resources."],["By approach","Managed API: know rate limits and quotas. GPU VMs: scale with automation, but model loading takes time and needs GPU quota. Kubernetes: scale replicas, but each needs GPU capacity and weights."],["Vertical vs. horizontal","Vertical means a bigger instance, such as more GPU memory. Horizontal means more instances. Test the workload before trusting either."],["High availability","Multiple instances, health checks, load balancing, retry and timeout policies, regional capacity and a recovery plan."]],
+A:[["Assessment: Survive an Instance Failure",["Design a deployment that keeps serving when one inference instance fails.","Name the health checks and load balancing it uses.","Name the quota or capacity it depends on."]]],
+C:"Checkpoint: finish the assessment."},
+{t:"Cloud Inference Cost Estimation",h:1,
+T:[["Billing Models","Tokens, provisioned capacity, VMs, Kubernetes",.25],["Managed API Cost","Input and output token pricing",.25],["GPU VM Cost and Break-Even","720 hours and utilization",.25],["Cost Optimization Checklist","Where the savings are",.25]],
+K:[["Billing models","Managed API: input and output tokens. Provisioned: reserved capacity. GPU VM: VM runtime, storage and extras. Kubernetes: GPU nodes, cluster, storage, network and monitoring."],["Worked example","$2 input and $8 output per million tokens. 2,000 in and 500 out is $0.008 per request. 10,000 requests is $80. Prices are illustrative."],["GPU VM","$3 per hour × 24 × 30 = $2,160 per month, before storage, network, monitoring and taxes."],["Break-even","Do not compare token prices with VM prices alone. Include utilization, traffic, operations effort, availability and idle capacity."],["Optimize","Right-size the model, cap output tokens, cache repeats, batch, scale down idle infrastructure, track cost per successful task."]],
+PL:"Try it",P:"Use the Cost lab at the top of this page with your own numbers.",
+X:[["Cost formulas","cost = input_tokens/1e6 * input_price + output_tokens/1e6 * output_price\nvm_month = hourly_rate * 24 * 30   # 720 hours\n# 2,000 in + 500 out at $2 / $8 per million = $0.008 per request"]],
+A:[["Exercise: Cost a Workload",["Estimate daily requests.","Estimate average input and output tokens.","Calculate the monthly inference cost.","Add infrastructure costs where they apply.","Compare a managed API and a GPU VM, including idle capacity."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"Monitoring, Logging and Performance",h:.75,
+T:[["What to Monitor","Requests, errors, latency, tokens, cost",.25],["Troubleshooting Scenarios","Failures, latency, cost, outages",.25],["Practical Monitoring Exercise","A small test script",.25]],
+K:[["Monitor","Request count, error rate, time to first token, end-to-end latency, tokens, rate-limit errors, GPU and VRAM use, cost per request and model quality."],["Scenarios","Intermittent failures: rate limits, quotas, network. Rising latency: prompt or output length, queueing, capacity. Rising cost: tokens, volume, retries, idle capacity. Outage: service health, quota, networking, recovery."]],
+A:[["Exercise: Monitoring Script",["Send multiple requests.","Record request number, status or error, and elapsed time.","Record token usage when returned.","Summarize average latency, failure rate and estimated cost."]]],
+C:"Checkpoint: finish the exercise."},
+{t:"Final Hands-On Project",h:1.5,
+T:[["Phase 1: Select the Platform","Foundry, Bedrock or Vertex AI",.25],["Phase 2: Deploy and Integrate","Identity, deployment, Python call",.5],["Phase 3: Validate","Five tests, including failures",.25],["Phase 4: Estimate Costs","Monthly inference cost",.25],["Phase 5: Production Design","Architecture, security, monitoring",.25]],
+K:[["Project","Deploy a cloud-based IT Operations assistant that answers Linux, Docker and Kubernetes questions."],["Rubric (100)","Platform and model selection 15, deployment and API integration 25, authentication and security 20, cost 15, monitoring and troubleshooting 15, production architecture 10."]],
+A:[["Phase 1: Select the Platform",["Choose Microsoft Foundry, Amazon Bedrock or Vertex AI.","Document your reasons."]],["Phase 2: Deploy and Integrate",["Configure the cloud project or account.","Select an available model.","Configure identity and permissions.","Deploy or access the model.","Call it from Python.","Add basic exception handling."]],["Phase 3: Validate",["Test a normal request.","Test an invalid model identifier.","Test an authentication failure.","Test a rate-limit or quota error, where safe.","Test a request that exceeds the timeout."]],["Phase 4: Estimate Costs",["Estimate daily requests.","Estimate average input tokens.","Estimate average output tokens.","Calculate the monthly inference cost.","Add other infrastructure costs."]],["Phase 5: Production Design",["Draw the app, backend service and model endpoint.","Add identity and access controls.","Add network boundaries.","Add logging and monitoring.","Add a cost-management strategy.","Add a failure-handling approach."]]],
+C:"Checkpoint: demonstrate the project."},
+{t:"Final Knowledge Test",h:.5,
+T:[["Final Knowledge Test","Ten questions",.5]],
+K:[["Next in the roadmap","LLM Provider Platforms and APIs: OpenAI, Claude and Gemini direct, gateways and provider selection."]],
+A:[["Knowledge test: can you answer these?",["Managed model API vs. self-hosted model?","Why choose a GPU VM over a managed API?","What is a model endpoint?","How do cloud IAM roles differ from API keys?","Why must credentials stay out of Git?","How do you estimate token-based inference cost?","How do you calculate monthly cost of a GPU VM running nonstop?","Vertical vs. horizontal scaling?","Why is a private endpoint not a substitute for application authorization?","Which metrics reveal performance and cost problems?"]]],
+C:"Checkpoint: finish the knowledge test."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s6")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s6",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML='<a href="#tri"><b>Three clouds</b><span>Compare sign-in and calls</span></a><a href="#cost"><b>Cost lab</b><span>API vs. GPU VM</span></a>'+M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175,305,70,200,350,130][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>${m.PL||"Python demonstration"}:</strong> ${m.P}</div>`:""}${m.X?`<h3>Commands to try</h3>${m.X.map(x=>`<div class="cmd"><div class="ch"><span>${x[0]}</span><button class="cb">Copy</button></div><pre>${x[1].replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>`).join("")}`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;
+ const t=b.closest(".cmd").querySelector("pre").textContent;
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)},()=>{b.textContent="Select and copy"})});
+const TRI=[{n:"Microsoft Foundry",h:210,s:"API key or Microsoft Entra ID",i:"A deployment name",c:"OpenAI client with your resource base URL",w:"Subscription, resource group, Foundry resource, project, deployment"},{n:"Amazon Bedrock",h:30,s:"IAM role or user from AWS credentials",i:"A model ID or inference profile",c:"boto3 with the Converse API",w:"AWS account, IAM permissions, model access"},{n:"Vertex AI",h:150,s:"Application Default Credentials or a service identity",i:"A model ID in a project and location",c:"google-genai with vertexai=True",w:"Google Cloud project, enabled APIs, IAM"}];
+function tri(k){const t=TRI[k];$("#tri").style.setProperty("--h",t.h);
+ document.querySelectorAll("#tabs button").forEach((b,i)=>b.classList.toggle("on",i==k));
+ $("#tp").innerHTML=[["Set up",t.w],["Sign in",t.s],["Name the model",t.i],["Call it with",t.c]].map(x=>`<div><small>${x[0]}</small>${x[1]}</div>`).join("")}
+$("#tabs").innerHTML=TRI.map((t,i)=>`<button data-i="${i}">${t.n}</button>`).join("");
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tri(+b.dataset.i)});tri(0);
+function cost(){const v=i=>+document.getElementById(i).value||0;
+ const per=v("k-i")/1e6*v("k-ip")+v("k-o")/1e6*v("k-op"),api=per*v("k-r")*30,vm=v("k-v")*v("k-h"),be=per?vm/(per*30):0;
+ $("#k-out").innerHTML=`<div><b>$${per.toFixed(4)}</b>per request</div><div><b>$${Math.round(api).toLocaleString()}</b>managed API per month</div><div><b>$${Math.round(vm).toLocaleString()}</b>GPU VM per month</div><div class="fit"><b>${Math.round(be).toLocaleString()}</b>requests per day to break even</div><div><b>${api<vm?"Managed API":"GPU VM"}</b>costs less at ${v("k-r").toLocaleString()} requests per day, before operations effort and idle capacity</div>`}
+document.querySelectorAll("#cost input").forEach(e=>e.addEventListener("input",cost));cost();
+refresh();
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Provider Platforms & APIs | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.cmd{margin-bottom:10px;border:1.5px solid var(--ln);border-radius:12px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--panel);font-size:.85rem;color:var(--mu)}
+.cb{border:1px solid var(--ln);background:none;border-radius:8px;padding:2px 10px;font-size:.8rem}
+.cmd pre{margin:0;padding:10px 12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#141a2b;color:#e8edf5}
+.tri{border:2px solid var(--ac);border-radius:16px;padding:16px 18px;margin-bottom:44px;background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.tri h2{margin:0 0 4px;font-size:1.5rem}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.tabs button{border:1.5px solid hsl(var(--h) 85% 58%);background:var(--panel);border-radius:999px;padding:6px 16px}
+.tabs button.on{background:hsl(var(--h) 85% 58%);color:#101010;font-weight:600}
+.tp{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:12px}
+.tp div{background:var(--panel);border:1.5px solid hsl(var(--h) 85% 58%/.7);border-radius:12px;padding:10px 12px;font-size:.9rem;overflow-wrap:anywhere}
+.tp small{display:block;color:var(--mu);font-size:.8rem}
+#tc{white-space:pre-wrap}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 7</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>LLM Provider Platforms & APIs</h1>
+<p>Learn to pick a provider, sign in securely, call its API from Python, handle failures and track cost. About 30% concepts and 70% hands-on labs. You use existing model APIs and train nothing. Start with the Request switcher below.</p>
+<div class="facts"><div><b>14.5 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 14.5 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main><section class="tri" id="tri"><h2>Request switcher: one question, four providers</h2><p class="note">Pick a provider to see its endpoint, authentication and where the answer lives. Then copy the curl request.</p>
+<div class="tabs" id="tabs"></div><div class="tp" id="tp"></div>
+<div class="cmd"><div class="ch"><span>curl request</span><button class="cb">Copy</button></div><pre id="tc"></pre></div></section>
+<div id="mods"></div></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Understanding LLM Provider Platforms",h:1,
+T:[["Providers, Platforms, Models, Endpoints, APIs","The vocabulary of the field",.25],["Hosted APIs vs. Self-Hosted Models","Speed to start versus control",.25],["Platforms to Know","OpenAI, Foundry, Bedrock, Vertex AI, Groq, Anthropic",.25],["Practical: Explore a Playground","Pick a model, send a prompt, inspect the reply",.25]],
+K:[["Key terms","Provider: the company or cloud. Platform: where you manage access, keys, quotas and billing. Model: the trained LLM. Endpoint: the URL you call. API: the contract for requests and responses."],["Model vs. platform","The model does the work. The platform hosts, secures, meters and bills access to it."],["Hosted vs. self-hosted","Hosted APIs are fastest to start. Self-hosting gives control but needs infrastructure."],["Platforms to know","OpenAI, Microsoft Foundry, Amazon Bedrock, Google Vertex AI, Groq and Anthropic."],["Tools and prerequisites","Python, curl or Postman, python-dotenv, a provider SDK, Git and pytest. Know basic Python, JSON, HTTP, environment variables and the command line."],["Cost control","Use small test requests. Check billing, quotas and account permissions before each lab. Access depends on account, region and subscription."]],
+A:[["Practical: Explore a Playground",["Open a provider playground.","Select a model.","Submit a prompt.","Inspect the response."]],["Assignment: Request Flow",["Draw the flow from a Python app to a hosted LLM and back.","Label the endpoint, credentials, request, response and usage data."]]],
+C:"Checkpoint: submit the request-flow diagram."},
+{t:"Model Catalogs, Selection and Deployments",h:1,
+T:[["Model Families and Identifiers","How models are named",.25],["Capabilities and Limits","Text, image, audio, tools, context, latency",.25],["Hosted vs. Provisioned, Regions, Quotas","How access is delivered",.25],["Selecting Models for IT Ops","Logs, incidents, code assistance",.25]],
+K:[["Model families","Identifiers differ by platform: model IDs, deployment names, version names."],["Capabilities","Text, image, audio, tool calling and structured output. Not every model has all of them."],["Limits and trade-offs","Context window, maximum output, latency, throughput and quality."],["Access","Hosted access vs. dedicated or provisioned capacity. Check regions, quotas and deployment types."],["For IT Ops","Match the model to log analysis, incident summaries or code help. Test on your own data."]],
+A:[["Practical: Compare Two Models",["Pick two available models.","Run the same incident-analysis prompt on both.","Compare answers, latency and cost."]],["Assignment: Model Selection Matrix",["List candidate models.","Score capability.","Score cost.","Score latency.","Score security.","Note the intended use case."]]],
+C:"Checkpoint: submit the selection matrix."},
+{t:"LLM API Fundamentals",h:1.5,
+T:[["REST, HTTP, Headers and JSON","The request and response basics",.25],["Endpoints, Model IDs, Deployment Names, Versions","What you must get right",.25],["Authentication","Keys, bearer tokens, cloud identity",.25],["Parameters and Message Roles","Temperature, max tokens, conversation history",.25],["Streaming and Response Fields","Content, usage, finish reason, request ID",.25],["Practical: curl, Then Python","The same call twice",.25]],
+K:[["REST basics","HTTP methods, headers, JSON bodies and JSON responses."],["Identifiers","Endpoint, model ID, deployment name and API version. Each provider names them differently."],["Authentication","API keys, bearer tokens or cloud identity."],["Parameters","Temperature, maximum output tokens and supported sampling controls. Message roles carry the conversation."],["Response fields","Content, usage, finish reason and request ID. Streaming returns chunks instead of one body."],["Provider differences","Endpoints, headers and body shapes differ. Use the Request switcher above."]],
+X:[["Request structure","POST /v1/...\nAuthorization: Bearer <API_KEY>\nContent-Type: application/json"],["Install the SDK","python -m pip install openai"],["The same call in Python","from openai import OpenAI\nclient = OpenAI()   # reads OPENAI_API_KEY\nr = client.chat.completions.create(model=\"YOUR_MODEL_ID\", messages=[{\"role\": \"user\", \"content\": \"What does HTTP 503 mean?\"}], max_tokens=200)\nprint(r.choices[0].message.content)\nprint(r.usage, r.choices[0].finish_reason, r.id)"]],
+A:[["Practical: curl, Then Python",["Send a request with curl (copy it from the Request switcher).","Repeat it in Python."]],["Assignment: Read a Response",["Inspect a real request and response.","Explain each important field."]]],
+C:"Checkpoint: submit the annotated response."},
+{t:"OpenAI Platform and API Integration",h:1.5,
+T:[["Projects, Keys, Usage and Model Access","Setting up the account side",.25],["Python SDK: Prompts and Responses","Your first call",.25],["Multi-Turn Context and Streaming","Conversation and live output",.25],["Usage and API Errors","Read usage, handle failure",.25],["API vs. ChatGPT Features","They are not the same product",.25],["Hands-On Lab","Key to first response",.25]],
+K:[["OpenAI Platform","Projects, API keys, model access and usage tracking."],["API vs. ChatGPT","The API has its own models, features, keys and billing. ChatGPT app features may not exist in the API."],["Two API styles","The newer Responses API and the widely supported Chat Completions API. Many compatible providers copy Chat Completions."],["Handle","Usage data, failed requests and multi-turn context."]],
+X:[["Install and configure","python -m pip install openai\nexport OPENAI_API_KEY=\"your-key\"   # never commit it"],["Added: a first call (Responses API)","from openai import OpenAI\nclient = OpenAI()   # reads OPENAI_API_KEY\nr = client.responses.create(model=\"YOUR_MODEL_ID\", input=\"Explain HTTP 503 for an SRE.\")\nprint(r.output_text)\nprint(r.usage)"]],
+A:[["Hands-on lab: OpenAI API",["Create an API key and configure access.","Store the key in an environment variable.","Install the Python SDK.","Submit a prompt.","Display the model's response.","Inspect usage and handle a failed request."]]],
+C:"Checkpoint: finish the lab."},
+{t:"Microsoft Foundry and Azure Model APIs",h:1.5,
+T:[["Project, Catalog and Deployment Types","Serverless API vs. managed compute",.25],["Endpoints, Credentials, Authentication","What your code needs",.25],["Azure Identity and Access Control","Roles over long-lived keys",.25],["Quotas, Limits, Availability","Where deployments fail",.25],["Hands-On Lab","Deploy and call a model",.25],["Assignment: Incident Analyzer","A small Python app",.25]],
+K:[["Microsoft Foundry","Project, model catalog, deployment and endpoint. Section 6 has the full walk-through and code."],["Deployment types","Serverless API deployments vs. managed compute."],["Access","Endpoint URL, deployment name and credentials. Use Azure identity and role-based access where possible."],["Limits","Quotas, rate limits and deployment availability vary by model and region."]],
+A:[["Hands-on lab: Foundry",["Open the Foundry portal.","Explore available models.","Deploy or select an available model.","Get the endpoint and credentials.","Call the model from Python.","Troubleshoot authentication and deployment errors."]],["Assignment: Incident Analyzer on Foundry",["Write a Python app that sends an incident description to a Foundry model.","Display the response."]]],
+C:"Checkpoint: submit the application."},
+{t:"AWS Bedrock APIs",h:1.25,
+T:[["Model Catalog and Model Access","What you can call",.25],["IAM and Authentication","Permissions first",.25],["Converse vs. Direct Invocation","Two ways to call a model",.25],["Regions, Quotas and Cost","Planning limits",.25],["Hands-On Lab","From credentials to a response",.25]],
+K:[["Amazon Bedrock","A model catalog with managed access. Model access and IAM permissions come first."],["Converse vs. direct invocation","Converse gives one conversational format across supported models. Direct invocation uses each model's own body format."],["Also","Streaming where supported, regions, quotas and cost."]],
+X:[["Verify identity","aws sts get-caller-identity"],["Call Bedrock (Converse API)","import boto3\nclient = boto3.client(\"bedrock-runtime\", region_name=\"us-east-1\")\nr = client.converse(modelId=\"YOUR_SUPPORTED_MODEL_ID\", messages=[{\"role\": \"user\", \"content\": [{\"text\": \"What does HTTP 503 mean?\"}]}], inferenceConfig={\"maxTokens\": 200})\nprint(r[\"output\"][\"message\"][\"content\"][0][\"text\"])"]],
+A:[["Hands-on lab: Bedrock",["Configure AWS credentials.","Verify the active AWS identity.","Confirm model access and IAM permissions.","Send a prompt with the Bedrock Runtime SDK.","Handle permission and request errors."]]],
+C:"Checkpoint: finish the lab."},
+{t:"Google Vertex AI APIs",h:1.25,
+T:[["Projects, Regions, Model Identifiers","Where a call is addressed",.25],["ADC, IAM and Service Accounts","Development vs. production identity",.25],["Calling a Model from Python","The Gen AI SDK",.25],["Quotas and Billing","Limits and cost",.25],["Hands-On Lab","From project to response",.25]],
+K:[["Vertex AI","Generative AI by project and region."],["Authentication","Application Default Credentials for development. Service accounts and IAM roles for production."],["Also","Model availability, quotas and billing."]],
+X:[["Authenticate and install","gcloud auth application-default login\npython -m pip install google-genai"],["Call a model","from google import genai\nclient = genai.Client(vertexai=True, project=\"YOUR_PROJECT_ID\", location=\"us-central1\")\nr = client.models.generate_content(model=\"YOUR_AVAILABLE_MODEL_ID\", contents=\"What does HTTP 503 mean?\")\nprint(r.text)"]],
+A:[["Hands-on lab: Vertex AI",["Select a Google Cloud project.","Configure authentication and permissions.","Install the SDK.","Call an available model.","Process and display the response."]],["Assignment: Document the Workflow",["Document the authentication steps.","Document the API-call workflow for a cloud-hosted app."]]],
+C:"Checkpoint: submit the documentation."},
+{t:"Other Providers and OpenAI-Compatible APIs",h:1,
+T:[["Provider-Specific vs. Compatible APIs","What compatibility really means",.25],["Claude (Anthropic) Messages API","Added: the Claude API directly",.25],["Compatible Endpoints: Groq, Ollama, vLLM","Same client, new base URL",.25],["Practical: Switch by Environment Variables","No code changes",.25]],
+K:[["Provider-specific vs. compatible","Compatible APIs share base URL, key, model name and request format. Compatibility does not guarantee every feature works the same."],["Claude Messages API","A separate API. max_tokens is required and the system prompt is a top-level field. Claude is also available on Bedrock, Vertex AI and Foundry."],["Local endpoints","Ollama and vLLM expose OpenAI-compatible endpoints."],["Gateways (added tip)","Tools like LiteLLM or OpenRouter put many providers behind one API. They are useful, but add a hop to secure and monitor."],["Careful","Authentication, streaming and tool calling often need provider-specific changes."]],
+X:[["Install the Anthropic SDK","python -m pip install anthropic"],["Added: call Claude","import anthropic\nclient = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY\nm = client.messages.create(model=\"YOUR_MODEL_ID\", max_tokens=300, system=\"You are an IT Operations assistant.\", messages=[{\"role\": \"user\", \"content\": \"What does HTTP 503 mean?\"}])\nprint(m.content[0].text)\nprint(m.usage)"],["Switch providers with environment variables","# .env for Groq (OpenAI-compatible)\nLLM_BASE_URL=https://api.groq.com/openai/v1\nLLM_API_KEY=your_api_key\nLLM_MODEL_NAME=your_model_id\n\n# .env for local Ollama\nLLM_BASE_URL=http://localhost:11434/v1\nLLM_API_KEY=ollama\nLLM_MODEL_NAME=qwen2.5:1.5b"]],
+A:[["Practical: Switch by Environment Variables",["Configure an app for one compatible endpoint.","Change only the environment variables to use another.","Note anything that needed provider-specific changes."]],["Added lab: Call Claude",["Create a key and store it in an environment variable.","Send a prompt with the Messages API.","Compare the request and response shape with an OpenAI-compatible call."]]],
+C:"Checkpoint: finish both labs."},
+{t:"Build a Reusable Python LLM Client",h:1,
+T:[["Separate App Logic from Provider Code","Why switching should be cheap",.25],["SDK vs. Direct HTTP","Trade-offs",.25],["Lab: Build llm-client","Structure, config, client, tests",.5]],
+K:[["Goal","Keep application logic separate from provider-specific code, so you can switch providers without a rewrite."],["SDK vs. direct HTTP","SDKs add retries and parsing. Direct HTTP gives full control and fewer dependencies."],["Rules","Config in environment variables, reusable functions, response parsing and exception handling."]],
+X:[["Project structure","llm-client/\n├── .env\n├── .env.example\n├── config.py\n├── llm_client.py\n├── main.py\n├── requirements.txt\n└── tests/\n    └── test_llm_client.py"],["Configuration (.env.example)","LLM_PROVIDER=groq\nLLM_API_KEY=your_api_key\nLLM_MODEL_NAME=your_model_id\nLLM_BASE_URL=provider_endpoint"],["Added starter: config.py","import os\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\ndef get(name, default=None):\n    value = os.getenv(name, default)\n    if value is None:\n        raise RuntimeError(f\"Missing configuration: {name}\")\n    return value\n\nPROVIDER = get(\"LLM_PROVIDER\", \"openai-compatible\")\nAPI_KEY = get(\"LLM_API_KEY\")\nMODEL = get(\"LLM_MODEL_NAME\")\nBASE_URL = get(\"LLM_BASE_URL\")\nTIMEOUT = float(get(\"LLM_TIMEOUT\", \"30\"))"],["Added starter: llm_client.py","import time\nfrom openai import OpenAI\nimport config\n\nclient = OpenAI(base_url=config.BASE_URL, api_key=config.API_KEY, timeout=config.TIMEOUT, max_retries=2)\n\ndef ask(prompt: str) -> dict:\n    start = time.perf_counter()\n    r = client.chat.completions.create(model=config.MODEL, messages=[{\"role\": \"user\", \"content\": prompt}], max_tokens=300)\n    return {\n        \"text\": r.choices[0].message.content or \"\",\n        \"latency_s\": round(time.perf_counter() - start, 2),\n        \"usage\": r.usage.model_dump() if r.usage else None,\n    }"]],
+A:[["Hands-on lab: Build llm-client",["Create the project structure.","Add config.py with required settings.","Write llm_client.py that calls the configured model.","Add main.py that prints the response.","Add .env.example and requirements.txt.","Write a pytest test for the client.","Deliver a reusable client that returns the model's response."]]],
+C:"Checkpoint: demonstrate the client."},
+{t:"Streaming, Multimodal APIs and Response Handling",h:1,
+T:[["Standard vs. Streamed Responses","Chunks as they arrive",.25],["Multimodal Inputs","Images and audio",.25],["Structured Output and Tool Calling","Concepts and where supported",.25],["Handling Malformed Responses","Be defensive",.25]],
+K:[["Standard vs. streamed","Streaming shows tokens as they arrive and feels faster."],["Multimodal","Text and image inputs, plus audio input and output or transcription, where supported."],["Structured output and tools","JSON output where supported. Tool calling at a conceptual level."],["Be defensive","Handle incomplete, malformed or unexpected responses."]],
+X:[["Stream to the terminal","stream = client.chat.completions.create(model=MODEL, messages=[{\"role\": \"user\", \"content\": \"Summarize this incident: API latency rose after a deploy.\"}], stream=True)\nfor chunk in stream:\n    print(chunk.choices[0].delta.content or \"\", end=\"\", flush=True)"]],
+A:[["Practical options",["Stream an incident summary to the terminal.","Send a synthetic infrastructure dashboard image to a vision-capable model.","Extract structured fields from an incident description."]],["Assignment: Standard vs. Streamed",["Run the same request both ways.","Compare the two responses."]]],
+C:"Checkpoint: submit the comparison."},
+{t:"API Security, Reliability and Cost",h:1,
+T:[["Key Storage, Rotation, Least Privilege","Credentials done right",.25],["Timeouts, Retries, Backoff, Rate Limits","Reliability patterns",.25],["HTTP Errors and Safe Logging","What each status means",.25],["Token Pricing, Quotas, Privacy","Cost and data handling",.25]],
+K:[["Keys","Store securely and rotate. Never put keys in frontend code or Git. Prefer managed or cloud identity and least privilege."],["Reliability","Timeouts, bounded retries, exponential backoff and rate-limit handling."],["HTTP errors","400 bad request, 401 bad credentials, 403 no permission, 404 wrong model or endpoint, 429 rate limit, 5xx provider trouble."],["Logging","Record request IDs, latency and token usage. Never log secrets or sensitive prompts."],["Cost and privacy","Track input and output token pricing, quotas and budgets. Review each provider's data-handling terms."]],
+X:[["Safe error handling","import openai\n\ntry:\n    r = client.chat.completions.create(model=MODEL, messages=msgs, timeout=30)\nexcept openai.AuthenticationError:\n    print(\"Check the API key\")\nexcept openai.RateLimitError:\n    print(\"Rate limited: back off and retry later\")\nexcept openai.APITimeoutError:\n    print(\"The request timed out\")\nexcept openai.APIStatusError as e:\n    print(\"API error\", e.status_code, e.response.headers.get(\"x-request-id\"))"]],
+A:[["Practical: Break It Safely",["Simulate an invalid API key.","Simulate a timeout.","Simulate a rate-limit error.","Implement safe error handling for each."]],["Assignment: Production-Readiness Checklist",["Write a checklist for an LLM-powered IT Ops app.","Cover keys, identity, retries, limits, logging, cost and privacy."]]],
+C:"Checkpoint: submit the checklist."},
+{t:"Final Project: Multi-Provider IT Ops Assistant",h:1.5,
+T:[["Project Brief","Input, expected output, validation note",.25],["Implementation","Seven requirements",.75],["Test and Demonstrate","Show it works, then switch providers",.25],["Assessment","100 points",.25]],
+K:[["Project","A multi-provider IT Operations assistant. It accepts an incident description and asks an LLM to analyze it."],["Example","Input: response time is up, CPU is 95% and requests time out. Output: incident, possible causes, recommended checks, and a note that recommendations need validation against monitoring data."],["Scoring (100)","Configuration and authentication 20, request and response handling 20, error handling and reliability 20, security and credentials 20, documentation and demonstration 20."],["Suggested schedule","Day 1: modules 1 to 3. Day 2: 4 and 5. Day 3: 6 to 8. Day 4: 9 to 11. Day 5: module 12."]],
+A:[["Project requirements",["Configure a provider with environment variables.","Send a request to the selected model.","Process and display the response.","Add timeout and exception handling.","Record latency and token usage when available.","Keep credentials out of source control.","Demonstrate switching to another compatible provider, if available."]]],
+C:"Checkpoint: demonstrate the assistant."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s7")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s7",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML='<a href="#tri"><b>Request switcher</b><span>Compare four providers</span></a>'+M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175,305,70][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>${m.PL||"Python demonstration"}:</strong> ${m.P}</div>`:""}${m.X?`<h3>Commands to try</h3>${m.X.map(x=>`<div class="cmd"><div class="ch"><span>${x[0]}</span><button class="cb">Copy</button></div><pre>${x[1].replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>`).join("")}`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;
+ const t=b.closest(".cmd").querySelector("pre").textContent;
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)},()=>{b.textContent="Select and copy"})});
+const Q='"messages":[{"role":"user","content":"What does HTTP 503 mean?"}]';
+const TRI=[
+{n:"OpenAI",h:160,e:"https://api.openai.com/v1/chat/completions (or /v1/responses)",a:"Header Authorization: Bearer <key>",r:"choices[0].message.content (Responses API: output_text)",g:"Two API styles exist. Chat Completions is widely copied by other providers.",c:'curl https://api.openai.com/v1/chat/completions \\\n  -H "Authorization: Bearer $OPENAI_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"model":"YOUR_MODEL_ID",'+Q+',"max_tokens":200}\''},
+{n:"Anthropic (Claude)",h:25,e:"https://api.anthropic.com/v1/messages",a:"Headers x-api-key and anthropic-version",r:"content[0].text",g:"max_tokens is required. The system prompt is a top-level field, not a message.",c:'curl https://api.anthropic.com/v1/messages \\\n  -H "x-api-key: $ANTHROPIC_API_KEY" \\\n  -H "anthropic-version: 2023-06-01" \\\n  -H "content-type: application/json" \\\n  -d \'{"model":"YOUR_MODEL_ID","max_tokens":200,'+Q+'}\''},
+{n:"Groq",h:280,e:"https://api.groq.com/openai/v1/chat/completions",a:"Header Authorization: Bearer <key>",r:"choices[0].message.content",g:"OpenAI-compatible. Check which features each model supports.",c:'curl https://api.groq.com/openai/v1/chat/completions \\\n  -H "Authorization: Bearer $GROQ_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"model":"YOUR_MODEL_ID",'+Q+',"max_tokens":200}\''},
+{n:"Local (Ollama or vLLM)",h:210,e:"http://localhost:11434/v1/chat/completions (Ollama) or :8000/v1 (vLLM)",a:"Usually none by default. Add your own gateway or key.",r:"choices[0].message.content",g:"Features depend on the engine and model. Keep it off the public internet.",c:'curl http://localhost:11434/v1/chat/completions \\\n  -H "Content-Type: application/json" \\\n  -d \'{"model":"qwen2.5:1.5b",'+Q+'}\''}];
+function tri(k){const t=TRI[k];$("#tri").style.setProperty("--h",t.h);
+ document.querySelectorAll("#tabs button").forEach((b,i)=>b.classList.toggle("on",i==k));
+ $("#tp").innerHTML=[["Endpoint",t.e],["Authentication",t.a],["Where the answer is",t.r],["Gotcha",t.g]].map(x=>`<div><small>${x[0]}</small>${x[1]}</div>`).join("");
+ $("#tc").textContent=t.c}
+$("#tabs").innerHTML=TRI.map((t,i)=>`<button data-i="${i}">${t.n}</button>`).join("");
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)tri(+b.dataset.i)});tri(0);
+refresh();
+</script>
+</body>
+</html>

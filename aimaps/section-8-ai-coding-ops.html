@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Coding & Ops Training | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.cmd{margin-bottom:10px;border:1.5px solid var(--ln);border-radius:12px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--panel);font-size:.85rem;color:var(--mu)}
+.cb{border:1px solid var(--ln);background:none;border-radius:8px;padding:2px 10px;font-size:.8rem}
+.cmd pre{margin:0;padding:10px 12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#141a2b;color:#e8edf5}
+.lab{border:2px solid var(--ac);border-radius:16px;padding:16px 18px;margin-bottom:44px;background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.lab h2{margin:0 0 4px;font-size:1.5rem}
+#r-in{display:block;width:100%;margin:12px 0;padding:9px 12px;border-radius:10px;border:1.5px solid var(--ln);background:#141a2b;color:#e8edf5;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.out div{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:10px 12px;font-size:.88rem;color:var(--mu)}
+.out b{display:block;font-size:1.05rem;color:var(--tx)}
+.out .hi{border-color:#e5484d}.out .hi b{color:#e5484d}
+.out .md{border-color:var(--ac)}.out .md b{color:var(--ac)}
+.out .fit{border-color:var(--ok)}.out .fit b{color:var(--ok)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 8</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>AI Coding & Ops Training</h1>
+<p>Use AI assistants and agents to write, debug, test, secure and operate real systems: Python, Git, Docker, Kubernetes, CI/CD, Linux, Terraform, SRE, databases and data pipelines. One rule runs through every module: validate before you trust. Try the Command risk checker first.</p>
+<div class="facts"><div><b>17.25 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 17.25 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main><section class="lab" id="risk"><h2>Command risk checker</h2><p class="note">Paste a shell, Terraform, kubectl or SQL command. The checker flags patterns that deserve a careful human review. It is a teaching aid, not a security tool, and a clean result does not mean a command is safe.</p>
+<textarea id="r-in" rows="4" placeholder="Paste a command here"></textarea>
+<div class="btns"><button class="pill" id="r-bad">Load a risky example</button><button class="pill" id="r-ok">Load a read-only example</button></div>
+<div class="out" id="r-out"></div></section>
+<div id="mods"></div></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Introduction to AI-Assisted Coding",h:.75,
+T:[["What AI-Assisted Coding Is","How LLMs generate, explain and modify code. Completion vs. chat vs. agents",.25],["Benefits and Limitations","Hallucinations, outdated APIs, wrong assumptions, insecure suggestions",.25],["Human Review and Responsibility","You own the code you ship",.25]],
+K:[["How it works","LLMs predict code the way they predict text. They can generate, explain and modify it."],["Three styles","Code completion, chat-based help and autonomous coding agents."],["Limits","Hallucinated APIs, outdated libraries, incorrect assumptions and insecure suggestions."],["Rule for the course","Validate before you trust. A human reviews and owns every change."]],
+A:[["Practical: Explain, Improve, Find Errors",["Ask an LLM to explain a Python script.","Ask it to improve the script.","Ask it to identify potential errors."]],["Assignment: Human vs. AI Code",["Write a small task by hand.","Generate the same task with AI.","Compare the two."]]],
+C:"Checkpoint: submit the comparison."},
+{t:"AI Coding Tools and Platforms",h:1,
+T:[["Tools and Platforms","Copilot, Cursor, Windsurf, Claude Code, VS Code extensions",.25],["Repository-Aware Help and Multi-File Edits","Understand a project and change several files",.25],["Context, Terminal and Agentic Workflows","Files, folders, terminal output and Git changes",.25],["Permissions, Approval and Choosing a Tool","Task, budget, privacy and enterprise needs",.25]],
+K:[["Capabilities","Inline completion, chat, repository awareness, multi-file edits and terminal integration."],["Context","You choose what the tool sees: files, folders, terminal output and Git changes."],["Permissions","Agentic tools can edit files and run commands. Keep human approval on."],["Choosing","Match the tool to the task, budget, privacy rules and enterprise requirements."],["Also worth knowing","Other assistants such as OpenAI Codex and Gemini CLI exist. The landscape changes quickly, so check current features and pricing."]],
+A:[["Practical: Understand and Change a Project",["Use an AI assistant to understand an existing Python project.","Modify one function."]],["Assignment: Compare Two Tools",["Pick two AI coding tools.","Compare code quality.","Compare context awareness.","Compare debugging help.","Compare ease of use."]]],
+C:"Checkpoint: submit the tool comparison."},
+{t:"Prompting Techniques for Code Generation",h:1,
+T:[["Writing Clear Requirements","Input, output, errors, acceptance criteria",.25],["Language, Framework and Version Constraints","Say exactly what you use",.25],["Incremental Generation and Tests Alongside","Small steps, tests with the code",.25],["Assumptions, Edge Cases, Vague Prompts","Ask the AI to explain itself",.25]],
+K:[["Be specific","State language, framework and version, inputs, outputs, error handling and acceptance criteria."],["Give context","Use examples and existing code as context."],["Work in steps","Generate incrementally, with unit tests alongside the implementation."],["Ask for assumptions","Have the AI list assumptions and edge cases. Avoid vague prompts that give incomplete code."]],
+X:[["A good coding prompt","Act as a senior Python developer.\n\nCreate a Python script that:\n1. Reads a CSV containing server names and CPU usage.\n2. Identifies servers with CPU usage above 80%.\n3. Handles missing and invalid values.\n4. Logs errors without exposing sensitive data.\n5. Exports the results to a new CSV.\n\nInclude type hints, functions, and pytest unit tests."]],
+A:[["Assignment: Three Effective Prompts",["Write a prompt for Python development.","Write a prompt for Kubernetes troubleshooting.","Write a prompt for Terraform generation."]]],
+C:"Checkpoint: submit the three prompts."},
+{t:"Code Explanation, Refactoring and Optimization",h:1,
+T:[["Understanding Unfamiliar Codebases","Functions, classes, dependencies, flow",.25],["Refactoring and Readability","Remove duplication, improve maintainability",.25],["Type Hints, Documentation, Error Handling","Raise the quality bar",.25],["Performance and Before/After Comparison","Find inefficiency, compare results",.25]],
+K:[["Explain first","Have the AI explain functions, classes, dependencies and execution flow before changing anything."],["Refactor safely","Remove duplication and improve readability while preserving behavior."],["Improve","Add type hints, documentation and error handling. Ask for performance ideas, then verify."],["Compare","Review the code before and after each change."]],
+A:[["Practical: Refactor a Messy Script",["Take a poorly structured Python script.","Use AI to refactor it into reusable functions and modules."]],["Assignment: Refactor and Prove It",["Refactor a script and preserve its behavior.","Show the tests still pass."]]],
+C:"Checkpoint: submit the refactor and test run."},
+{t:"AI-Assisted Debugging and Troubleshooting",h:1,
+T:[["Interpreting Stack Traces and Errors","Syntax, runtime and dependency problems",.25],["Logs, Minimal Repros, Root Causes","Symptoms are not causes",.25],["Generating Debugging Commands","Targeted, read-only first",.25],["Validate Fixes and Protect Secrets","Never paste confidential logs",.25]],
+K:[["Use AI to read","Stack traces, error messages and logs. Ask for likely root causes."],["Reproduce","Build a minimal example that shows the error."],["Separate","Symptoms from root causes."],["Validate","Test every suggestion. Never apply a fix blindly."],["Protect","Do not expose secrets, credentials or confidential logs to an AI tool."]],
+A:[["Practical: Fix Intentional Bugs",["Take a Python app with intentional errors.","Diagnose each problem with AI help.","Fix the problems."]],["Assignment: Debug Report",["Submit the original error.","Submit the diagnosis.","Submit the proposed fix and test results.","Explain the verified root cause."]]],
+C:"Checkpoint: submit the debug report."},
+{t:"Automated Code Generation, Testing and Documentation",h:1,
+T:[["Generating Functions and Classes","From requirements to code",.25],["Unit Tests with pytest, Data and Edge Cases","Cover success and failure",.25],["Mocking, Coverage and TDD with AI","Isolate external calls",.25],["Docs, Static Analysis, Validating Tests","Tests that confirm wrong behavior are worthless",.25]],
+K:[["Generate","Functions and classes from requirements."],["Test","pytest unit tests, test data and edge cases. Mock API calls and external dependencies."],["Document","API docs and README files. Use coverage, Ruff and formatters."],["Watch out","Validate generated tests so they do not merely confirm incorrect behavior."],["Tools","pytest, Ruff, Python and an AI coding assistant."]],
+A:[["Practical lab: Server Health Module",["Generate a Python function that checks server health.","Generate unit tests for successful and failed health checks.","Generate tests for timeouts and invalid responses.","Generate a README for setup and execution.","Run the tests and correct any failures."]],["Assignment: Tested Module",["Submit the AI-generated module.","Submit the unit tests, documentation and test results."]]],
+C:"Checkpoint: submit the module."},
+{t:"AI-Assisted Git, GitHub and Pull Requests",h:1,
+T:[["Understanding a Repo and Commit Messages","Meaningful history",.25],["Summaries and Pull Request Descriptions","What changed and why",.25],["Reviewing Diffs and Breaking Changes","Bugs, maintainability, tests",.25],["Merge Conflicts and AI in CI Safely","Verify, never bypass branch protection",.25]],
+K:[["Git with AI","Understand a repo, write commit messages, summarize branch differences and draft pull request descriptions."],["Review","Check diffs for bugs, maintainability and breaking changes. Ask for review comments and test suggestions."],["Conflicts","AI can propose a resolution. A human verifies it."],["Policy","Use AI in CI without bypassing branch protection or review policies."]],
+A:[["Practical lab: AI Review of a Bug",["Create a small Python repository.","Introduce a bug and commit it.","Ask AI to review the diff.","Generate a pull request description.","Fix the identified bug.","Run tests before merging."]],["Assignment: Reviewed Pull Request",["Produce a pull request with an AI-assisted review.","Include fixes and test evidence."]]],
+C:"Checkpoint: submit the pull request."},
+{t:"AI for DevOps: Docker, Kubernetes and Helm",h:1.25,
+T:[["Dockerfiles and Multi-Stage Builds","From app requirements",.25],["Image Size, Layers and Non-Root Security","Smaller, safer images",.25],["Kubernetes Manifests and Helm Charts","Deployments, Services, ConfigMaps, values",.25],["Probes, Requests, Limits, Replicas","Production-oriented settings",.25],["Troubleshooting and Validating Before Deploying","Failed pods, image-pull errors",.25]],
+K:[["Generate","Dockerfiles, .dockerignore, Deployments, Services, ConfigMaps, Secret references and Helm charts."],["Harden","Multi-stage builds, small layers and non-root containers."],["Configure","Probes, resource requests and limits, replica counts."],["Validate","Always check generated manifests before deploying."],["Careful","Client-side validation does not prove a workload will deploy. Cluster compatibility, security policies, runtime behavior and resources still matter."]],
+X:[["Validate the output","docker build -t ai-demo:latest .\ndocker run --rm -p 8000:8000 ai-demo:latest\n\nkubectl apply --dry-run=client -f deployment.yaml\nkubectl apply --dry-run=client -f service.yaml\n\nhelm lint ./mychart\nhelm template demo ./mychart"]],
+A:[["Practical lab: Python API to Kubernetes",["Generate a production-oriented Dockerfile.","Generate a .dockerignore file.","Generate Deployment and Service manifests.","Add readiness and liveness probes.","Add CPU and memory requests and limits.","Generate a basic Helm chart."]],["Assignment: Containerize and Validate",["Containerize a small application.","Generate Kubernetes deployment files with AI.","Validate the files before deploying."]]],
+C:"Checkpoint: submit the validated files."},
+{t:"AI for CI/CD Pipelines",h:1,
+T:[["Generating CI/CD YAML","GitHub Actions or Azure Pipelines",.25],["Stages: Build, Test, Scan, Deploy","Jobs, steps, conditions, variables",.25],["Analyzing Failed Pipeline Logs","Dependency and environment issues",.25],["Secrets, Approval Gates, Conditions","Safe deployment rules",.25]],
+K:[["Generate","CI/CD YAML from natural-language requirements. Understand stages, jobs, steps, conditions and variables."],["Pipeline stages","Build, test, scan and deploy."],["Troubleshoot","Analyze failed logs and fix dependency and environment problems."],["Secure","Manage secrets and service connections. Add approval gates and deployment conditions."]],
+X:[["Added starter: GitHub Actions (check current action versions)","name: ci\non: [push, pull_request]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - run: pip install -r requirements.txt ruff pytest\n      - run: ruff check .\n      - run: pytest -v\n  docker:\n    needs: test\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: docker build -t ai-demo:latest .\n      # add an image scan (for example Trivy) before any publish step"]],
+A:[["Practical lab: Python App Pipeline",["Install dependencies.","Run linting.","Execute pytest.","Build a Docker image.","Scan the image with an available scanner.","Publish only if the required checks pass.","Ask AI to explain each stage.","Troubleshoot a deliberately introduced failure."]],["Assignment: Working Pipeline",["Submit a working pipeline with test execution.","Include failure handling.","Add a short explanation of the generated YAML."]]],
+C:"Checkpoint: submit the pipeline."},
+{t:"AI for Linux Administration and Shell Scripting",h:1,
+T:[["Generating Bash Scripts","From requirements",.25],["Explaining Commands, Checking System Health","systemctl, journalctl, grep, awk, find",.25],["Exit Codes, Logging, Error Handling","Scripts that fail safely",.25],["Command Risks and Review Before sudo","Destructive operations",.25]],
+K:[["Generate and explain","Bash scripts from requirements. Ask for explanations of commands and options."],["Automate","Disk, CPU, memory and process checks, cleanup and log rotation."],["Make it robust","Exit codes, logging, validation and error handling."],["Safety rule","Review generated shell commands before running them. Never run unfamiliar commands with sudo just because an AI recommends them. Try the Command risk checker above."]],
+A:[["Practical lab: Linux Health Check",["Report CPU load.","Report memory utilization.","Report disk utilization.","Report failed systemd services.","Report recent errors from a specified log file.","Return a nonzero exit code when a threshold is exceeded."]],["Assignment: Health-Check Script",["Add configurable thresholds.","Add logging.","Add safe error handling."]]],
+C:"Checkpoint: submit the script."},
+{t:"AI for Cloud Infrastructure and Terraform",h:1.25,
+T:[["Generating Terraform","Resources, variables, outputs, modules",.25],["Providers and Dependencies","AWS, Azure or GCP",.25],["Reviewing IAM and Network Rules","Find insecure configurations",.25],["Explaining terraform plan and Debugging Errors","Provider, authentication, configuration",.25],["Documenting Infrastructure and Reviewing Before Apply","Plan first, apply with approval",.25]],
+K:[["Generate","Terraform from requirements, including variables, outputs and modules."],["Review","Check IAM policies, network rules and insecure settings. Have AI explain plan output."],["Important","Review terraform plan before terraform apply. Never let AI apply or destroy production infrastructure without authorization and approval."],["Lab tip (added)","terraform plan needs provider credentials. Use a sandbox subscription. validate works without cloud access."],["Also (added)","The same workflow applies to Ansible: review the playbook, run ansible-lint, and test with check mode before real runs."]],
+X:[["Validate the configuration","terraform fmt -check\nterraform init\nterraform validate\nterraform plan"]],
+A:[["Practical lab: Azure Infrastructure",["Generate a resource group.","Generate a virtual network and subnet.","Generate a Linux virtual machine.","Generate network security rules.","Add variables and outputs.","Run fmt, init, validate and plan."]],["Assignment: Terraform with AI",["Generate a Terraform configuration with AI.","Validate it.","Explain the planned infrastructure changes."]]],
+C:"Checkpoint: submit the configuration and explanation."},
+{t:"AI for SRE: Logs, Metrics, Alerts and Incidents",h:1.25,
+T:[["Summarizing Logs and Finding Patterns","Recurring errors in big files",.25],["Correlating Events and Timelines","Timestamps across sources",.25],["Prometheus, Grafana and PromQL","Metrics, alerts and queries",.25],["Incident Reports and Postmortems","Timelines and probable causes",.25],["Evidence vs. Hypotheses and AI Limits","What AI cannot know",.25]],
+K:[["Analyze","Summarize large logs, find recurring patterns and correlate timestamps."],["Monitor","Analyze Prometheus metrics and Grafana alerts. Generate PromQL from requirements."],["Report","Draft incident timelines, probable causes and postmortems."],["Discipline","Separate evidence-backed findings from hypotheses. AI has limits in root-cause analysis."]],
+A:[["Practical lab: Synthetic Incident",["Summarize the incident.","Identify important events.","Suggest possible causes.","Generate relevant PromQL queries.","Recommend diagnostic commands.","Draft an incident report.","Validate every recommendation against the supplied evidence."]],["Assignment: Incident Analysis",["Write the timeline.","List the evidence.","State the probable cause.","List verification steps.","Write the remediation plan."]]],
+C:"Checkpoint: submit the incident analysis."},
+{t:"AI for DBA and Data Engineering Operations",h:1,
+T:[["SQL Generation and Execution Plans","Explain plans and errors",.25],["Database Logs, Migrations, Health Checks","Review before running",.25],["Python ETL, SQL Transformations, Data Quality","Generate and validate",.25],["Spark Errors and Pipeline Debugging","Find the failing stage",.25]],
+K:[["Database","Generate SQL, explain execution plans and errors, spot inefficient queries, write health checks, review migrations and analyze logs."],["Data engineering","Generate Python ETL and SQL transformations, explain Spark jobs and exceptions, add data-quality checks and document datasets."],["Safety rule","Start with read-only access. Require review, testing, backups and approval for any database change."]],
+A:[["Practical lab: Failed Jobs Report",["Generate SQL to identify failed jobs.","Write Python code to process the results.","Add validation for missing values.","Produce a summary report."]],["Assignment: AI-Assisted Data Pipeline",["Extract records.","Validate them.","Generate an operational summary."]]],
+C:"Checkpoint: submit the pipeline."},
+{t:"AI Agents for Coding and Operational Tasks",h:1.25,
+T:[["Chatbot vs. Assistant vs. Agent","Three different things",.25],["Tools, Planning and Verification","How agents act and check themselves",.25],["Read-Only vs. Write Tools, Human Approval","Permission boundaries",.25],["Memory, Failures, Retries, Audit Logging","Operating agents responsibly",.25],["Added: MCP Servers for Ops Tools","Standard connectors to kubectl, Grafana, PagerDuty",.25]],
+K:[["Agent","An LLM that uses tools to complete tasks: inspects repositories, changes several files, calls operational tools, plans, executes and verifies."],["Boundaries","Separate read-only tools from tools that modify systems. Require human approval for changes."],["Operate","Handle failures and retries, keep task context and memory, and write audit logs."],["Key learning","Do not give an agent unrestricted shell, cloud, database or production access just because it can generate commands."],["MCP (added)","The Model Context Protocol connects agents to tools such as Kubernetes, Grafana or PagerDuty servers. Apply the same rules: least privilege, read-only first, approval for changes. Later sections cover MCP in depth."]],
+X:[["A simulated tool","def get_server_status(server_name):\n    # Return simulated server status\n    return {\n        \"server\": server_name,\n        \"status\": \"healthy\",\n        \"cpu_usage\": 45,\n    }"]],
+A:[["Practical lab: Operations Assistant",["Build a Python assistant that calls simulated tools.","Have the AI interpret the request and select the tool.","Have it summarize the returned information."]],["Extension: Approval for Restart",["Add a simulated restart operation.","Require explicit human approval before it runs."]],["Assignment: Read-Only Diagnostic Agent",["Demonstrate an agent running a read-only diagnostic workflow.","Have it explain its findings."]]],
+C:"Checkpoint: demonstrate the agent."},
+{t:"Security, Code Review and Governance",h:1,
+T:[["Risks of AI-Generated Code","Secrets, vulnerable dependencies, insecure patterns",.25],["Injection, Insecure Dockerfiles, Kubernetes and IAM","What to look for",.25],["Prompt Injection and Agent Execution Risks","Repos, logs and docs can attack the agent",.25],["Review, Static Analysis, Audit and Policy","Verify, log and govern",.25]],
+K:[["Risks","Hardcoded credentials, exposed secrets, vulnerable dependencies, SQL and command injection, insecure Dockerfiles and Kubernetes configs, excessive IAM permissions."],["Prompt injection","Repositories, logs and documentation can carry hostile instructions. Agents that run arbitrary commands raise the risk."],["Controls","Review generated code with tests and static analysis. Protect proprietary code and customer data. Keep audit trails, approval policies and AI usage guidelines."],["Assessment principle","AI security findings must be verified. A clean AI review does not prove the code is secure."]],
+X:[["Verify the findings","ruff check .\npytest -v"]],
+A:[["Practical lab: Review a Flawed App",["Take a sample app with deliberately introduced issues.","Ask AI to review it.","Verify each finding with appropriate tools."]],["Assignment: Security Review",["List each finding.","Give severity and evidence.","Recommend a fix.","Record the verification result."]]],
+C:"Checkpoint: submit the security review."},
+{t:"Final Project: AI-Assisted DevOps Workflow",h:1.5,
+T:[["Step 1: Application Development","AI-generated health-check API, validation, tests",.25],["Step 2: Code Quality","Review, refactor, test, lint",.25],["Step 3: Containerization","Dockerfile, build, validate the endpoint",.25],["Step 4: Infrastructure","Kubernetes manifests, limits, probes",.25],["Step 5: CI/CD","Workflow, tests, build only when checks pass",.25],["Steps 6 and 7: Troubleshooting, Docs, Security","Fix, document, review, state limits",.25]],
+K:[["Scenario","A company wants a Python application that reports server health. Use AI to build, test, containerize and prepare it for deployment."],["Deliverables","Source code, unit tests and results, Dockerfile and build instructions, Kubernetes manifests, CI/CD YAML, troubleshooting report, security review checklist and README."],["Rubric (100)","Application development 15, testing and code quality 15, Docker and Kubernetes 20, CI/CD 15, troubleshooting and validation 15, security and governance 10, documentation and demonstration 10."]],
+A:[["Step 1: Application Development",["Use AI to generate a Python health-check API.","Add input validation and exception handling.","Generate unit tests."]],["Step 2: Code Quality",["Use AI to review and refactor the code.","Run tests and linting.","Fix the identified issues."]],["Step 3: Containerization",["Generate a Dockerfile.","Build and run the container.","Validate the application endpoint."]],["Step 4: Infrastructure",["Generate Kubernetes deployment manifests.","Configure resource limits and health probes.","Validate the manifests."]],["Step 5: CI/CD",["Generate an Azure Pipelines or GitHub Actions workflow.","Run automated tests.","Build the Docker image only when required checks pass."]],["Step 6: Troubleshooting",["Introduce an application or configuration error.","Use AI to investigate logs.","Validate the suggested fix."]],["Step 7: Documentation and Security",["Generate a README and deployment instructions.","Review the code for security issues.","Document the limitations of AI-generated solutions."]]],
+C:"Checkpoint: demonstrate the finished project."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s8")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s8",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML='<a href="#risk"><b>Command risk checker</b><span>Review before you run</span></a>'+M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175,305,70,200,350,130,240][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>${m.PL||"Python demonstration"}:</strong> ${m.P}</div>`:""}${m.X?`<h3>Commands to try</h3>${m.X.map(x=>`<div class="cmd"><div class="ch"><span>${x[0]}</span><button class="cb">Copy</button></div><pre>${x[1].replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>`).join("")}`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;
+ const t=b.closest(".cmd").querySelector("pre").textContent;
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)},()=>{b.textContent="Select and copy"})});
+const RULES=[[/\brm\s+-[a-zA-Z]*[rR]/,"hi","Recursive delete","rm -r removes whole directory trees."],[/(curl|wget)[^|\n]*\|\s*(sudo\s+)?(ba)?sh/,"hi","Download piped into a shell","You run code you have not read."],[/\bchmod\s+(-R\s+)?777/,"hi","World-writable permissions","Anyone can modify these files."],[/\bterraform\s+(apply|destroy)\b/,"hi","Changes real infrastructure","Read the plan and get approval first."],[/\bkubectl\s+(delete|drain)\b/,"hi","Deletes or disrupts cluster resources","Check the namespace and context first."],[/\b(drop|truncate)\s+(table|database)\b/i,"hi","Destroys data","Needs backups, review and approval."],[/\bdelete\s+from\s+\w+\s*;?\s*$/i,"hi","DELETE without WHERE","Removes every row."],[/\bdd\s+if=|\bmkfs|>\s*\/dev\/sd/,"hi","Can overwrite a disk","Double-check the target device."],[/:\(\)\s*\{/,"hi","Fork bomb pattern","Can freeze the machine."],[/(password|secret|token|api[_-]?key)\s*[=:]\s*\S+/i,"hi","Looks like a hardcoded credential","Use a secrets manager or environment variables."],[/git\s+push\s+.*--force|git\s+reset\s+--hard/,"md","Rewrites or discards history","Make sure nothing is lost."],[/\bsudo\b/,"md","Elevated privileges","Understand every part first."],[/\bkubectl\s+apply\b(?!.*--dry-run)/,"md","Changes the cluster","Try --dry-run=client first."],[/\bsystemctl\s+(stop|disable|restart)\b/,"md","Changes a running service","Check the impact first."],[/\b(shutdown|reboot|poweroff|halt)\b/,"md","Stops or restarts the machine","Confirm this is intended."],[/\bdocker\s+(system\s+prune|rm\s+-f|volume\s+rm)/,"md","Removes containers or volumes","Check for data you need."],[/\bupdate\s+\w+\s+set\b(?![^;]*\bwhere\b)/i,"md","UPDATE without WHERE","Changes every row."]];
+function risk(){const t=$("#r-in").value;
+ if(!t.trim()){$("#r-out").innerHTML="";return}
+ const f=RULES.filter(r=>r[0].test(t));
+ $("#r-out").innerHTML=f.length?f.map(r=>`<div class="${r[1]}"><b>${r[1]=="hi"?"High":"Medium"}: ${r[2]}</b>${r[3]}</div>`).join(""):`<div class="fit"><b>No known risky pattern found</b>That does not prove it is safe. Read it line by line and test in a sandbox.</div>`}
+$("#r-in").addEventListener("input",risk);
+$("#r-bad").onclick=()=>{$("#r-in").value="curl -s https://example.com/install.sh | sudo bash\nchmod -R 777 /var/www\nterraform apply -auto-approve";risk()};
+$("#r-ok").onclick=()=>{$("#r-in").value="kubectl get pods -n payments\nkubectl describe pod payment-api-0 -n payments\njournalctl -u nginx -n 100 --no-pager";risk()};
+refresh();
+</script>
+</body>
+</html>

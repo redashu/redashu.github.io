@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Engineering & LLM Application Development | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.cmd{margin-bottom:10px;border:1.5px solid var(--ln);border-radius:12px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--panel);font-size:.85rem;color:var(--mu)}
+.cb{border:1px solid var(--ln);background:none;border-radius:8px;padding:2px 10px;font-size:.8rem}
+.cmd pre{margin:0;padding:10px 12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#141a2b;color:#e8edf5}
+.lab{border:2px solid var(--ac);border-radius:16px;padding:16px 18px;margin-bottom:44px;background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.lab h2{margin:0 0 4px;font-size:1.5rem}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:12px 0}
+.lab label{display:block;font-size:.85rem;color:var(--mu)}
+.lab input,.lab textarea{display:block;width:100%;margin-top:3px;padding:7px 10px;border-radius:9px;border:1.5px solid var(--ln);background:var(--panel);color:var(--tx);font:inherit;resize:vertical}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:12px}
+.out div{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:10px 12px;font-size:.85rem;color:var(--mu)}
+.out b{display:block;font-size:1.25rem;color:var(--tx)}
+.out .fit{border-color:var(--ok)}.out .fit b{color:var(--ok)}
+#p-out{min-height:60px;white-space:pre-wrap}
+.dots{display:flex;gap:6px;margin:12px 0}
+.dots i{flex:1;max-width:48px;height:8px;border-radius:99px;background:var(--ln);cursor:pointer}
+.dots i.on{background:var(--ac)}
+#fl-out{margin-bottom:12px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 9</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>Prompt Engineering & LLM Application Development</h1>
+<p>Design effective prompts and build practical LLM-powered applications with Python, APIs, structured outputs, tools and web interfaces. You finish with an IT Operations AI Assistant that keeps context, returns validated JSON and calls operational tools. About 30% concepts and 70% hands-on. Try the two labs below first.</p>
+<div class="facts"><div><b>15.75 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 15.75 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main><section class="lab" id="lab"><h2>Prompt lab: build a prompt that works</h2><p class="note">Fill the five parts and watch the prompt assemble. Start with the weak version, then improve it.</p>
+<div class="cg">
+<label>Role<input id="p-r"></label>
+<label>Task<input id="p-t"></label>
+<label>Context<textarea id="p-c" rows="3"></textarea></label>
+<label>Constraints<textarea id="p-k" rows="3"></textarea></label>
+<label>Output format<textarea id="p-o" rows="3"></textarea></label>
+</div>
+<div class="btns"><button class="pill" id="p-weak">Load the weak prompt</button><button class="pill" id="p-good">Load the full example</button></div>
+<div class="out" id="p-meter"></div>
+<div class="cmd"><div class="ch"><span>Your prompt</span><button class="cb">Copy</button></div><pre id="p-out"></pre></div></section>
+<section class="lab" id="flow"><h2>Tool-call flow: who does what?</h2><p class="note">Step through one function call. The model requests. Your application validates and executes.</p>
+<div class="dots" id="fl-dots"></div><div class="out" id="fl-out"></div>
+<div class="cmd"><div class="ch"><span>What is exchanged</span></div><pre id="fl-x"></pre></div>
+<div class="btns" style="margin-top:12px"><button class="pill" id="fl-prev">Back</button><button class="pill" id="fl-next">Next step</button></div></section>
+<div id="mods"></div></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Prompt Engineering Fundamentals",h:1,
+T:[["What Is Prompt Engineering?","How LLMs read instructions and respond",.25],["Anatomy of an Effective Prompt","Role, task, context, constraints, output format",.25],["Clear vs. Ambiguous Instructions","Background and boundaries",.25],["Iteration and Common Mistakes","Refine, then test again",.25]],
+K:[["Anatomy of a prompt","Role, task, context, constraints and output format. Try the Prompt lab above."],["Clear vs. ambiguous","Clear instructions and relevant background beat vague requests. Set boundaries and expected behavior."],["Iterate","Refine the prompt, test again and learn from common mistakes."]],
+X:[["Weak prompt","Check this server issue."],["Improved prompt","You are an experienced SRE engineer.\n\nAnalyze the following server incident.\n\nServer: web-server-01\nCPU: 95%\nMemory: 88%\nDisk: 70%\n\nProvide:\n1. Possible causes.\n2. Diagnostic commands.\n3. Recommended actions.\n4. Potential risks.\n\nDo not assume that a suspected cause is confirmed."]],
+A:[["Practical: Prompts for Four Problems",["Write a Linux server troubleshooting prompt.","Write a Kubernetes pod failure prompt.","Write a database connection issue prompt.","Write a CI/CD pipeline failure prompt."]],["Assignment: Fix Five Vague Prompts",["Collect five vague prompts.","Convert each into a structured prompt.","Explain what each added part controls."]]],
+C:"Checkpoint: submit the five prompts."},
+{t:"Zero-Shot, One-Shot and Few-Shot Prompting",h:1,
+T:[["Zero-Shot Prompting","Instructions only",.25],["One-Shot Prompting","One example of the format",.25],["Few-Shot Prompting","Several examples for consistency",.25],["Practical: Incident Classification Assistant","Compare all three",.25]],
+K:[["Zero-shot","Instructions only. Works for straightforward tasks, but is limited when the format matters."],["One-shot","One example shows the expected output format."],["Few-shot","Several examples teach patterns and improve consistency in classification."]],
+X:[["Classification prompt","Classify the incident into one of these categories:\n- Network\n- Database\n- Application\n- Infrastructure\n\nIncident:\n\"Application is unable to connect to MySQL.\"\n\nReturn only the category."]],
+A:[["Practical lab: Incident Classification Assistant",["Build the classifier with a zero-shot prompt.","Add one example (one-shot).","Add several examples (few-shot).","Compare the results of all three."]],["Assignment: Few-Shot Prompt",["Prepare a few-shot prompt with at least five sample IT incidents."]]],
+C:"Checkpoint: submit the few-shot prompt."},
+{t:"System Prompts, User Prompts and Instruction Hierarchy",h:1,
+T:[["System, Developer and User Instructions","Who sets what",.25],["Instructions vs. Input Data","Never confuse the two",.25],["Priority, Conflicts and Domain Restriction","Keep the assistant on topic",.25],["Prompt Injection and Untrusted Input","Separate trusted from untrusted",.25]],
+K:[["Three kinds","System and developer instructions define behavior. The user prompt carries the task."],["Instructions vs. data","Treat user text, logs and documents as data, not as commands."],["Domain restriction","Define responsibilities and rules so the assistant stays on topic."],["Prompt injection","Separate trusted instructions from untrusted input. Prompt wording alone is not a security control."]],
+X:[["A system instruction","You are an IT Operations Assistant.\n\nYour responsibilities:\n- Analyze infrastructure incidents.\n- Explain Linux and Kubernetes errors.\n- Suggest diagnostic commands.\n- Provide operational recommendations.\n\nRules:\n- Never claim an action was executed unless a tool confirms it.\n- Do not expose secrets.\n- Ask for clarification when information is insufficient."],["A user prompt","My Kubernetes pod is stuck in CrashLoopBackOff.\nHelp me troubleshoot."]],
+A:[["Practical lab: Three System Prompts",["Write one for a Linux administrator assistant.","Write one for a Kubernetes troubleshooting assistant.","Write one for a database support assistant."]],["Assignment: Scope-Restricted Assistant",["Write a system prompt limited to IT Operations questions.","Handle unrelated requests appropriately."]]],
+C:"Checkpoint: submit the system prompt."},
+{t:"Role-Based Prompting and Prompt Templates",h:1,
+T:[["Roles and Domain-Specific Prompting","Responsibilities and scope",.25],["Reusable Prompt Templates","Instructions once, data many times",.25],["Dynamic Variables, Separating Data","Fill in the blanks safely",.25],["Template Versioning and Management","Prompts as code",.25]],
+K:[["Roles","Define responsibilities and domain-specific behavior."],["Templates","Separate instructions from user data and fill dynamic variables."],["Manage","Version templates and keep them in your Python application code."]],
+X:[["A reusable template","from string import Template\n\nincident_prompt = Template(\"\"\"\nYou are an experienced SRE engineer.\n\nAnalyze this incident:\n\nApplication: $application\nEnvironment: $environment\nError: $error\n\nProvide:\n1. Summary\n2. Possible causes\n3. Diagnostic steps\n4. Recommended actions\n\"\"\")\n\nprompt = incident_prompt.substitute(\n    application=\"Payment API\",\n    environment=\"Production\",\n    error=\"HTTP 503 Service Unavailable\",\n)\nprint(prompt)"]],
+A:[["Assignment: Three Reusable Templates",["Kubernetes incident analysis.","Linux server health analysis.","Database performance analysis."]]],
+C:"Checkpoint: submit the three templates."},
+{t:"Reasoning Models and Multi-Step Problem Solving",h:1,
+T:[["What Reasoning Models Are","Standard vs. reasoning-oriented",.25],["Breaking Problems into Steps","Plan, analyze, verify, answer",.25],["Evidence, Assumptions and Verification","Facts vs. hypotheses",.25],["Reasoning Summaries vs. Internal Traces","What you can and cannot rely on",.25]],
+K:[["Reasoning models","Built for complex multi-step tasks. They plan, analyze and verify before answering."],["Workflows","Summarize, identify causes, prioritize checks, recommend actions, list missing information."],["Evidence","Ask for evidence and assumptions, and separate confirmed facts from hypotheses."],["Limits","Model-generated reasoning can be wrong, so verify it. Reasoning summaries are not the model's internal reasoning traces."]],
+X:[["An investigation prompt","A production application is experiencing high latency.\n\nAvailable information:\n- CPU utilization: 95%\n- Memory utilization: 90%\n- Database connections: 500\n- HTTP 500 errors: Increasing\n\nPerform the following:\n1. Summarize the incident.\n2. Identify possible causes.\n3. Prioritize diagnostic checks.\n4. Recommend corrective actions.\n5. Identify what additional information is required.\n\nClearly distinguish confirmed facts from hypotheses."]],
+A:[["Practical lab: Three Related Problems",["Take three related infrastructure problems.","Build a structured troubleshooting workflow for them."]],["Assignment: Investigation Prompt",["Write an incident investigation prompt.","Make it produce evidence-based findings and prioritized diagnostic steps."]]],
+C:"Checkpoint: submit the investigation prompt."},
+{t:"Structured Outputs Using JSON and Schemas",h:1,
+T:[["Why Structured Output Matters","Machine-readable beats free text",.25],["JSON and JSON Schema Basics","Objects, arrays, keys, values, schema",.25],["Structured Outputs vs. Ordinary JSON Prompting","Enforced vs. requested",.25],["Pydantic Validation and Missing Fields","Handle bad responses",.25]],
+K:[["Why","Applications need machine-readable data, not free text."],["JSON and schema","JSON objects, arrays, keys and values. JSON Schema describes the expected structure."],["Structured Outputs vs. JSON prompting","Provider structured-output features can enforce a schema. Asking for JSON in a prompt is only a request. Validate either way."],["Handle failures","Missing or invalid fields need a retry or a safe fallback."]],
+X:[["Expected JSON","{\n  \"incident\": \"High CPU utilization\",\n  \"severity\": \"High\",\n  \"possible_causes\": [\"High application workload\", \"Resource contention\"],\n  \"recommended_actions\": [\"Check running processes\", \"Review application logs\"],\n  \"requires_human_review\": true\n}"],["Validate with Pydantic","from pydantic import BaseModel\nfrom typing import List\n\nclass IncidentAnalysis(BaseModel):\n    incident: str\n    severity: str\n    possible_causes: List[str]\n    recommended_actions: List[str]\n    requires_human_review: bool\n\nsample = {\"incident\": \"High CPU utilization\", \"severity\": \"High\", \"possible_causes\": [\"High application workload\"], \"recommended_actions\": [\"Review running processes\"], \"requires_human_review\": True}\nresult = IncidentAnalysis.model_validate(sample)\nprint(result.model_dump_json(indent=2))"],["Added: generate a JSON Schema from the model","print(IncidentAnalysis.model_json_schema())"]],
+A:[["Practical lab: Validated Incident Analyzer",["Build an analyzer that returns JSON, not free text.","Validate every response with Pydantic."]],["Assignment: Pod Failure Schema",["Create a JSON schema for Kubernetes pod failure analysis.","Validate model responses against it."]]],
+C:"Checkpoint: submit the schema and results."},
+{t:"Function Calling and Tool Integration",h:1.5,
+T:[["What Is Function Calling?","Why LLMs need external tools",.25],["Generating vs. Executing a Command","Two different acts",.25],["Tool Definitions and the Workflow","Seven steps, one loop",.25],["Multiple Tool Calls and Results","Chaining several lookups",.25],["Read-Only vs. Write-Enabled Tools","Permissions and approval",.25],["Lab: Three Simulated Tools","Server, pod and database status",.25]],
+K:[["Function calling","The model requests a tool. Your application validates and executes it. The model never runs anything itself."],["Why tools","LLMs cannot see live infrastructure. Tools give them facts to base answers on."],["Generating vs. executing","A model can suggest a command. Running it is a separate decision your code controls."],["Read-only first","Separate read-only tools from write-enabled ones. Add permissions, validation and human approval."],["Try the flow","Step through the Tool-call flow above."]],
+X:[["A simulated tool","def get_server_status(server_name: str):\n    servers = {\n        \"web-server-01\": {\"status\": \"running\", \"cpu\": 85, \"memory\": 70},\n        \"db-server-01\": {\"status\": \"running\", \"cpu\": 45, \"memory\": 60},\n    }\n    return servers.get(server_name, {\"error\": \"Server not found\"})"],["Added: a multi-tool loop (Chat Completions style)","import json\n\nTOOLS = {\"get_server_status\": get_server_status, \"get_pod_status\": get_pod_status, \"get_database_status\": get_database_status}\nspecs = [{\"type\": \"function\", \"function\": {\"name\": n, \"description\": \"Read-only status lookup\", \"parameters\": {\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}}, \"required\": [\"name\"]}}} for n in TOOLS]\n\nmessages = [{\"role\": \"user\", \"content\": \"Check the CPU utilization of web-server-01.\"}]\nr = client.chat.completions.create(model=MODEL, messages=messages, tools=specs)\nmsg = r.choices[0].message\nif msg.tool_calls:\n    messages.append(msg)\n    for call in msg.tool_calls:\n        fn = TOOLS.get(call.function.name)\n        args = json.loads(call.function.arguments)\n        ok = fn and isinstance(args.get(\"name\"), str)          # validate before running\n        result = fn(args[\"name\"]) if ok else {\"error\": \"invalid tool call\"}\n        messages.append({\"role\": \"tool\", \"tool_call_id\": call.id, \"content\": json.dumps(result)})\n    final = client.chat.completions.create(model=MODEL, messages=messages, tools=specs)\n    print(final.choices[0].message.content)"]],
+A:[["Practical lab: Three Simulated Tools",["Write get_server_status().","Write get_pod_status().","Write get_database_status().","Let the LLM select the right tool from the user's question."]],["Assignment: IT Ops Assistant with Tools",["Build an assistant with at least three tools.","Demonstrate tool selection.","Demonstrate tool execution.","Demonstrate response generation."]]],
+C:"Checkpoint: demonstrate the assistant."},
+{t:"LLM API Integration Using Python",h:1.5,
+T:[["Connecting Python to LLM Providers","SDKs and endpoints",.25],["Keys, Environment Variables, Endpoints","Configuration done right",.25],["System and User Messages, Responses","The request cycle",.25],["Streaming, Errors and Usage","What comes back",.25],["Reusable Client and Provider Abstraction","One client, many providers",.25],["Lab: Connect, Switch Models, Break It","Invalid keys and bad endpoints",.25]],
+K:[["Builds on Section 7","You built a client there. Reuse it here and focus on the application around it."],["Core pieces","SDK, API key in environment variables, model name, base URL, system and user messages, response handling."],["Provider abstraction","Keep model and endpoint in configuration so you can switch compatible providers."],["Caveat","The example assumes an OpenAI-compatible Chat Completions API. Other providers may need different endpoints or authentication."]],
+X:[["Project structure","llm_app/\n├── .env\n├── requirements.txt\n├── config.py\n├── llm_client.py\n└── main.py"],["Configuration and install","# .env\nLLM_API_KEY=your_api_key\nLLM_MODEL_NAME=your_model_name\nLLM_BASE_URL=your_provider_endpoint\n\npip install openai python-dotenv"],["llm_client.py","import os\nfrom openai import OpenAI\nfrom dotenv import load_dotenv\n\nload_dotenv()\n\nclient = OpenAI(\n    api_key=os.getenv(\"LLM_API_KEY\"),\n    base_url=os.getenv(\"LLM_BASE_URL\"),\n)\n\ndef ask_llm(question):\n    response = client.chat.completions.create(\n        model=os.getenv(\"LLM_MODEL_NAME\"),\n        messages=[\n            {\"role\": \"system\", \"content\": \"You are an IT Operations Assistant.\"},\n            {\"role\": \"user\", \"content\": question},\n        ],\n    )\n    return response.choices[0].message.content"],["main.py","from llm_client import ask_llm\n\nquestion = \"Explain why a Kubernetes pod enters CrashLoopBackOff.\"\nanswer = ask_llm(question)\nprint(answer)"]],
+A:[["Practical lab: Connect and Break",["Connect to an available LLM provider.","Send questions from Python and display responses.","Change the configured model.","Test invalid credentials.","Test an unavailable endpoint."]],["Assignment: Reusable Client",["Build a reusable Python LLM client.","Make it configurable for different compatible providers."]]],
+C:"Checkpoint: demonstrate the client."},
+{t:"Building LLM Applications with FastAPI and Streamlit",h:1.5,
+T:[["FastAPI: Endpoints and Validation","REST and Pydantic",.25],["Calling the LLM from an Endpoint","Backend meets model",.25],["Exceptions and API Docs","Fail clearly",.25],["Streamlit: Inputs, Buttons, Display","A UI in Python",.25],["A Chat Interface and History","Conversation on screen",.25],["Connecting Streamlit to FastAPI","The full stack",.25]],
+K:[["FastAPI","REST endpoints, JSON input, request validation with Pydantic, exception handling and automatic API docs."],["Streamlit","Python web interfaces: text inputs, buttons, chat display and history."],["Architecture","User, Streamlit UI, FastAPI, LLM client, LLM provider, and the response back to the UI."]],
+X:[["FastAPI endpoint","from fastapi import FastAPI\nfrom pydantic import BaseModel\nfrom llm_client import ask_llm\n\napp = FastAPI()\n\nclass Question(BaseModel):\n    question: str\n\n@app.post(\"/ask\")\ndef ask(request: Question):\n    answer = ask_llm(request.question)\n    return {\"question\": request.question, \"answer\": answer}"],["Run the backend","uvicorn main:app --reload"],["Streamlit frontend","import streamlit as st\nimport requests\n\nst.title(\"IT Operations AI Assistant\")\nquestion = st.text_input(\"Ask your question\")\n\nif st.button(\"Submit\") and question:\n    response = requests.post(\"http://localhost:8000/ask\", json={\"question\": question}, timeout=60)\n    if response.ok:\n        st.write(response.json()[\"answer\"])\n    else:\n        st.error(\"Request failed\")"],["Added: a chat interface","import streamlit as st\nimport requests\n\nif \"history\" not in st.session_state:\n    st.session_state.history = []\n\nfor role, text in st.session_state.history:\n    with st.chat_message(role):\n        st.write(text)\n\nif q := st.chat_input(\"Ask your question\"):\n    st.session_state.history.append((\"user\", q))\n    r = requests.post(\"http://localhost:8000/ask\", json={\"question\": q}, timeout=60)\n    a = r.json()[\"answer\"] if r.ok else \"Request failed\"\n    st.session_state.history.append((\"assistant\", a))\n    st.rerun()"],["Run the UI","streamlit run app.py"]],
+A:[["Assignment: IT Ops Chatbot",["Build a web chatbot with Streamlit, FastAPI and an LLM API."]]],
+C:"Checkpoint: demonstrate the chatbot."},
+{t:"Conversation History and Memory Management",h:.75,
+T:[["Why LLMs Do Not Remember","Every API request stands alone",.25],["Maintaining History and Roles","System, user, assistant",.25],["Persistent Memory, Sessions and Trimming","Beyond one chat",.25]],
+K:[["No automatic memory","Each API request stands alone. You send previous messages with every new request."],["Roles","System, user and assistant messages."],["Beyond one chat","Persistent memory and database storage keep data across sessions. Session IDs separate users."],["Control size","Remove irrelevant history to control context size."]],
+X:[["Conversation history","conversation = [\n    {\"role\": \"system\", \"content\": \"You are an IT Operations Assistant.\"}\n]\n\ndef add_message(role, content):\n    conversation.append({\"role\": role, \"content\": content})\n\nadd_message(\"user\", \"What is Kubernetes?\")\nadd_message(\"assistant\", \"Kubernetes is a container orchestration platform.\")\nadd_message(\"user\", \"What is a pod?\")\nprint(conversation)"],["Added: sessions with trimming","SESSIONS = {}   # session_id -> list of messages\n\ndef history_for(session_id, limit=10):\n    msgs = SESSIONS.setdefault(session_id, [])\n    return [{\"role\": \"system\", \"content\": \"You are an IT Operations Assistant.\"}] + msgs[-limit:]"]],
+A:[["Practical lab: Chatbot with Memory",["Build a chatbot that remembers previous messages in a session."]],["Assignment: Follow-Up Demo",["Demonstrate follow-up questions answered from earlier context."]]],
+C:"Checkpoint: demonstrate the follow-up."},
+{t:"Context Management and Token Optimization",h:.75,
+T:[["Context Window and Tokens","Input, output and limits",.25],["Sending Less: Filter, Summarize, Chunk","Relevant context only",.25],["Cost, Latency and Truncation","What goes wrong when you send too much",.25]],
+K:[["Tokens","The context window is the total the model can handle. Maximum output is a separate limit. History consumes tokens."],["Send less","Filter by time and severity, extract errors, remove duplicates, summarize and chunk large text."],["Risks","Truncation and context overflow lose information. Longer prompts cost more and are slower."],["Measure","Use the usage field in API responses. Local tokenizers only estimate."]],
+A:[["Practical lab: Three Prompt Sizes",["Send complete synthetic logs.","Send filtered logs.","Send a summarized incident report.","Compare token usage and response quality."]],["Assignment: Optimize a Large Incident Prompt",["Shrink a large prompt.","Keep the information needed for troubleshooting."]]],
+C:"Checkpoint: submit the optimized prompt."},
+{t:"Error Handling, Retries and Fallback Models",h:.75,
+T:[["Common Errors and HTTP Codes","What each failure means",.25],["Retries, Backoff and Jitter","Only for transient failures",.25],["Fallbacks and Graceful Messages","Keep users informed safely",.25]],
+K:[["Builds on Section 7","Section 7 covered keys, timeouts and error handling. Here you apply them inside the application."],["HTTP errors","400 validate the request. 401 check credentials. 403 check permissions. 404 verify endpoint or model. 429 retry with backoff. 500 retry where appropriate. 503 retry or use an approved fallback."],["Retries","Retry only transient failures, use exponential backoff with jitter, and respect provider retry headers and deadlines."],["Fallbacks","Use approved fallback models or providers. Log errors without exposing credentials and show users graceful messages."]],
+X:[["A basic retry (demonstration only)","import time\n\ndef call_with_retry(api_function, max_retries=3):\n    for attempt in range(max_retries):\n        try:\n            return api_function()\n        except Exception as error:\n            if attempt == max_retries - 1:\n                raise\n            wait_time = 2 ** attempt\n            print(f\"Retrying after {wait_time} seconds\")\n            time.sleep(wait_time)"]],
+A:[["Practical lab: Simulate Failures",["Simulate invalid API credentials.","Simulate rate-limit errors.","Simulate a connection timeout.","Simulate provider unavailability.","Implement error handling and a fallback provider if available."]],["Assignment: Reliable LLM App",["Add timeout handling.","Add retries.","Add a controlled fallback mechanism."]]],
+C:"Checkpoint: demonstrate the reliable app."},
+{t:"LLM Application Testing and Evaluation",h:1,
+T:[["Why LLM Testing Is Different","Same input, different outputs",.25],["Prompt and Regression Tests","Catch breakage after a change",.25],["Structured Output, Hallucination and Edge-Case Tests","What to check",.25],["Datasets, Human vs. Automated Evaluation","Measure quality over time",.25]],
+K:[["Different from classic testing","The same input can give different outputs. Test behavior, not exact wording."],["What to test","API integration, prompts and regressions, structured-output validation, hallucinations and unsupported claims, edge cases, latency and token use."],["Evaluation","Human review and automated checks both help. Keep a test dataset and watch quality over time."],["Starter dataset","Pod failure: suggest relevant diagnostics. High CPU: identify possible causes. Database connection failure: suggest database checks. Unrelated question: follow the application scope. Missing details: ask for clarification."]],
+X:[["A starter pytest","def test_incident_input():\n    question = \"My Kubernetes pod is failing.\"\n    assert isinstance(question, str)\n    assert len(question) > 0"],["Added: a test with a mocked API call","import llm_client\n\ndef test_ask_llm_returns_text(monkeypatch):\n    class Msg: content = \"ok\"\n    class Choice: message = Msg()\n    class Resp: choices = [Choice()]\n    monkeypatch.setattr(llm_client.client.chat.completions, \"create\", lambda **kw: Resp())\n    assert llm_client.ask_llm(\"hi\") == \"ok\""]],
+A:[["Practical lab: Test Dataset",["Prepare the test dataset.","Create pytest test cases.","Add tests with mocked API responses.","Add structured-output validation tests.","Evaluate real model responses."]],["Assignment: Ten Test Cases",["Create at least 10 test cases for the IT Operations AI Assistant.","Document the results."]]],
+C:"Checkpoint: submit the test report."},
+{t:"Final Project: Build an IT Operations AI Assistant",h:2,
+T:[["Step 1: User Interface","A Streamlit chatbot",.25],["Step 2: Backend","FastAPI endpoints",.25],["Step 3: Prompt Engineering","System prompt, roles, domain rules",.25],["Step 4: Structured Output","Validated incident JSON",.25],["Step 5: Conversation History","Sessions and follow-ups",.25],["Step 6: Tool Integration","Simulated tools, validated arguments",.25],["Step 7: Reliability","Timeouts, retries, latency, usage",.25],["Step 8: Testing","Unit tests and evaluation",.25]],
+K:[["Project","An IT Operations AI Assistant that understands IT questions, calls an LLM, keeps context and returns structured responses."],["Architecture","User, Streamlit UI, FastAPI, prompt manager, LLM client, LLM provider, response validator, back to the UI."],["Deliverables","Streamlit chatbot, FastAPI backend, configurable LLM client, prompt templates, structured JSON, conversation history, three simulated tools, error handling and logging, unit tests and evaluation results, documentation."],["Stack","OpenAI SDK, FastAPI, Streamlit, Pydantic, python-dotenv, pytest, Postman or curl, optional SQLite or PostgreSQL, Git and GitHub. Providers: OpenAI, Groq, Microsoft Foundry."],["Section 8 vs. Section 9","Section 8 uses AI to help engineers work. Section 9 builds applications powered by AI."]],
+X:[["Suggested project structure","itops-ai-assistant/\n├── app/\n│   ├── main.py\n│   ├── config.py\n│   ├── llm_client.py\n│   ├── prompts.py\n│   ├── schemas.py\n│   ├── memory.py\n│   ├── tools/\n│   │   ├── server_tools.py\n│   │   ├── kubernetes_tools.py\n│   │   └── database_tools.py\n│   └── api/\n│       └── routes.py\n├── frontend/\n│   └── app.py\n├── tests/\n│   ├── test_api.py\n│   ├── test_prompts.py\n│   └── test_tools.py\n├── .env\n├── .env.example\n├── requirements.txt\n└── README.md"]],
+A:[["Step 1: User Interface",["Create a Streamlit chatbot.","Accept IT operations questions.","Display responses."]],["Step 2: Backend",["Create FastAPI endpoints.","Accept user questions.","Call the LLM client.","Return responses in JSON."]],["Step 3: Prompt Engineering",["Configure a system prompt.","Create role-based prompts.","Add domain-specific instructions."]],["Step 4: Structured Output",["Generate incident analysis in JSON.","Validate the response with Pydantic."]],["Step 5: Conversation History",["Maintain conversation history.","Support follow-up questions.","Use session IDs to separate conversations."]],["Step 6: Tool Integration",["Add simulated tools for server, Kubernetes and database status.","Allow the LLM to request tool execution.","Validate tool arguments before execution."]],["Step 7: Reliability",["Add timeouts and error handling.","Implement retries for transient failures.","Record API response latency and token usage."]],["Step 8: Testing",["Create unit tests.","Validate API endpoints.","Test structured responses.","Evaluate responses against sample incidents."]]],
+C:"Checkpoint: demonstrate the assistant."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s9")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s9",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML='<a href="#lab"><b>Prompt lab</b><span>Build a prompt live</span></a><a href="#flow"><b>Tool-call flow</b><span>Step through the loop</span></a>'+M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175,305,70,200,350][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>${m.PL||"Python demonstration"}:</strong> ${m.P}</div>`:""}${m.X?`<h3>Commands to try</h3>${m.X.map(x=>`<div class="cmd"><div class="ch"><span>${x[0]}</span><button class="cb">Copy</button></div><pre>${x[1].replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>`).join("")}`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;
+ const t=b.closest(".cmd").querySelector("pre").textContent;
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)},()=>{b.textContent="Select and copy"})});
+const PF=[["p-r","Role"],["p-t","Task"],["p-c","Context"],["p-k","Constraints"],["p-o","Output format"]];
+const EX={"p-r":"You are a Kubernetes support engineer.","p-t":"Analyze the supplied pod failure.","p-c":"Pod status: CrashLoopBackOff\nNamespace: payments\nContainer exit code: 1","p-k":"Do not assume the root cause without evidence.\nDo not recommend deleting production resources.","p-o":"- Observed symptoms\n- Possible causes\n- Diagnostic commands\n- Recommended next steps"};
+function lab(){const v=id=>document.getElementById(id).value.trim();
+ const got=PF.filter(f=>v(f[0])),miss=PF.filter(f=>!v(f[0]));
+ const txt=got.map(f=>f[1]+(f[0]=="p-r"||f[0]=="p-t"?": ":":\n")+v(f[0])).join("\n\n");
+ $("#p-out").textContent=txt||"Your prompt appears here.";
+ $("#p-meter").innerHTML=`<div class="${got.length==5?"fit":""}"><b>${got.length} of 5</b>parts filled</div><div><b>about ${Math.ceil(txt.length/4)}</b>tokens (rough: characters ÷ 4)</div><div><b>${miss.length?miss[0][1]:"Complete"}</b>${miss.length?"is the next part to add":"Now test it on a real model and refine"}</div>`}
+function fill(o){PF.forEach(f=>document.getElementById(f[0]).value=o[f[0]]||"");lab()}
+PF.forEach(f=>document.getElementById(f[0]).addEventListener("input",lab));
+$("#p-weak").onclick=()=>fill({"p-t":"Check this server error."});$("#p-good").onclick=()=>fill(EX);
+fill({"p-t":"Check this server error."});
+const FL=[
+{w:"User",c:210,t:"Sends a request",d:"The user asks a question in plain language.",x:'{"role":"user","content":"Check the CPU utilization of web-server-01."}'},
+{w:"Application",c:40,t:"Sends it to the LLM with tool definitions",d:"Your code adds the list of tools the model may request.",x:'{"messages":[...],"tools":[{"name":"get_server_status","parameters":{"name":"string"}}]}'},
+{w:"LLM",c:150,t:"Requests a tool call",d:"The model does not run anything. It only asks.",x:'{"tool_calls":[{"function":{"name":"get_server_status","arguments":"{\\"name\\":\\"web-server-01\\"}"}}]}'},
+{w:"Application",c:40,t:"Validates the arguments",d:"Check the tool name, argument types and permissions. Add human approval for write actions.",x:'name in TOOLS? yes\nname is a string? yes\nread-only tool? yes -> allowed'},
+{w:"Application",c:40,t:"Executes the function",d:"Your code runs the approved function.",x:'get_server_status("web-server-01")'},
+{w:"Application",c:40,t:"Sends the tool result back",d:"The result goes back to the model as a tool message.",x:'{"role":"tool","content":"{\\"status\\":\\"running\\",\\"cpu\\":85,\\"memory\\":70}"}'},
+{w:"LLM",c:150,t:"Writes the final response",d:"The model answers using the tool result, not invented data.",x:'web-server-01 is running with CPU at 85% and memory at 70%.'}];
+let fi=0;
+function flow(){const s=FL[fi];
+ $("#fl-dots").innerHTML=FL.map((_,i)=>`<i class="${i<=fi?"on":""}" data-i="${i}" title="Step ${i+1}"></i>`).join("");
+ $("#fl-out").innerHTML=`<div style="border-color:hsl(${s.c} 80% 55%)"><b>Step ${fi+1} of ${FL.length} · ${s.w}: ${s.t}</b>${s.d}</div>`;
+ $("#fl-x").textContent=s.x}
+$("#fl-next").onclick=()=>{fi=(fi+1)%FL.length;flow()};
+$("#fl-prev").onclick=()=>{fi=(fi+FL.length-1)%FL.length;flow()};
+$("#fl-dots").addEventListener("click",e=>{const d=e.target.closest("i");if(d){fi=+d.dataset.i;flow()}});
+flow();
+refresh();
+</script>
+</body>
+</html>

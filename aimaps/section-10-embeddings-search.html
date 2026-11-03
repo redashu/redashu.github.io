@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embeddings & Search | AI Ops Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔎</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a1640;--panel:#272160;--tx:#f4f1ff;--mu:#b9b3e6;--ln:#4d4596;--ac:#ffc93c;--bl:hsl(205 95% 68%);--ok:hsl(150 65% 48%);--sh:0 6px 18px #0005}
+[data-theme=light]{--bg:#f2f8ff;--panel:#fff;--tx:#1d2750;--mu:#56628f;--ln:#c5d3ee;--ac:#ff9f1c;--bl:hsl(220 85% 52%);--ok:hsl(155 70% 35%);--sh:0 6px 16px #3b5bdb22}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background-image:radial-gradient(circle at 10% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent 42%),radial-gradient(circle at 92% 8%,color-mix(in srgb,#4dabf7 22%,transparent),transparent 42%);background-attachment:fixed;background:var(--bg);color:var(--tx);font:400 16px/1.5 "Bricolage Grotesque",system-ui,sans-serif}
+button,a{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+.bar .in{max-width:1100px;margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center}
+.bar b{margin-right:auto;font-weight:800}
+.pill{background:var(--panel);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;text-decoration:none}
+#prog{height:5px;background:var(--ln)}#prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .4s}
+.hero{max-width:1100px;margin:44px auto 10px;padding:0 20px}
+h1{font-size:clamp(2.1rem,5.5vw,3.8rem);line-height:1.03;margin:0 0 12px;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.hero p{color:var(--mu);max-width:62ch;margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.facts div{border:1px solid var(--ln);background:var(--panel);border-radius:12px;padding:8px 14px;font-size:.92rem}
+.facts b{color:var(--ac)}
+.flow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--mu);font-size:.95rem}
+.flow span{border:1.5px dashed var(--ln);border-radius:8px;padding:2px 12px;color:var(--tx)}
+.wrap{max-width:1100px;margin:26px auto 80px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:34px}
+.rail{position:sticky;top:70px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.rail a{display:block;text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid transparent;color:var(--mu);font-size:.92rem;line-height:1.3}
+.rail a b{display:block;color:var(--tx);font-weight:600}
+.rail a.act{border-color:var(--bl);background:var(--panel)}
+.rail a.dn b::after{content:" ✓";color:var(--ok)}
+.mod{margin-bottom:56px;position:relative;padding-left:26px;border-left:2px dashed var(--ln)}
+.mod::before{content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--bl)}
+.mod.dn::before{background:var(--ok);border-color:var(--ok)}
+.mh h2{margin:0;font-size:1.7rem;line-height:1.15;font-weight:800}
+.mh p{margin:4px 0 0;color:var(--mu);font-size:.92rem}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--bl)}
+.row{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:11px 14px;margin-bottom:8px;transition:border-color .2s}
+.row:hover{border-color:var(--bl)}
+.bx{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);margin-top:2px;display:grid;place-items:center;font-size:13px;line-height:1;color:#fff}
+.row[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.row[aria-pressed=true] .bx::after{content:"✓"}
+.row[aria-pressed=true] b{text-decoration:line-through;text-decoration-color:var(--mu);color:var(--mu)}
+.tx b{display:block;font-weight:600}.tx small{color:var(--mu);font-size:.88rem;display:block}
+.hr{color:var(--ac);font-weight:600;font-size:.9rem;white-space:nowrap}
+.card{border:1.5px solid var(--ln);border-radius:14px;padding:14px 14px 6px;margin-bottom:14px;background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.card h4{margin:0 0 10px;font-size:1.05rem}
+.card .row{border-radius:9px;padding:8px 12px;margin-bottom:6px}
+.dv{margin:4px 0 10px;padding:9px 12px;border-radius:9px;border-left:4px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-size:.92rem}
+.note{font-size:.9rem;color:var(--mu);margin:0 0 8px}
+.cp{display:grid;grid-template-columns:24px 1fr;gap:12px;width:100%;text-align:left;margin-top:14px;padding:11px 14px;border:2px dashed var(--ac);border-radius:12px;background:none}
+.cp[aria-pressed=true]{border-style:solid;background:color-mix(in srgb,var(--ok) 16%,transparent);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx{background:var(--ok);border-color:var(--ok)}
+.cp[aria-pressed=true] .bx::after{content:"✓"}
+.cp small{display:block;color:var(--mu)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.kc{background:var(--panel);border:1.5px solid var(--ln);border-radius:12px;padding:9px 12px;font-size:.92rem;color:var(--mu)}
+.kc b{display:block;color:var(--bl);font-weight:600}
+.cmd{margin-bottom:10px;border:1.5px solid var(--ln);border-radius:12px;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:var(--panel);font-size:.85rem;color:var(--mu)}
+.cb{border:1px solid var(--ln);background:none;border-radius:8px;padding:2px 10px;font-size:.8rem}
+.cmd pre{margin:0;padding:10px 12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#141a2b;color:#e8edf5}
+.lab{border:2px solid var(--ac);border-radius:16px;padding:16px 18px;margin-bottom:44px;background:color-mix(in srgb,var(--panel) 70%,transparent)}
+.lab h2{margin:0 0 4px;font-size:1.5rem}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.vgrid{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:16px;align-items:start}
+#v-svg{width:100%;background:var(--panel);border:1.5px solid var(--ln);border-radius:12px}
+#v-svg circle{cursor:pointer}
+#v-svg text{font-size:5px;fill:#101010;pointer-events:none;text-anchor:middle}
+.vr{display:flex;justify-content:space-between;gap:8px;padding:6px 10px;border:1.5px solid var(--ln);border-radius:10px;margin-bottom:6px;background:var(--panel);font-size:.88rem}
+.vr b{font-weight:600}.vr.top{border-color:var(--ok)}
+.vn{font-size:.85rem;color:var(--mu);margin-top:8px}
+@media(max-width:700px){.vgrid{grid-template-columns:1fr}}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,90px);background:var(--ac);color:#101010;padding:9px 18px;border-radius:99px;font-weight:600;transition:transform .35s;z-index:30}
+#toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+.wrap{grid-template-columns:1fr;gap:18px}
+.rail{flex-direction:row;overflow-x:auto;top:52px;background:var(--bg);padding:6px 0;z-index:10}
+.rail a{min-width:150px}.mod{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+<a class="pill" href="index.html">← Roadmap</a>
+<b>Section 10</b>
+<button class="pill" id="theme" aria-label="Toggle theme">☀/🌙</button>
+</div><div id="prog"><i></i></div></div>
+
+<header class="hero">
+<h1>Embeddings & Search</h1>
+<p>Turn text into vectors, store and search them, and learn how similarity metrics, indexes, metadata filters, hybrid search and reranking work. You finish with an IT Operations knowledge search assistant. This section stops at retrieval. The next section, RAG, sends retrieved content to an LLM. Start with the Vector playground below.</p>
+<div class="facts"><div><b>15.75 hours</b> of concepts, demos and assignments</div><div><b id="hd">0</b> of 15.75 hours studied</div><div><b id="td">0</b> of <span id="tt">0</span> practice tasks done</div></div>
+<div class="flow">How each module works: <span>Read the topics</span> then <span>Do the assignments</span> then <span>Pass the checkpoint</span></div>
+</header>
+
+<div class="wrap">
+<nav class="rail" id="rail" aria-label="Modules"></nav>
+<main><section class="lab" id="vec"><h2>Vector playground: how each metric ranks neighbors</h2><p class="note">Illustrative 2D vectors, not real model output. Click a point to make it the query, then switch the metric.</p>
+<div class="btns" id="v-m"></div>
+<div class="vgrid"><svg id="v-svg" viewBox="0 0 110 140" role="img" aria-label="Vector map"></svg><div id="v-list"></div></div></section>
+<div id="mods"></div></main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+const M=[
+{t:"Introduction to Embeddings and Vector Representations",h:1,
+T:[["What Are Embeddings?","Text, images and data as vectors",.25],["Why GenAI Needs Embeddings","Meaning over exact keywords",.25],["Tokenization vs. Embedding vs. Generation","Three different jobs",.25],["Practical: Sentences to Vectors","Related and unrelated pairs",.25]],
+K:[["Embedding","A numeric vector that captures the meaning of text, images or other data."],["Why","Compare by meaning, not exact words. Powers semantic search, recommendations, clustering and RAG."],["Not tokenization","Tokenization splits text into token IDs. An embedding model turns text into one vector that represents meaning."],["Not generation","Embedding models output vectors. LLMs generate text."],["Example","Kubernetes pod is restarting repeatedly and Container is experiencing CrashLoopBackOff can sit close together. The weather is pleasant today does not. Values below are illustrative, not real output."]],
+X:[["Illustrative vectors","Sentence 1: [0.21, 0.45, 0.78, 0.12, ...]\nSentence 2: [0.22, 0.43, 0.76, 0.14, ...]\nSentence 3: [0.89, 0.11, 0.24, 0.65, ...]"]],
+A:[["Practical lab: Sentences to Vectors",["Install an embedding library.","Convert five IT-related sentences into vectors.","Display the vector dimensions.","Compare vectors for related and unrelated sentences."]],["Assignment: Ten Incidents",["Prepare 10 IT incident descriptions.","Generate their embeddings.","Identify which descriptions appear semantically related."]]],
+C:"Checkpoint: submit the ten incidents."},
+{t:"How Text Is Converted into Embeddings",h:1,
+T:[["Preprocessing and Tokenization","Text to token IDs",.25],["Transformer Embedding Models","Contextual token representations",.25],["Pooling and Normalization","Mean, CLS, unit length",.25],["Practical: Sentence Transformers","Batch encoding and shapes",.25]],
+K:[["Workflow","Input text, preprocessing, tokenization, token IDs, embedding model, token representations, pooling, sentence embedding, vector."],["Pooling","Mean pooling averages token vectors. CLS pooling uses the special first token."],["Normalization","Many models output unit-length vectors, so cosine similarity and dot product agree."],["Batching","Encode many texts at once for speed."]],
+X:[["Install","pip install sentence-transformers"],["Encode sentences","from sentence_transformers import SentenceTransformer\n\nmodel = SentenceTransformer(\"sentence-transformers/all-MiniLM-L6-v2\")\n\nsentences = [\n    \"Kubernetes pod is restarting.\",\n    \"Container is experiencing repeated failures.\",\n    \"Database connection timeout.\",\n]\n\nembeddings = model.encode(sentences)\nprint(\"Shape:\", embeddings.shape)\nprint(\"First embedding:\", embeddings[0])"]],
+A:[["Practical lab: Sentence Transformers",["Install sentence-transformers.","Encode the three example sentences.","Print the shape and the first embedding.","Confirm the model gives 384-dimensional vectors."]],["Assignment: Twenty Sentences",["Generate embeddings for 20 infrastructure-related sentences.","Document their dimensions."]]],
+C:"Checkpoint: submit the dimension notes."},
+{t:"Embedding Models and Their Architecture",h:1,
+T:[["Embedding Models vs. Generative LLMs","Encoders vs. decoders",.25],["Contrastive Learning","Positive and negative pairs",.25],["General vs. Domain-Specific, Local vs. Cloud","Choices you will make",.25],["Models to Know","MiniLM, BGE, E5, OpenAI, EmbeddingGemma",.25]],
+K:[["Embedding vs. generative","Embedding models are usually encoder-only Transformers that output vectors. Generative LLMs output text."],["Training","Contrastive learning pulls positive pairs together and pushes negative pairs apart."],["Choices","General-purpose or domain-specific. Local or cloud-based. Cloud platforms from Section 6 also host embedding models, so check each catalog."],["Models to know","all-MiniLM-L6-v2 (lightweight, Sentence Transformers). BGE (BAAI, retrieval). E5 (Microsoft research ecosystem). OpenAI text-embedding-3-small and -large (hosted). EmbeddingGemma (Google, lightweight). Lineups change, so check current options."]],
+A:[["Practical lab: Two Models",["Load two different embedding models.","Generate vectors for the same sentences.","Compare dimensions and similarity scores.","Observe how each model represents the same text."]],["Assignment: Compare Two Models",["Use 10 IT-related queries and documents.","Record dimensions and retrieval behavior.","Judge suitability for your use case."]]],
+C:"Checkpoint: submit the comparison."},
+{t:"Semantic Similarity and Distance Metrics",h:1,
+T:[["What Is Semantic Similarity?","Vector space and geometry",.25],["Cosine, Euclidean and Dot Product","Three ways to compare",.25],["Normalized vs. Unnormalized Vectors","Why the metric depends on the model",.25],["Ranking and Thresholds","Their limits",.25]],
+K:[["Cosine similarity","A·B divided by |A| times |B|. The cosine of the angle between two vectors. Higher means more similar."],["Euclidean distance","The square root of the sum of squared differences. Straight-line distance. Lower means closer."],["Dot product","The sum of A_i × B_i. Reflects direction and magnitude. For normalized vectors it equals cosine similarity."],["Choosing","The right metric depends on the model and whether vectors are normalized. Try the Vector playground above."],["Limits","Thresholds are model-specific. A high score does not mean two incidents are identical."]],
+X:[["Cosine similarity matrix","from sentence_transformers import SentenceTransformer\nfrom sklearn.metrics.pairwise import cosine_similarity\n\nmodel = SentenceTransformer(\"sentence-transformers/all-MiniLM-L6-v2\")\n\nsentences = [\n    \"Kubernetes pod is restarting.\",\n    \"Container keeps crashing.\",\n    \"Database connection is failing.\",\n]\n\nvectors = model.encode(sentences)\nscores = cosine_similarity(vectors)\nprint(scores)"]],
+A:[["Assignment: Related vs. Unrelated",["Compare cosine similarity for related and unrelated incidents.","Explain why a high score does not mean two incidents are identical."]]],
+C:"Checkpoint: submit the explanation."},
+{t:"Vector Search vs. Traditional Keyword Search",h:1,
+T:[["Keyword Search and BM25","Inverted indexes and term frequency",.25],["Semantic Search","Meaning-based retrieval",.25],["Comparing Them","Where each wins",.25],["Practical: Two Searches","Error codes vs. questions",.25]],
+K:[["Keyword search","Exact term matching with inverted indexes and BM25 ranking. Strong for error codes and IDs."],["Semantic search","Embeds the query and finds similar meaning. Handles different wording. May be weaker on exact identifiers."],["Example","Why is my container continuously restarting? can match a CrashLoopBackOff document that shares no words with it."],["Comparison","Synonyms: semantic handles them better. Exact identifiers: keyword is often better. Misspellings: depends on the model or fuzzy search."]],
+A:[["Practical lab: Two Searches",["Create a small document collection.","Run keyword search.","Run semantic search.","Compare results for exact error codes.","Compare results for natural-language questions."]],["Assignment: Ten Queries",["Prepare 10 queries.","Compare the top-five results from keyword and semantic search."]]],
+C:"Checkpoint: submit the comparison."},
+{t:"Vector Databases and Their Architecture",h:1,
+T:[["What Is a Vector Database?","Vectors, IDs, metadata, indexes",.25],["Why SQL Alone May Not Be Enough","And where pgvector helps",.25],["Architecture and Options","FAISS, Chroma, Qdrant, Pinecone and more",.25],["Practical: Chroma Basics","Collection, insert, search",.25]],
+K:[["Vector database","Stores vectors with metadata and IDs, builds indexes and answers similarity queries."],["Why not only SQL","Relational databases alone may not suit large-scale vector retrieval, though extensions such as pgvector help."],["Capabilities","Insert and update vectors, search, metadata filtering, persistent or in-memory storage."],["Options","FAISS (library), Chroma (prototypes), Qdrant (production), Pinecone (managed), Weaviate, Azure AI Search, PostgreSQL with pgvector."]],
+A:[["Practical lab: Chroma Basics",["Create a collection.","Insert vectors.","Store metadata.","Run similarity searches.","Retrieve matching documents."]],["Assignment: 50 Support Documents",["Create a vector collection containing 50 IT support documents."]]],
+C:"Checkpoint: submit the collection."},
+{t:"Vector Database Options: Hands-On Comparison",h:1.25,
+T:[["FAISS and Chroma","A library and a local database",.25],["Qdrant","Collections, points, payload filters",.25],["Pinecone and Azure AI Search","Managed options",.25],["Added: pgvector and Milvus","SQL plus vectors, and a large-scale option",.25],["Practical: Chroma in Docker","Run, connect, add, query",.25]],
+K:[["FAISS","A similarity-search library for local indexing and clustering. CPU or GPU depending on the build."],["Chroma","Collections and documents, local persistence, metadata and embedding integration."],["Qdrant","Collections and points with payload filtering. Runs in Docker as a client-server system."],["Pinecone and Azure AI Search","Pinecone: managed indexes and namespaces. Azure AI Search: vector fields, semantic ranking and hybrid search."],["Added: pgvector and Milvus","pgvector adds vector search to PostgreSQL, which suits DBAs who want SQL and vectors together. Milvus is another open-source vector database for large deployments."],["Production note","The Chroma example used its configured embedding function. In production, choose and version the embedding model explicitly."],["Practical tips","If port 8000 is busy (FastAPI, vLLM), map another host port such as 8001:8000 and update the client. Mount a volume for persistence (check the Chroma docs for the data path)."]],
+X:[["Run Chroma in Docker","docker run -d \\\n  --name chroma \\\n  -p 8000:8000 \\\n  chromadb/chroma"],["Connect with Python","pip install chromadb\n\nimport chromadb\n\nclient = chromadb.HttpClient(host=\"localhost\", port=8000)\ncollection = client.get_or_create_collection(name=\"itops_knowledge\")\n\ncollection.add(\n    ids=[\"doc1\", \"doc2\"],\n    documents=[\"Kubernetes pod is restarting repeatedly.\", \"MySQL connection timeout.\"],\n    metadatas=[{\"category\": \"kubernetes\"}, {\"category\": \"database\"}],\n)\n\nresult = collection.query(query_texts=[\"Why is my container crashing?\"], n_results=2)\nprint(result)"],["Added: pgvector in SQL","CREATE EXTENSION IF NOT EXISTS vector;\nCREATE TABLE docs (id serial PRIMARY KEY, content text, embedding vector(384));\nCREATE INDEX ON docs USING hnsw (embedding vector_cosine_ops);\n\n-- nearest neighbors by cosine distance (<=>)\nSELECT content FROM docs ORDER BY embedding <=> '[0.1, 0.2, ...]' LIMIT 5;"]],
+A:[["Practical lab: Chroma in Docker",["Run Chroma in Docker.","Connect with the Python client.","Add two documents with metadata.","Query with a natural-language question."]],["Assignment: Compare Three Stores",["Compare FAISS, Chroma and Qdrant.","Cover deployment, persistence, filtering and integration."]]],
+C:"Checkpoint: submit the comparison."},
+{t:"Vector Indexing and Similarity Search",h:1,
+T:[["What Is a Vector Index?","Why scanning everything does not scale",.25],["Exact vs. Approximate Search","Brute force and ANN",.25],["Top-K, Latency, Recall, Memory","The trade-offs",.25],["Practical: 1,000 Documents","Search, compare top-3 and top-10",.25]],
+K:[["Index","A structure that speeds up vector search instead of scanning every vector."],["Search types","Brute-force exact search, or approximate nearest neighbor (ANN) search."],["Trade-offs","Latency, recall, index size and memory. Top-K controls how many results come back."],["Workflow","Documents, embeddings, storage, index build, query embedding, index search, Top-K results."]],
+A:[["Practical lab: 1,000 Documents",["Insert 1,000 synthetic IT documents.","Generate their embeddings.","Store them in a vector database.","Search with natural-language queries.","Compare top-3 and top-10 results.","Observe query latency."]],["Assignment: Top-K Effects",["Explain how changing Top-K affects results.","Explain how it changes the context passed to a downstream LLM."]]],
+C:"Checkpoint: submit the explanation."},
+{t:"Metadata Filtering and Hybrid Search",h:1.5,
+T:[["Metadata and Filtering","Source, category, time, environment, severity",.25],["Access-Control Filtering","Tenants and permissions",.25],["Why Hybrid Search","Semantic and keyword fail differently",.25],["BM25 and Vector Retrieval Together","Two ranked lists",.25],["Reciprocal Rank Fusion","Merging by rank",.25],["Practical: Hybrid Search App","Filters plus fusion",.25]],
+K:[["Metadata filtering","Source, category, timestamp, environment and severity. Combine structured filters with semantic similarity. Also supports tenant and access-control filtering."],["Hybrid search","Keyword plus vector search. Semantic alone misses exact terms. Keyword alone misses meaning."],["RRF","Reciprocal Rank Fusion merges ranked lists using each item's rank, not its raw score."],["Example","Find production Kubernetes incidents about pod restarts: filter environment=production, category=kubernetes, severity=high, then rank by similarity."]],
+X:[["Filters","{\n  \"environment\": \"production\",\n  \"category\": \"kubernetes\",\n  \"severity\": \"high\"\n}"],["Added: a filtered Chroma query","collection.query(\n    query_texts=[\"pod restarts\"],\n    n_results=3,\n    where={\"$and\": [{\"environment\": \"production\"}, {\"category\": \"kubernetes\"}]},\n)"],["Added: keyword search with BM25","pip install rank-bm25\n\nfrom rank_bm25 import BM25Okapi\n\ndocs = [\"Kubernetes pod restarting\", \"MySQL connection timeout\", \"DNS resolution fails\"]\nbm25 = BM25Okapi([d.lower().split() for d in docs])\nscores = bm25.get_scores(\"pod restarting\".split())\nprint(scores)"],["Added: Reciprocal Rank Fusion","def rrf(rankings, k=60):\n    scores = {}\n    for ranking in rankings:\n        for rank, doc_id in enumerate(ranking, start=1):\n            scores[doc_id] = scores.get(doc_id, 0) + 1 / (k + rank)\n    return sorted(scores, key=scores.get, reverse=True)\n\nprint(rrf([[\"a\", \"b\", \"c\"], [\"c\", \"a\", \"d\"]]))"]],
+A:[["Practical lab: Hybrid Search App",["Perform vector search.","Perform keyword search.","Apply metadata filters.","Combine results with a simple RRF implementation."]],["Assignment: Hybrid vs. Single Methods",["Create a hybrid search system for IT incidents.","Compare it with semantic-only and keyword-only search."]]],
+C:"Checkpoint: submit the hybrid system."},
+{t:"Approximate Nearest Neighbor (ANN) Algorithms",h:1,
+T:[["Exact vs. Approximate Search","Why brute force gets expensive",.25],["HNSW","Graph-based navigation",.25],["IVF and Product Quantization","Clusters and compression",.25],["Practical: Exact vs. Approximate","Latency and recall",.25]],
+K:[["Exact vs. approximate","Brute force gets expensive as data grows. ANN trades a little recall for speed."],["HNSW","Graph-based, hierarchical navigation. Fast and common in vector databases."],["IVF","Clusters vectors and searches only selected clusters."],["Product Quantization","Compresses vectors to cut memory, at some cost in precision."],["Parameters","Index settings trade speed, memory and recall. Choose by data size and latency needs."]],
+PL:"Note",P:"Random vectors are a poor test of ANN quality. After the first run, repeat with real embeddings.",
+X:[["Added: exact vs. HNSW with FAISS","pip install faiss-cpu numpy\n\nimport numpy as np, faiss\n\nd = 128\nxb = np.random.random((10000, d)).astype(\"float32\")\nxq = np.random.random((5, d)).astype(\"float32\")\n\nflat = faiss.IndexFlatL2(d)       # exact\nflat.add(xb)\n_, exact = flat.search(xq, 5)\n\nhnsw = faiss.IndexHNSWFlat(d, 32)  # approximate\nhnsw.add(xb)\n_, approx = hnsw.search(xq, 5)\n\nrecall = np.mean([len(set(exact[i]) & set(approx[i])) / 5 for i in range(5)])\nprint(\"recall@5:\", recall)"]],
+A:[["Practical lab: Exact vs. Approximate",["Generate a sample vector dataset.","Run exact similarity search.","Run an approximate index.","Measure latency and recall."]],["Assignment: Why Results Differ",["Explain why an ANN index may return slightly different results from exact search."]]],
+C:"Checkpoint: submit the explanation."},
+{t:"Reranking and Search Result Optimization",h:1,
+T:[["Why Rerank?","Initial retrieval is approximate",.25],["Bi-Encoders vs. Cross-Encoders","Separate vs. joint reading",.25],["The Retrieve-Then-Rerank Pipeline","Top-20 to Top-5",.25],["Practical: Rerank Ten Results","Compare the two orders",.25]],
+K:[["Why rerank","Fast vector retrieval is approximate. A reranker scores each query-document pair more carefully."],["Bi-encoder vs. cross-encoder","Bi-encoders embed query and document separately. Cross-encoders read them together: more accurate, slower."],["Pipeline","Retrieve a wide Top-20, rerank, keep the final Top-5."],["Trade-offs","Better precision against extra latency and cost."]],
+X:[["Added: a cross-encoder reranker","from sentence_transformers import CrossEncoder\n\nreranker = CrossEncoder(\"cross-encoder/ms-marco-MiniLM-L-6-v2\")\n\nquery = \"Why is my container restarting?\"\ndocs = [\"CrashLoopBackOff troubleshooting\", \"MySQL connection timeout\", \"Readiness probe failures\"]\n\nscores = reranker.predict([(query, d) for d in docs])\nranked = sorted(zip(scores, docs), key=lambda x: x[0], reverse=True)\nfor score, doc in ranked:\n    print(round(float(score), 3), doc)"]],
+A:[["Practical lab: Rerank Ten Results",["Retrieve the top 10 documents with embeddings.","Apply a cross-encoder reranker.","Compare the original and reranked order.","Discuss the relevance of the final results."]],["Assignment: Does Reranking Help?",["Test 10 IT troubleshooting queries.","Judge whether reranking improves relevance."]]],
+C:"Checkpoint: submit the evaluation."},
+{t:"Embedding Model Selection and Evaluation",h:1,
+T:[["Selection Factors","Dimensions, context, languages, speed",.25],["Versioning and Re-Embedding","Query and document consistency",.25],["Evaluation Metrics","Precision, Recall, MRR, NDCG, latency",.25],["Practical: Compare Two Models","Fixed dataset, real numbers",.25]],
+K:[["Selection factors","Dimensions, context length, multilingual support, domain vocabulary, speed, CPU vs. GPU, cloud API vs. local generation."],["Versioning","Version your embedding model. Re-embed documents after any model change. Queries and documents must use the same model."],["Metrics","Precision@K: how many results are relevant. Recall@K: how many relevant items were found. MRR: rank of the first relevant result. NDCG: ranking quality with graded relevance. Plus latency."]],
+X:[["Added: metrics in Python","def precision_at_k(retrieved, relevant, k=5):\n    return len(set(retrieved[:k]) & set(relevant)) / k\n\ndef recall_at_k(retrieved, relevant, k=5):\n    return len(set(retrieved[:k]) & set(relevant)) / len(relevant)\n\ndef mrr(retrieved, relevant):\n    for i, doc in enumerate(retrieved, start=1):\n        if doc in relevant:\n            return 1 / i\n    return 0.0"]],
+A:[["Practical lab: Compare Two Models",["Use a fixed dataset of IT incidents.","Measure embedding generation time.","Record vector dimensions.","Measure search latency.","Calculate Precision@5.","Calculate Recall@5."]],["Assignment: Model Selection Report",["Recommend an embedding model for an enterprise IT knowledge-search application."]]],
+C:"Checkpoint: submit the report."},
+{t:"Hands-On Lab: Build a Semantic Search App",h:1,
+T:[["Prepare the Dataset","Synthetic IT documents",.25],["Embed and Store","Chroma collection with metadata",.25],["Query and Search","Embed the query, find similar documents",.25],["Display Results","Content and metadata",.25]],
+K:[["Goal","A working semantic search system with Python, Sentence Transformers and Chroma."],["Dataset","Synthetic IT documents: Linux, Kubernetes, Docker, databases, cloud and CI/CD."],["Workflow","Prepare data, embed, create collection, store text and metadata, embed the query, search, retrieve top documents, display content and metadata."],["Expected output","A ranked list for: Why is my Kubernetes pod restarting repeatedly? The relevance labels in the example are illustrative. Implement real scoring."]],
+A:[["Hands-on lab: Semantic Search App",["Prepare the document dataset.","Generate embeddings.","Create a Chroma collection.","Store document text and metadata.","Accept a natural-language query.","Generate the query embedding.","Perform similarity search.","Retrieve the top documents.","Display the content and metadata."]]],
+C:"Checkpoint: demonstrate the app."},
+{t:"Final Project: IT Operations Knowledge Search Assistant",h:2,
+T:[["Step 1: Document Ingestion","PDF, TXT and Markdown",.25],["Step 2: Text Processing","Clean, chunk, keep sources",.25],["Step 3: Embedding Generation","Same model for queries and chunks",.25],["Step 4: Vector Storage","Persistent collection with metadata",.25],["Step 5: Search","Questions, filters, top results",.25],["Step 6: Hybrid Search","Keyword plus vector plus fusion",.25],["Step 7: Reranking","Compare initial and final order",.25],["Step 8: User Interface","A Streamlit search page",.25]],
+K:[["Project","An enterprise-style knowledge search application over IT documents using semantic and hybrid search."],["Architecture","Loader, extraction, cleaning and chunking, embeddings, vector database. Then query processing, keyword and vector search, fusion, reranker, results."],["Chunking tip (added)","Keep chunking simple here: fixed size with overlap. The RAG section covers chunking strategies in depth."],["Deliverables","Ingestion pipeline, extraction and chunking, embeddings, vector database, semantic search, metadata filtering, hybrid search, reranking, Streamlit interface, evaluation report."],["Rubric (100)","Ingestion and processing 15, embeddings 15, vector database 15, semantic search 15, metadata and hybrid 15, reranking and evaluation 10, interface and documentation 10, testing and demonstration 5."],["Next: RAG","This section ends at retrieval. The RAG section sends retrieved content to an LLM for grounded answers with sources."]],
+X:[["Suggested project structure","itops-semantic-search/\n├── data/\n│   ├── kubernetes/\n│   ├── linux/\n│   ├── docker/\n│   └── database/\n├── app/\n│   ├── document_loader.py\n│   ├── text_processor.py\n│   ├── chunker.py\n│   ├── embeddings.py\n│   ├── vector_store.py\n│   ├── search.py\n│   ├── reranker.py\n│   └── main.py\n├── frontend/\n│   └── app.py\n├── tests/\n│   └── test_search.py\n├── requirements.txt\n└── README.md"]],
+A:[["Step 1: Document Ingestion",["Load PDF, TXT and Markdown documents.","Extract document content.","Store document metadata."]],["Step 2: Text Processing",["Clean extracted content.","Split documents into chunks.","Preserve source and page numbers where available.","Avoid splitting important technical information."]],["Step 3: Embedding Generation",["Select an embedding model.","Embed the document chunks.","Embed queries with the same model."]],["Step 4: Vector Storage",["Create a vector collection.","Store embeddings and metadata.","Make storage persistent."]],["Step 5: Search",["Accept natural-language questions.","Retrieve relevant documents.","Apply metadata filters.","Return the top results."]],["Step 6: Hybrid Search",["Add keyword search.","Combine keyword and vector results.","Implement result fusion."]],["Step 7: Reranking",["Apply a reranking model.","Compare initial and final rankings."]],["Step 8: User Interface",["Build a Streamlit search interface.","Display retrieved sections.","Show sources and metadata."]]],
+C:"Checkpoint: demonstrate the assistant and the evaluation report."}
+];
+const $=s=>document.querySelector(s);
+let st={},theme="dark";
+try{st=JSON.parse(localStorage.getItem("aiops-s10")||"{}");theme=localStorage.getItem("aiops-theme")||"light"}catch(e){}
+document.documentElement.dataset.theme=theme;
+const save=()=>{try{localStorage.setItem("aiops-s10",JSON.stringify(st))}catch(e){}};
+let cum=0,tasks=0;
+M.forEach(m=>{m.s=cum;cum+=m.h;m.e=cum;tasks+=m.A.reduce((a,x)=>a+x[1].length,0)+1});
+$("#tt").textContent=tasks;
+$("#rail").innerHTML='<a href="#vec"><b>Vector playground</b><span>Compare the metrics</span></a>'+M.map((m,a)=>`<a href="#m${a}" data-a="${a}"><b>${a+1}. ${m.t}</b><span class="rc"></span></a>`).join("");
+$("#mods").innerHTML=M.map((m,a)=>`<section class="mod" id="m${a}" style="--bl:hsl(${[215,160,25,280,335,190,100,255,15,175,305,70,200,350][a]} 85% 52%)"><div class="mh"><h2>${a+1}. ${m.t}</h2><p>${m.h} hours · course hours ${m.s}–${m.e}</p></div>
+<h3>Read and learn</h3>${m.T.map((t,i)=>`<button class="row" data-k="t.${a}.${i}" data-h="${t[2]}" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${t[0]}</b><small>${t[1]}</small></span><span class="hr">${t[2]} h</span></button>`).join("")}
+${m.K?`<h3>Key concepts</h3><div class="kg">${m.K.map(k=>`<div class="kc"><b>${k[0]}</b>${k[1]}</div>`).join("")}</div>`:""}${m.P?`<div class="dv"><strong>${m.PL||"Python demonstration"}:</strong> ${m.P}</div>`:""}${m.X?`<h3>Commands to try</h3>${m.X.map(x=>`<div class="cmd"><div class="ch"><span>${x[0]}</span><button class="cb">Copy</button></div><pre>${x[1].replace(/&/g,"&amp;").replace(/</g,"&lt;")}</pre></div>`).join("")}`:""}<h3>Practise</h3>${m.N?`<p class="note">${m.N}</p>`:""}${m.A.map((x,i)=>`<div class="card"><h4>${x[0]}</h4>${x[1].map((s,j)=>`<button class="row" data-k="a.${a}.${i}.${j}" data-s="1" aria-pressed="false"><span class="bx"></span><span class="tx"><b>${s}</b></span><span></span></button>`).join("")}</div>`).join("")}
+${m.D?`<div class="dv"><strong>Deliverable:</strong> ${m.D}</div>`:""}
+<button class="cp" data-k="c.${a}" data-s="1" aria-pressed="false"><span class="bx"></span><span><b>Checkpoint</b><small>${m.C}</small></span></button></section>`).join("");
+let toastT;
+function toast(x){const t=$("#toast");t.textContent=x;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2400)}
+function refresh(){
+ let hd=0,td=0;
+ M.forEach((m,a)=>{
+  const sec=document.getElementById("m"+a);let tn=0,sn=0,sT=0;
+  sec.querySelectorAll("[data-k]").forEach(b=>{
+   const on=!!st[b.dataset.k];b.setAttribute("aria-pressed",on);
+   if(b.dataset.s){sT++;if(on){sn++;td++}}else if(on){tn++;hd+=+b.dataset.h}
+  });
+  const fin=tn==m.T.length&&sn==sT;
+  sec.classList.toggle("dn",fin);
+  const r=document.querySelector(`.rail a[data-a="${a}"]`);
+  r.classList.toggle("dn",fin);
+  r.querySelector(".rc").textContent=`${tn}/${m.T.length} topics · ${sn}/${sT} tasks`;
+ });
+ $("#hd").textContent=hd;$("#td").textContent=td;
+ $("#prog i").style.width=Math.round((hd/cum*.5+td/tasks*.5)*100)+"%";
+}
+$("#mods").addEventListener("click",e=>{
+ const b=e.target.closest("[data-k]");if(!b)return;
+ const k=b.dataset.k;st[k]?delete st[k]:st[k]=1;save();refresh();
+ const a=+k.split(".")[k[0]=="c"?1:1];
+ if(st[k]&&document.getElementById("m"+a).classList.contains("dn"))toast("Module "+(a+1)+" complete: "+M[a].t);
+});
+$("#theme").onclick=()=>{theme=theme=="dark"?"light":"dark";document.documentElement.dataset.theme=theme;try{localStorage.setItem("aiops-theme",theme)}catch(e){}};
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){document.querySelectorAll(".rail a").forEach(r=>r.classList.toggle("act",r.getAttribute("href")=="#"+x.target.id))}}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll(".mod").forEach(s=>io.observe(s));
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;
+ const t=b.closest(".cmd").querySelector("pre").textContent;
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)},()=>{b.textContent="Select and copy"})});
+const VP=[["Pod is restarting repeatedly",4.2,6.1,210],["Container in CrashLoopBackOff",4.6,5.7,210],["Readiness probe failing",3.8,5.2,210],["Repeated pod restart log (long text)",8.2,12,210],["MySQL connection timeout",7.5,2.2,150],["Database deadlock detected",8.1,2.8,150],["Slow SQL query",6.9,1.6,150],["Packet loss increased",1.5,2.2,25],["DNS resolution fails",2.2,1.5,25],["The weather is pleasant today",9,8,290]];
+const VM={cos:["Cosine similarity","Direction only. The long log points the same way as the first sentence, so it ranks high.",(a,b)=>(a[1]*b[1]+a[2]*b[2])/(Math.hypot(a[1],a[2])*Math.hypot(b[1],b[2])),-1],euc:["Euclidean distance","Straight-line distance, lower is closer. The long log is far away because of its magnitude.",(a,b)=>Math.hypot(a[1]-b[1],a[2]-b[2]),1],dot:["Dot product","Direction and magnitude together. Longer vectors score higher.",(a,b)=>a[1]*b[1]+a[2]*b[2],-1]};
+let vq=0,vk="cos";
+function vec(){const m=VM[vk],q=VP[vq];
+ $("#v-m").innerHTML=Object.keys(VM).map(k=>`<button class="pill" data-k="${k}" aria-pressed="${k==vk}">${VM[k][0]}</button>`).join("");
+ $("#v-svg").innerHTML=VP.map((p,i)=>`<circle cx="${p[1]*10+5}" cy="${135-p[2]*10}" r="${i==vq?6:4.5}" fill="hsl(${p[3]} 80% 58%)" stroke="${i==vq?"var(--tx)":"none"}" stroke-width="1.5" data-i="${i}"><title>${p[0]}</title></circle><text x="${p[1]*10+5}" y="${135-p[2]*10+1.8}">${i+1}</text>`).join("");
+ const r=VP.map((p,i)=>[i,m[2](q,p)]).filter(x=>x[0]!=vq).sort((a,b)=>(a[1]-b[1])*m[3]);
+ $("#v-list").innerHTML=`<div class="vr"><span>Query: <b>${vq+1}. ${q[0]}</b></span></div>`+r.map((x,n)=>`<div class="vr ${n==0?"top":""}"><span>${n+1}. ${x[0]+1}. ${VP[x[0]][0]}</span><b>${x[1].toFixed(3)}</b></div>`).join("")+`<p class="vn">${m[1]}</p>`}
+$("#v-m").addEventListener("click",e=>{const b=e.target.closest("button");if(b){vk=b.dataset.k;vec()}});
+$("#v-svg").addEventListener("click",e=>{const c=e.target.closest("circle");if(c){vq=+c.dataset.i;vec()}});
+vec();
+refresh();
+</script>
+</body>
+</html>
